@@ -123,3 +123,4 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
