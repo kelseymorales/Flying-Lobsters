@@ -111,7 +111,7 @@ GameObject:
   - component: {fileID: 1507352646085999896}
   - component: {fileID: 6571155244901113921}
   - component: {fileID: 8460298555324918974}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ Transform:
   m_Children:
   - {fileID: 4848790236748798028}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6717439116419461108
 MonoBehaviour:
@@ -150,7 +150,7 @@ MonoBehaviour:
   rRend: {fileID: 6571155244901113921}
   iHP: 10
   fShootRate: 1
-  gBullet: {fileID: 0}
+  gBullet: {fileID: 765824586908680669, guid: 43540270751a7044c85afda44d89ba0f, type: 3}
 --- !u!195 &153851095110412567
 NavMeshAgent:
   m_ObjectHideFlags: 0
