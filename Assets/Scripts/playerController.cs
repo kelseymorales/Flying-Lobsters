@@ -15,4 +15,14 @@ public class playerController : MonoBehaviour
     {
         
     }
+    public void takeDamage(int dmg)
+    {
+        StartCoroutine(DamageFlash());
+    }
+    IEnumerator DamageFlash()
+    {
+        GameManager._instance._playerDamageFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        GameManager._instance._playerDamageFlash.SetActive(false);
+    }
 }
