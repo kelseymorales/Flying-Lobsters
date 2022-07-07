@@ -19,9 +19,11 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] GameObject gBullet;
 
     bool bCanShoot = true;
+    Color _enemyColor;
 
     void Start()
     {
+        _enemyColor = rRend.material.color;
     }
 
     void Update()
@@ -45,7 +47,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     {
         rRend.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
-        rRend.material.color = Color.white;
+        rRend.material.color = _enemyColor;
     }
 
     IEnumerator Shoot()
