@@ -2009,7 +2009,7 @@ MonoBehaviour:
   isPaused: 0
   _pauseMenu: {fileID: 2043136205}
   _playerDeadMenu: {fileID: 2073405640944519672}
-  _HpBar: {fileID: 0}
+  _HpBar: {fileID: 2942538141083396348}
   _playerDamageFlash: {fileID: 2046789939}
 --- !u!1 &8890078483795048151
 GameObject:
