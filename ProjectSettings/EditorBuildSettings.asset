@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Suggestion.unity
+    guid: 808fccb757f80304cbe0fb5e71abaaef
   m_configObjects: {}
