@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [Header("Player Referance\n------------------------------")]
     public GameObject _player;
     public playerController _playerScript;
+    public Spawner[] _spawners;
 
     [Header("UI\n------------------------------")]
     public bool isPaused = false;
@@ -23,6 +24,18 @@ public class GameManager : MonoBehaviour
         _instance = this;
         _player = GameObject.FindGameObjectWithTag("Player");
         _playerScript = _player.GetComponent<playerController>();
+
+        GameObject[] s = GameObject.FindGameObjectsWithTag("Spawner");
+
+        if (s != null)
+        {
+            _spawners = new Spawner[s.Length];
+
+            for (int i = 0; i < s.Length; i++)
+            {
+                _spawners[i] = s[i].GetComponent<Spawner>();    
+            }
+        }
     }
 
     void Start()
@@ -67,5 +80,16 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+    }
+
+    public void StopSpawners()
+    {
+        if (_spawners != null)
+        {
+            for (int i = 0; i < _spawners.Length; i++)
+            {
+                _spawners[i].StopSpawning();
+            }
+        }
     }
 }

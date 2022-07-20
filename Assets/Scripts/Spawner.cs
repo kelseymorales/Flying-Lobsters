@@ -8,6 +8,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float fSpawnInterval;
     [SerializeField] private int iNumOfEnemies;
     [SerializeField] private GameObject[] _enemies;
+    [SerializeField] private Transform[] _spawnPoints;
 
 
     bool canSpawn;
@@ -18,7 +19,14 @@ public class Spawner : MonoBehaviour
     private void Start() 
     {
         _trigger = GetComponent<BoxCollider>();
-        _trigger.size = new Vector3(iTriggerSize, 1, iTriggerSize); 
+        _trigger.size = new Vector3(iTriggerSize, 1, iTriggerSize);
+
+        _spawnPoints = new Transform[transform.childCount];
+
+        for (int i = 0; i < _spawnPoints.Length; i++)
+        {
+            _spawnPoints[i] = transform.GetChild(0).transform;
+        }
     }
 
     private void OnTriggerEnter(Collider other) 
@@ -34,7 +42,7 @@ public class Spawner : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            canSpawn = false;
+            StopSpawning();
         }
     }
 
@@ -44,7 +52,10 @@ public class Spawner : MonoBehaviour
         {
             yield return new WaitForSeconds(fSpawnInterval);
 
-            Instantiate(_enemies[Random.Range(0, _enemies.Length)]);
+            GameObject enemy = _enemies[Random.Range(0, _enemies.Length)];
+            Transform place = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
+
+            Instantiate(enemy, place.position, place.rotation);
 
             iEnemiesSpawned++;
 
@@ -54,6 +65,11 @@ public class Spawner : MonoBehaviour
                 iEnemiesSpawned = 0;
             }
         }
+    }
+
+    public void StopSpawning()
+    {
+        canSpawn = false;
     }
 
     public void OnDrawGizmos() 
