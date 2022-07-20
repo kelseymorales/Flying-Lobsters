@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [Header("Components")]
     [SerializeField] NavMeshAgent nAgent;
     [SerializeField] Renderer rRend;
+    [SerializeField] Animator aAnim;
 
     [Header("------------------------------")]
     [Header("Enemy Attributes")]
@@ -17,6 +18,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [Header("Weapon Stats")]
     [SerializeField] float fShootRate;
     [SerializeField] GameObject gBullet;
+    [SerializeField] GameObject gShootPosition;
 
     bool bCanShoot = true;
     Color _enemyColor;
@@ -28,6 +30,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     void Update()
     {
+        aAnim.SetFloat("Speed", Mathf.Lerp(aAnim.GetFloat("Speed"), nAgent.velocity.normalized.magnitude, Time.deltaTime * 5));
         //agent lets enemies know where player is
         nAgent.SetDestination(GameManager._instance._player.transform.position);
 
@@ -59,7 +62,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
     {
         //enemy can shoot player
         bCanShoot = false;
-        Instantiate(gBullet, transform.position, gBullet.transform.rotation);
+        aAnim.SetTrigger("Shoot");
+        Instantiate(gBullet, gShootPosition.transform.position, gBullet.transform.rotation);
         yield return new WaitForSeconds(fShootRate);
         bCanShoot=true;
     }
