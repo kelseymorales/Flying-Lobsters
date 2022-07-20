@@ -26,7 +26,7 @@ public class Spawner : MonoBehaviour
 
         for (int i = 0; i < _spawnPoints.Length; i++)
         {
-            _spawnPoints[i] = transform.GetChild(0).transform;
+            _spawnPoints[i] = transform.GetChild(i).transform;
         }
 
         if (bAlwaysSpawn)
