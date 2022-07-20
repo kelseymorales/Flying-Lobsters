@@ -556,6 +556,7 @@ GameObject:
   - component: {fileID: 6002337427401095877}
   - component: {fileID: 6002337427401095878}
   - component: {fileID: 6002337427401095879}
+  - component: {fileID: 1066052423676925438}
   m_Layer: 7
   m_Name: Enemy Model
   m_TagString: Untagged
@@ -578,7 +579,7 @@ Transform:
   - {fileID: 6002337428387384212}
   - {fileID: 6002337428387384230}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6002337428396385396
 Animator:
@@ -611,8 +612,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.3
-  m_Center: {x: 0, y: 2.29, z: 0}
+  m_Radius: 0.3517937
+  m_Center: {x: 0, y: 2.3022485, z: 0.039545536}
 --- !u!136 &6002337427401095877
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -624,9 +625,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.4
-  m_Height: 2
+  m_Height: 2.0341277
   m_Direction: 1
-  m_Center: {x: 0, y: 1.25, z: 0}
+  m_Center: {x: 0, y: 1.2329361, z: 0}
 --- !u!195 &6002337427401095878
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -636,7 +637,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6002337428386895808}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5000001
+  m_Radius: 1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -664,10 +665,29 @@ MonoBehaviour:
   nAgent: {fileID: 6002337427401095878}
   rRend: {fileID: 6002337428400560820}
   aAnim: {fileID: 6002337428396385396}
-  iHP: 10
+  iHP: 5
+  iViewAngle: 25
+  iPlayerFaceSpeed: 6
+  iRoamingRadius: 6
   fShootRate: 1
   gBullet: {fileID: 765824586908680669, guid: 43540270751a7044c85afda44d89ba0f, type: 3}
   gShootPosition: {fileID: 5318928998736304688}
+  aud: {fileID: 0}
+  gunShot: []
+  gunShotVol: 0
+--- !u!135 &1066052423676925438
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6002337428386895808}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 15
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6002337428386895810
 GameObject:
   m_ObjectHideFlags: 0
