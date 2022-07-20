@@ -213,9 +213,28 @@ public class playerController : MonoBehaviour, IDamageable
         UpdateHealthBar();
     }
 
+    public void HealthPack()
+    {
+        if (iPlayerHealth < iPlayerHealthOrig)
+        {
+            iPlayerHealth += 1;
+            UpdateHealthBar();
+        }
+    }
+
     public void UpdateHealthBar() // update the healthbar in the UI to reflect player's current health
     {
         GameManager._instance._HpBar.fillAmount = (float)iPlayerHealth / (float)iPlayerHealthOrig;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("HealthPack"))
+        {
+            HealthPack();
+            Destroy(other.gameObject);
+        }
+        
     }
 
     public void LockInPlace() // stop player movement for scripted events
