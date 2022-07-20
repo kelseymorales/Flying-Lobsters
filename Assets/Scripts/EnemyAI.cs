@@ -142,9 +142,20 @@ public class EnemyAI : MonoBehaviour, IDamageable
         iHP -= iDamage;
         StartCoroutine(FlashColor());
 
+        aAnim.SetTrigger("Damage");
+
         //if enemy dies then enemy object is destroyed
         if(iHP <= 0)
-            Destroy(gameObject);
+        {
+            nAgent.enabled = false;
+            aAnim.SetBool("Dead", true);
+            foreach(Collider col in GetComponents<Collider>())
+            {
+                col.enabled = false;
+            }
+        }
+
+           
     }
 
     IEnumerator FlashColor()
