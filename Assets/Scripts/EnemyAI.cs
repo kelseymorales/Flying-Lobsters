@@ -26,13 +26,12 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [Header("------------------------------")]
     [Header("Audio")]
     public AudioSource aud;
-    [SerializeField] AudioClip[] gunShot;
-    [Range(0.0f, 1.0f)][SerializeField] float gunShotVol;
+    [SerializeField] AudioClip[] aGunShot;
+    [Range(0.0f, 1.0f)][SerializeField] float aGunShotVol;
 
     bool bCanShoot = true;
     bool bPlayerInRange;
 
-    Color _enemyColor;
     Vector3 vStartingPos;
     Vector3 vPlayerDirection;
 
@@ -42,7 +41,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
     {
         vStartingPos = transform.position;
         fStoppingDistanceOrig = nAgent.stoppingDistance;
-        _enemyColor = rRend.material.color;
         GameManager._instance.updateEnemyCount();
     }
 
@@ -140,31 +138,35 @@ public class EnemyAI : MonoBehaviour, IDamageable
     {
         //when enemy takes damage it flashes a color
         iHP -= iDamage;
-        StartCoroutine(FlashColor());
+        bPlayerInRange = true;
 
         aAnim.SetTrigger("Damage");
+        StartCoroutine(FlashColor());
 
         //if enemy dies then enemy object is destroyed
-        if(iHP <= 0)
+        if (iHP <= 0)
         {
             nAgent.enabled = false;
+            bCanShoot = false;
             aAnim.SetBool("Dead", true);
+
+            // disable colliders
             foreach(Collider col in GetComponents<Collider>())
             {
                 col.enabled = false;
             }
         }
-
-           
     }
 
     IEnumerator FlashColor()
     {
         //flash color when hit
         rRend.material.color = Color.red;
+
         yield return new WaitForSeconds(0.1f);
+
         //return back to original color
-        rRend.material.color = _enemyColor;
+        rRend.material.color = Color.white;
     }
 
     IEnumerator Shoot()
@@ -172,6 +174,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         //enemy can shoot player
         bCanShoot = false;
         aAnim.SetTrigger("Shoot");
+        aud.PlayOneShot(aGunShot[Random.Range(0, aGunShot.Length)], aGunShotVol);
         Instantiate(gBullet, gShootPosition.transform.position, gBullet.transform.rotation);
         yield return new WaitForSeconds(fShootRate);
         bCanShoot=true;
