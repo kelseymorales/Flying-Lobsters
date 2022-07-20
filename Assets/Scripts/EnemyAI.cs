@@ -146,6 +146,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
         //if enemy dies then enemy object is destroyed
         if (iHP <= 0)
         {
+            GameManager._instance.CheckEnemyKills();
+
             nAgent.enabled = false;
             bCanShoot = false;
             aAnim.SetBool("Dead", true);
