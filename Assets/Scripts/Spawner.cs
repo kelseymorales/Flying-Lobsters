@@ -39,7 +39,6 @@ public class Spawner : MonoBehaviour
     {
         if (other.CompareTag("Player") && !bAlwaysSpawn)
         {
-            canSpawn = true;
             StartCoroutine(StartSpawning());
         }    
     }
@@ -54,6 +53,8 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator StartSpawning()
     {
+        canSpawn = true;
+
         while(canSpawn)
         {
             yield return new WaitForSeconds(fSpawnInterval);
