@@ -29,6 +29,35 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField] GameObject _hitEffectSpark;
     [SerializeField] GameObject _muzzleFlash;
 
+    [Header("Physics")]
+    [Header("--------------------------")]
+    public Vector3 vPushBack = Vector3.zero;
+    [SerializeField] int iPushBackResolve;
+
+    [Header("Audio")]
+    [Header("--------------------------")]
+    public AudioSource aud;
+    [SerializeField] AudioClip[] aGunShot;
+    [Range(0.0f, 1.0f)][SerializeField] float aGunShotVol;
+    [SerializeField] AudioClip[] aPlayerHurt;
+    [Range(0.0f, 1.0f)][SerializeField] float aPlayerHurtVol;
+    [SerializeField] AudioClip[] aPlayerReload;
+    [Range(0.0f, 1.0f)][SerializeField] float aPlayerReloadVol;
+    [SerializeField] AudioClip[] aPlayerJump;
+    [Range(0.0f, 1.0f)][SerializeField] float aPlayerJumpVol;
+    [SerializeField] AudioClip[] aPlayerFootsteps;
+    [Range(0.0f, 1.0f)][SerializeField] float aPlayerFootstepsVol;
+    [SerializeField] AudioClip[] aPlayerEmptyClip;
+    [Range(0.0f, 1.0f)][SerializeField] float aPlayerEmptyClipVol;
+    [SerializeField] AudioClip[] aHeadShot;
+    [Range(0.0f, 1.0f)][SerializeField] float aHeadShotVol;
+    [SerializeField] AudioClip[] aYouWin;
+    [Range(0.0f, 1.0f)][SerializeField] float aYouWinVol;
+    [SerializeField] AudioClip[] aYouLose;
+    [Range(0.0f, 1.0f)][SerializeField] float aYouLoseVol;
+    [SerializeField] AudioClip[] aDefuseNoise;
+    [Range(0.0f, 1.0f)][SerializeField] float aDefuseNoiseVol;
+
     bool canShoot = true;
     bool isSprinting = false;
 
@@ -179,6 +208,7 @@ public class playerController : MonoBehaviour, IDamageable
         _controller.enabled = false;
         transform.position = _playerSpawnPos; // reset player location
         _controller.enabled = true;
+        vPushBack = Vector3.zero;
 
         UpdateHealthBar();
     }
@@ -186,5 +216,30 @@ public class playerController : MonoBehaviour, IDamageable
     public void UpdateHealthBar() // update the healthbar in the UI to reflect player's current health
     {
         GameManager._instance._HpBar.fillAmount = (float)iPlayerHealth / (float)iPlayerHealthOrig;
+    }
+
+    public void LockInPlace() // stop player movement for scripted events
+    {
+        fPlayerSpeed = 0;
+    }
+
+    public void UnlockInPlace() // allow player movement after scripted event ends
+    {
+        fPlayerSpeed = fPlayerSpeedOrig;
+    }
+
+    public void loseJingle() // jingle for lose and death screen
+    {
+        aud.PlayOneShot(aYouLose[Random.Range(0, aYouLose.Length)], aYouLoseVol);
+    }
+
+    public void winJingle() // jingle for win screen
+    {
+        aud.PlayOneShot(aYouWin[Random.Range(0, aYouWin.Length)], aYouWinVol);
+    }
+
+    public void defuseJingle() // jingle for succesful defusing of a bomb
+    {
+        aud.PlayOneShot(aDefuseNoise[Random.Range(0, aDefuseNoise.Length)], aDefuseNoiseVol);
     }
 }

@@ -1,4 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class buttonFunctions : MonoBehaviour
 {
@@ -16,5 +20,11 @@ public class buttonFunctions : MonoBehaviour
     {
         GameManager._instance._playerScript.Respawn();
         GameManager._instance.Resume();
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // reload scene
+        GameManager._instance.Restart();
     }
 }
