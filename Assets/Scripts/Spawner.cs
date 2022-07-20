@@ -11,6 +11,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private bool bAlwaysSpawn;
 
     // Size of the box collider used when the game starts
+    // only use this to addjust the size of the box collider
     [SerializeField] private int iTriggerSize = 1;
     [SerializeField] private float fTimeBetweenWaves;
     [SerializeField] private float fSpawnInterval;
@@ -21,8 +22,10 @@ public class Spawner : MonoBehaviour
     // filled out on start gets all the children gameobjects of this gameobject
     // all spawn points must be a child of this game object to be used as spawn points
 
-    //Spawn points do not need to be in the box collider area
+    // Spawn points do not need to be in the box collider area
     // they can be placed anywhere in the level
+
+    // Spawn points do not need to be set in the inspector
     [SerializeField] private Transform[] _spawnPoints;
 
     bool canSpawn;
