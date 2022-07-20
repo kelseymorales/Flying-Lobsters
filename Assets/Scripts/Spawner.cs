@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Spawner : MonoBehaviour
 {
+    [SerializeField] private bool bAlwaysSpawn;
     [SerializeField] private int iTriggerSize = 1;
     [SerializeField] private float fTimeBetweenWaves;
     [SerializeField] private float fSpawnInterval;
@@ -27,11 +28,16 @@ public class Spawner : MonoBehaviour
         {
             _spawnPoints[i] = transform.GetChild(0).transform;
         }
+
+        if (bAlwaysSpawn)
+        {
+            StartCoroutine(StartSpawning());
+        }
     }
 
     private void OnTriggerEnter(Collider other) 
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !bAlwaysSpawn)
         {
             canSpawn = true;
             StartCoroutine(StartSpawning());
@@ -40,7 +46,7 @@ public class Spawner : MonoBehaviour
 
     private void OnTriggerExit(Collider other) 
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !bAlwaysSpawn)
         {
             StopSpawning();
         }
@@ -69,6 +75,11 @@ public class Spawner : MonoBehaviour
 
     public void StopSpawning()
     {
+        if (bAlwaysSpawn)
+        {
+            return;
+        }
+
         canSpawn = false;
     }
 
