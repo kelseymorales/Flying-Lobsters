@@ -79,9 +79,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Cancel") && !_playerDeadMenu.activeSelf)
+        if (Input.GetButtonDown("Cancel") && !gameOver)
         {
-            if (!isPaused)
+            if (!isPaused && !_menuCurrentlyOpen)
             {
                 isPaused = true;
                 _menuCurrentlyOpen = _pauseMenu;
