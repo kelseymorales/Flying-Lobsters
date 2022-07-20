@@ -11,23 +11,28 @@ public class GameManager : MonoBehaviour
     [Header("Player Referance\n------------------------------")]
     public GameObject _player;
     public playerController _playerScript;
+
     public Spawner[] _spawners;
 
     [Header("UI\n------------------------------")]
     [HideInInspector] public bool isPaused = false;
     [HideInInspector] public bool gameOver;
+
     public GameObject _pauseMenu;
     public GameObject _playerDeadMenu;
-    public Image _HpBar;
-
     public GameObject _winGameMenu;
     public GameObject _loseGameMenu;
+    public Image _HpBar;
     public TMP_Text tEnemiesDead;
     public TMP_Text tEnemyTotal;
     public TMP_Text tBombTotal;
     public TMP_Text tBombsDefused;
     public TMP_Text tBombsTimer;
     public TMP_Text tDefuseCountdown;
+
+    public TMP_Text ammoTotal;
+    public TMP_Text clipSize;
+    public TMP_Text shotsInClip;
 
     [Header("Effects\n------------------------------")]
     public GameObject _playerDamageFlash;
@@ -55,6 +60,9 @@ public class GameManager : MonoBehaviour
         _player = GameObject.FindGameObjectWithTag("Player");
         _playerScript = _player.GetComponent<playerController>();
 
+        iBombTotalOrig = iBombsActive;
+        tBombTotal.text = iBombTotalOrig.ToString("F0");
+
         GameObject[] s = GameObject.FindGameObjectsWithTag("Spawner");
 
         if (s != null)
@@ -66,15 +74,6 @@ public class GameManager : MonoBehaviour
                 _spawners[i] = s[i].GetComponent<Spawner>();    
             }
         }
-
-        iBombTotalOrig = iBombsActive;
-        tBombTotal.text = iBombTotalOrig.ToString("F0");
-    }
-
-    void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     private void Update()
