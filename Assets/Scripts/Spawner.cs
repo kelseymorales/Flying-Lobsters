@@ -3,14 +3,27 @@ using System.Collections;
 
 public class Spawner : MonoBehaviour
 {
+    // True: Will start spawning enemies as soon as the game starts
+    // Does not stop for anything
+
+    // False: Only starts if the player enters the box collider
+    // Stops if the player leaves the box collider or the player dies
     [SerializeField] private bool bAlwaysSpawn;
+
+    // Size of the box collider used when the game starts
     [SerializeField] private int iTriggerSize = 1;
     [SerializeField] private float fTimeBetweenWaves;
     [SerializeField] private float fSpawnInterval;
     [SerializeField] private int iNumOfEnemies;
     [SerializeField] private GameObject[] _enemies;
-    [SerializeField] private Transform[] _spawnPoints;
 
+    // List of possable spawn points
+    // filled out on start gets all the children gameobjects of this gameobject
+    // all spawn points must be a child of this game object to be used as spawn points
+
+    //Spawn points do not need to be in the box collider area
+    // they can be placed anywhere in the level
+    [SerializeField] private Transform[] _spawnPoints;
 
     bool canSpawn;
 
@@ -22,6 +35,7 @@ public class Spawner : MonoBehaviour
         _trigger = GetComponent<BoxCollider>();
         _trigger.size = new Vector3(iTriggerSize, 1, iTriggerSize);
 
+        // gets all the spawn points 
         _spawnPoints = new Transform[transform.childCount];
 
         for (int i = 0; i < _spawnPoints.Length; i++)
@@ -29,15 +43,18 @@ public class Spawner : MonoBehaviour
             _spawnPoints[i] = transform.GetChild(i).transform;
         }
 
+        // starts spawning enemies
+        // disables the box collider
         if (bAlwaysSpawn)
         {
             StartCoroutine(StartSpawning());
+            _trigger.enabled = false;
         }
     }
 
     private void OnTriggerEnter(Collider other) 
     {
-        if (other.CompareTag("Player") && !bAlwaysSpawn)
+        if (other.CompareTag("Player"))
         {
             StartCoroutine(StartSpawning());
         }    
@@ -45,7 +62,7 @@ public class Spawner : MonoBehaviour
 
     private void OnTriggerExit(Collider other) 
     {
-        if (other.CompareTag("Player") && !bAlwaysSpawn)
+        if (other.CompareTag("Player"))
         {
             StopSpawning();
         }
