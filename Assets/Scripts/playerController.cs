@@ -295,11 +295,8 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void HealthPack()
     {
-        if (iPlayerHealth < iPlayerHealthOrig)
-        {
-            iPlayerHealth += iHealthPickupHealNum;
-            UpdateHealthBar();
-        }
+        iPlayerHealth += iHealthPickupHealNum;
+        UpdateHealthBar();
     }
 
     public void UpdateHealthBar() // update the healthbar in the UI to reflect player's current health
@@ -309,10 +306,14 @@ public class playerController : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("HealthPack"))
+        if(other.CompareTag("HealthPack") && iPlayerHealth < iPlayerHealthOrig)
         {
             HealthPack();
             Destroy(other.gameObject);
+        }
+        else if (other.CompareTag("HealthPack") && iPlayerHealth == iPlayerHealthOrig)
+        {
+
         }
         
     }
