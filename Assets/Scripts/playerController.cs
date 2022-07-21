@@ -180,11 +180,22 @@ public class playerController : MonoBehaviour, IDamageable
         {
             int shotsFired = iWeaponAmmoOrig - iWeaponAmmo; // determine how many shots were fired from the clip
 
+            
+            if (iTotalWeaponAmmo >= shotsFired)
+            {
+                // has more or the same amount of ammo then what the clip can hold
+                iTotalWeaponAmmo -= shotsFired; // take ammo needed to refill the clip from the total amount of ammo
+
+                iWeaponAmmo = iWeaponAmmoOrig; // reload clip
+            }
+            else
+            {
+                // has less then the max slip allowed
+                iWeaponAmmo += iTotalWeaponAmmo; // take remaining ammo from the total
+                iTotalWeaponAmmo = 0; // set total to 0 since we just took the reamining ammo to fill the clip
+            }
+
             aud.PlayOneShot(aPlayerReload[Random.Range(0, aPlayerReload.Length)], aPlayerReloadVol);
-
-            iWeaponAmmo = iWeaponAmmoOrig; // reload clip
-
-            iTotalWeaponAmmo -= shotsFired; // decrement shots fired from ammo pool when reloading clip
         }
 
         yield return new WaitForSeconds(2.0f);
