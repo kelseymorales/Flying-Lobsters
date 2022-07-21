@@ -375,6 +375,7 @@ GameObject:
   - component: {fileID: 8448960639718001734}
   - component: {fileID: 8448960639718001735}
   - component: {fileID: 8448960639718001736}
+  - component: {fileID: 1679202259}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -396,7 +397,7 @@ Transform:
   m_Children:
   - {fileID: 8448960638106335432}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8448960639718001733
 MonoBehaviour:
@@ -417,10 +418,62 @@ MonoBehaviour:
   fJumpHeight: 8
   fGravityValue: 20
   iJumps: 1
+  iHealthPickupHealNum: 5
   fShootRate: 0.2
   iWeaponDamage: 1
+  iWeaponAmmo: 5
+  iTotalWeaponAmmo: 25
   _hitEffectSpark: {fileID: 4448962958098883110, guid: 88760f2393d8b634385a5d08a3d4ca6b, type: 3}
   _muzzleFlash: {fileID: 8448960637801368390}
+  vPushBack: {x: 0, y: 0, z: 0}
+  iPushBackResolve: 5
+  aud: {fileID: 1679202259}
+  aGunShot:
+  - {fileID: 8300000, guid: f91f0596c717b2744ba7889ead827dae, type: 3}
+  aGunShotVol: 0.5
+  aPlayerHurt:
+  - {fileID: 8300000, guid: 587251b6459465a42bfca89375147a24, type: 3}
+  - {fileID: 8300000, guid: 9cffad5342792284d982dc7bb1c29b62, type: 3}
+  - {fileID: 8300000, guid: 7e0200448cd4e3c459387305fb691e5d, type: 3}
+  - {fileID: 8300000, guid: 315e04867852168499785528b7453561, type: 3}
+  - {fileID: 8300000, guid: 91cabc64ddbccc24dbf942aebd8a0424, type: 3}
+  - {fileID: 8300000, guid: 5c3b58cec50f36d4982e7b74c46c7c25, type: 3}
+  aPlayerHurtVol: 0.5
+  aPlayerReload:
+  - {fileID: 8300000, guid: d4ff976628278eb41b0ea5dfcd7c7723, type: 3}
+  aPlayerReloadVol: 0.5
+  aPlayerJump:
+  - {fileID: 8300000, guid: c452e6fd949dc4c4e91b2ce9cba81a5b, type: 3}
+  - {fileID: 8300000, guid: 3888121a7d990564d8bcfb6dfecb8158, type: 3}
+  - {fileID: 8300000, guid: f024cbc87287faa42a247e036e4cf2f9, type: 3}
+  aPlayerJumpVol: 0.5
+  aPlayerFootsteps:
+  - {fileID: 8300000, guid: db2113c0f5272754984e86af06c8e0e5, type: 3}
+  - {fileID: 8300000, guid: d3cc88af538afcc42ac19e01308551f4, type: 3}
+  - {fileID: 8300000, guid: fffe7966efc4f784fa0b04e8c66fcc9b, type: 3}
+  - {fileID: 8300000, guid: fd8b757285c1ec84b8c341f10ae4e436, type: 3}
+  - {fileID: 8300000, guid: 752ecae09dd94564190e1664897fb708, type: 3}
+  - {fileID: 8300000, guid: 5a30faaeef5bd704488c11f5187b9eb7, type: 3}
+  - {fileID: 8300000, guid: c3ac56302efbf464da248c55504fac1a, type: 3}
+  - {fileID: 8300000, guid: f5752674f3292c04891241aa7a062431, type: 3}
+  - {fileID: 8300000, guid: b42dc042660f50447aa000b2bd648ac5, type: 3}
+  aPlayerFootstepsVol: 0.5
+  aPlayerEmptyClip:
+  - {fileID: 8300000, guid: ecb8d50805a83ad419074a424961affd, type: 3}
+  aPlayerEmptyClipVol: 0.5
+  aHeadShot:
+  - {fileID: 8300000, guid: 5943a39f738752b429be53fac4459355, type: 3}
+  aHeadShotVol: 0.5
+  aYouWin:
+  - {fileID: 8300000, guid: 8fa1807d547b427499b9e90f483072e9, type: 3}
+  aYouWinVol: 0.5
+  aYouLose:
+  - {fileID: 8300000, guid: 1b34902033170974da1ca9a69f569955, type: 3}
+  aYouLoseVol: 0.5
+  aDefuseNoise:
+  - {fileID: 8300000, guid: db01c0a4a41b83949ba01bcc79064998, type: 3}
+  aDefuseNoiseVol: 0.5
+  iWeaponAmmoOrig: 0
 --- !u!143 &8448960639718001734
 CharacterController:
   m_ObjectHideFlags: 0
@@ -489,3 +542,99 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!82 &1679202259
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8448960639718001737}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

@@ -18,11 +18,14 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(6, 10)][SerializeField] float fJumpHeight;
     [Range(15, 30)][SerializeField] float fGravityValue;
     [Range(1, 4)][SerializeField] int iJumps; // Max jumps allowed
+    [Range(1, 40)] [SerializeField] int iHealthPickupHealNum;
 
     [Header("Player Weapon Stats")]
     [Header("-------------------------")]
     [Range(0.1f, 3.0f)][SerializeField] float fShootRate;
     [Range(1, 10)][SerializeField] int iWeaponDamage;
+    [Range(1, 25)][SerializeField] public int iWeaponAmmo;
+    [SerializeField] public int iTotalWeaponAmmo;
 
     [Header("Effects")]
     [Header("--------------------------")]
@@ -60,9 +63,11 @@ public class playerController : MonoBehaviour, IDamageable
 
     bool canShoot = true;
     bool isSprinting = false;
+    bool bFootstepsPlaying;
 
     float fPlayerSpeedOrig; // stores the starting player speed
     int iPlayerHealthOrig; // stores the starting player health
+    [HideInInspector] public int iWeaponAmmoOrig; // stores the default weapon ammo
     int iTimesJumped;
     
     Vector3 _playerVelocity;
@@ -76,6 +81,9 @@ public class playerController : MonoBehaviour, IDamageable
         iPlayerHealthOrig = iPlayerHealth;
         fPlayerSpeedOrig = fPlayerSpeed;
         _playerSpawnPos = transform.position;
+        iWeaponAmmoOrig = iWeaponAmmo;
+
+        GameManager._instance.updateAmmoCount(); // update ui with ammo count info
     }
 
     // Called every frame
@@ -83,9 +91,13 @@ public class playerController : MonoBehaviour, IDamageable
     {
         if (!GameManager._instance.isPaused) // if paused - disable player actions
         {
+            vPushBack = Vector3.Lerp(vPushBack, Vector3.zero, Time.deltaTime * iPushBackResolve);
+
             MovePlayer();
             Sprint();
             StartCoroutine(Shoot());
+            StartCoroutine(reload());
+            StartCoroutine(playFootsteps());
         }
     }
 
@@ -112,6 +124,8 @@ public class playerController : MonoBehaviour, IDamageable
         // Make player jump and increment jump counter
         if (Input.GetButtonDown("Jump") && iTimesJumped < iJumps)
         {
+            aud.PlayOneShot(aPlayerJump[Random.Range(0, aPlayerJump.Length)], aPlayerJumpVol);
+
             iTimesJumped++;
             _playerVelocity.y = fJumpHeight;
         }
@@ -139,13 +153,62 @@ public class playerController : MonoBehaviour, IDamageable
         }
     }
 
+    IEnumerator playFootsteps()
+    {
+        if (_controller.isGrounded && _move.normalized.magnitude > 0.4f && !bFootstepsPlaying)
+        {
+            bFootstepsPlaying = true;
+
+            aud.PlayOneShot(aPlayerFootsteps[Random.Range(0, aPlayerFootsteps.Length)], aPlayerFootstepsVol);
+
+            if (isSprinting)
+            {
+                yield return new WaitForSeconds(0.3f);
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.4f);
+            }
+
+            bFootstepsPlaying = false;
+        }
+    }
+
+    IEnumerator reload()
+    {
+        if (Input.GetButton("Reload") && iTotalWeaponAmmo > 0)
+        {
+            int shotsFired = iWeaponAmmoOrig - iWeaponAmmo; // determine how many shots were fired from the clip
+
+            aud.PlayOneShot(aPlayerReload[Random.Range(0, aPlayerReload.Length)], aPlayerReloadVol);
+
+            iWeaponAmmo = iWeaponAmmoOrig; // reload clip
+
+            iTotalWeaponAmmo -= shotsFired; // decrement shots fired from ammo pool when reloading clip
+        }
+
+        yield return new WaitForSeconds(2.0f);
+        GameManager._instance.updateAmmoCount();
+    }
+
     IEnumerator Shoot()
     {
-        // get input for shooting
-        if (Input.GetButton("Shoot") && canShoot)
+        // if shoot button is pressed, but there is no ammo in clip, play sound file
+        if (Input.GetButton("Shoot") && iWeaponAmmo <= 0)
         {
+            aud.PlayOneShot(aPlayerEmptyClip[Random.Range(0, aPlayerEmptyClip.Length)], aPlayerEmptyClipVol);
+        }
+
+        // get input for shooting
+        if (Input.GetButton("Shoot") && canShoot && iWeaponAmmo > 0)
+        {
+            iWeaponAmmo--;
+
             // turns shooting off so it cant be immediately executed again
             canShoot = false;
+
+            // play audio clip
+            aud.PlayOneShot(aGunShot[Random.Range(0, aGunShot.Length)], aGunShotVol);
 
             RaycastHit hit;
 
@@ -165,6 +228,7 @@ public class playerController : MonoBehaviour, IDamageable
                     if (hit.collider is SphereCollider) // apply damage for head shot
                     {
                         isDamageable.TakeDamage(10000);
+                        aud.PlayOneShot(aHeadShot[Random.Range(0, aHeadShot.Length)], aHeadShotVol);
                     }
                     else
                     {
@@ -181,12 +245,17 @@ public class playerController : MonoBehaviour, IDamageable
             // Timer runs, based off of player shootRate, and then re-enables shooting
             yield return new WaitForSeconds(fShootRate);
             canShoot = true;
+
+            GameManager._instance.updateAmmoCount();
         }
     }
 
     public void TakeDamage(int iDmg)
     {
-        iPlayerHealth -= iDmg; 
+        iPlayerHealth -= iDmg;
+
+        aud.PlayOneShot(aPlayerHurt[Random.Range(0, aPlayerHurt.Length)], aPlayerHurtVol);
+
         UpdateHealthBar(); 
         StartCoroutine(DamageFlash()); // flash screen red when damage is taken
 
@@ -217,7 +286,7 @@ public class playerController : MonoBehaviour, IDamageable
     {
         if (iPlayerHealth < iPlayerHealthOrig)
         {
-            iPlayerHealth += 1;
+            iPlayerHealth += iHealthPickupHealNum;
             UpdateHealthBar();
         }
     }

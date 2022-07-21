@@ -181,6 +181,13 @@ public class GameManager : MonoBehaviour
         tBombTotal.text = iBombsActive.ToString("F0");
     }
 
+    public void updateAmmoCount()
+    {
+        ammoTotal.text = _playerScript.iTotalWeaponAmmo.ToString("F0"); // ammo pool total
+        shotsInClip.text = _playerScript.iWeaponAmmo.ToString("F0"); // current Clip
+        clipSize.text = _playerScript.iWeaponAmmoOrig.ToString("F0");
+    }
+
     public void WinGame()
     {
         _menuCurrentlyOpen = _winGameMenu;

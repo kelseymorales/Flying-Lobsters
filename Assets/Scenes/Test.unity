@@ -446,10 +446,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Detonation
       objectReference: {fileID: 0}
-    - target: {fileID: 5919563822289782376, guid: 6932db2b6c86aae4d84dc53a2848ddbe, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5919563822289782388, guid: 6932db2b6c86aae4d84dc53a2848ddbe, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -607,6 +603,22 @@ PrefabInstance:
     - target: {fileID: 8448960639718001732, guid: 0f8b759cb32aed54d86396cde0a3834f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448960639718001733, guid: 0f8b759cb32aed54d86396cde0a3834f, type: 3}
+      propertyPath: aPlayerJumpVol
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448960639718001733, guid: 0f8b759cb32aed54d86396cde0a3834f, type: 3}
+      propertyPath: aPlayerReloadVol
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448960639718001733, guid: 0f8b759cb32aed54d86396cde0a3834f, type: 3}
+      propertyPath: aPlayerEmptyClipVol
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448960639718001733, guid: 0f8b759cb32aed54d86396cde0a3834f, type: 3}
+      propertyPath: aPlayerFootstepsVol
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8448960639718001737, guid: 0f8b759cb32aed54d86396cde0a3834f, type: 3}
       propertyPath: m_Name
