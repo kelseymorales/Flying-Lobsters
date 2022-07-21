@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Effects\n------------------------------")]
     public GameObject _playerDamageFlash;
+    public GameObject _AmmoBoxFlash;
 
     [Header("Win Condition\n------------------------------")]
     [SerializeField] GameObject _detonation;

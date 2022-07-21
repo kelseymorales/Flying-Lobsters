@@ -14,7 +14,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(6, 10)][SerializeField] float fJumpHeight;
     [Range(15, 30)][SerializeField] float fGravityValue;
     [Range(1, 4)][SerializeField] int iJumps; // Max jumps allowed
-    [Range(1, 40)] [SerializeField] int iHealthPickupHealNum;
+    [Range(1, 40)][SerializeField] int iHealthPickupHealNum;
 
     [Header("Player Weapon Stats")]
     [Header("-------------------------")]
@@ -56,6 +56,10 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(0.0f, 1.0f)][SerializeField] float aYouLoseVol;
     [SerializeField] AudioClip[] aDefuseNoise;
     [Range(0.0f, 1.0f)][SerializeField] float aDefuseNoiseVol;
+    [SerializeField] AudioClip[] aHeal;
+    [Range(0.0f, 1.0f)][SerializeField] float aHealVol;
+    [SerializeField] AudioClip[] aAmmo;
+    [Range(0.0f, 1.0f)][SerializeField] float aAmmoVol;
 
     bool canShoot = true;
     bool isSprinting = false;
@@ -277,7 +281,14 @@ public class playerController : MonoBehaviour, IDamageable
         yield return new WaitForSeconds(0.1f);
         GameManager._instance._playerDamageFlash.SetActive(false);
     }
-    
+
+    IEnumerator PickUpFlash() // Helper function that creates flash upon taking damage
+    {
+        GameManager._instance._AmmoBoxFlash.SetActive(true);
+        yield return new WaitForSeconds(30.0f);
+        GameManager._instance._AmmoBoxFlash.SetActive(false);
+    }
+
     public void Respawn()
     {
         iPlayerHealth = iPlayerHealthOrig; // reset player health
@@ -289,10 +300,20 @@ public class playerController : MonoBehaviour, IDamageable
         UpdateHealthBar();
     }
 
+
     public void HealthPack()
     {
-        iPlayerHealth += iHealthPickupHealNum;
+        iPlayerHealth += 1;
+        healthPickUp();
         UpdateHealthBar();
+        
+    }
+
+    public void AmmoBox()
+    {
+        iWeaponAmmo += 5;
+        GameManager._instance.updateAmmoCount();
+        AmmoPickUp();
     }
 
     public void UpdateHealthBar() // update the healthbar in the UI to reflect player's current health
@@ -302,7 +323,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("HealthPack") && iPlayerHealth < iPlayerHealthOrig)
+        if(other.CompareTag("HealthPack") && iPlayerHealth < iPlayerHealthOrig) //Calls Health Amount
         {
             HealthPack();
             Destroy(other.gameObject);
@@ -311,7 +332,16 @@ public class playerController : MonoBehaviour, IDamageable
         {
 
         }
-        
+
+        if(other.CompareTag("AmmoBox") && iWeaponAmmo < iTotalWeaponAmmo) // Calls Ammo Amount
+        {
+            AmmoBox();
+            Destroy(other.gameObject);
+        }
+        else if (other.CompareTag("AmmoBox")&& iWeaponAmmo==iTotalWeaponAmmo)
+        {
+
+        }        
     }
 
     public void LockInPlace() // stop player movement for scripted events
@@ -338,4 +368,15 @@ public class playerController : MonoBehaviour, IDamageable
     {
         aud.PlayOneShot(aDefuseNoise[Random.Range(0, aDefuseNoise.Length)], aDefuseNoiseVol);
     }
+
+    public void healthPickUp()
+    {
+        aud.PlayOneShot(aHeal[Random.Range(0, aHeal.Length)], aHealVol);
+    }
+
+    public void AmmoPickUp()
+    {
+        aud.PlayOneShot(aAmmo[Random.Range(0, aAmmo.Length)], aAmmoVol);
+    }
+
 }
