@@ -5391,7 +5391,7 @@ RectTransform:
   - {fileID: 486711744}
   - {fileID: 875194476}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -6285,7 +6285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3736756993808763663, guid: 3e778883fdb8ba84184a729f9102907a, type: 3}
       propertyPath: m_Name
-      value: MinMap
+      value: MinMap Canvas Object
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3736756993808763891, guid: 3e778883fdb8ba84184a729f9102907a, type: 3}

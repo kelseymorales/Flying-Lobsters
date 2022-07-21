@@ -15,6 +15,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(15, 30)][SerializeField] float fGravityValue;
     [Range(1, 4)][SerializeField] int iJumps; // Max jumps allowed
     [Range(1, 40)][SerializeField] int iHealthPickupHealNum;
+    [Range(1, 40)][SerializeField] int iAmmoPickupAmmoNum;
 
     [Header("Player Weapon Stats")]
     [Header("-------------------------")]
@@ -84,6 +85,7 @@ public class playerController : MonoBehaviour, IDamageable
         iWeaponAmmoOrig = iWeaponAmmo;
 
         GameManager._instance.updateAmmoCount(); // update ui with ammo count info
+        GameManager._instance.defuseLabel.SetActive(false);
     }
 
     // Called every frame
@@ -298,12 +300,14 @@ public class playerController : MonoBehaviour, IDamageable
         vPushBack = Vector3.zero;
 
         UpdateHealthBar();
+
+        GameManager._instance.defuseLabel.SetActive(false);
     }
 
 
     public void HealthPack()
     {
-        iPlayerHealth += 1;
+        iPlayerHealth += iHealthPickupHealNum;
         healthPickUp();
         UpdateHealthBar();
         
@@ -311,7 +315,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void AmmoBox()
     {
-        iWeaponAmmo += 5;
+        iWeaponAmmo += iAmmoPickupAmmoNum;
         GameManager._instance.updateAmmoCount();
         AmmoPickUp();
     }
