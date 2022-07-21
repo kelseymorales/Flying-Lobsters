@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
         LockCursorPause();
 
         _playerScript.loseJingle();
+        StopSpawners();
     }
 
     public void StopSpawners()
