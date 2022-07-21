@@ -315,7 +315,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void AmmoBox()
     {
-        iTotalWeaponAmmo += iAmmoPickupAmmoNum;
+        iWeaponAmmo += iAmmoPickupAmmoNum;
         GameManager._instance.updateAmmoCount();
         AmmoPickUp();
     }
