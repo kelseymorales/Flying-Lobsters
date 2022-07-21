@@ -135,7 +135,7 @@ public class GameManager : MonoBehaviour
         // explosion effect
         _detonation.SetActive(true);
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.6f);
 
         // you lose menu
         gameOver = true;
