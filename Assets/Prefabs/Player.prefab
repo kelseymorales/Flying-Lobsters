@@ -299,7 +299,7 @@ Transform:
   - {fileID: 8448960638106335432}
   - {fileID: 4078106737360334634}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8448960639718001733
 MonoBehaviour:
@@ -314,13 +314,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 8448960639718001734}
-  iPlayerHealth: 10
+  iPlayerHealth: 20
   fPlayerSpeed: 4
   fSprintMulti: 2
   fJumpHeight: 8
   fGravityValue: 20
   iJumps: 1
   iHealthPickupHealNum: 5
+  iAmmoPickupAmmoNum: 15
   fShootRate: 0.2
   iWeaponDamage: 1
   iWeaponAmmo: 5

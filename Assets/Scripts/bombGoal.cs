@@ -11,6 +11,8 @@ public class bombGoal : MonoBehaviour
     {
         GameManager._instance.updateBombCount();
 
+        GameManager._instance.defuseLabel.SetActive(false);
+
         StartCoroutine(bombTick());
     }
 
@@ -26,16 +28,22 @@ public class bombGoal : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider other)
     {
-        inRange = true;
-        GameManager._instance.defuseLabel.SetActive(true);
+        if (other.CompareTag("Player"))
+        {
+            inRange = true;
+            GameManager._instance.defuseLabel.SetActive(true);
+        }
     }
 
-    void OnTriggerExit()
+    void OnTriggerExit(Collider other)
     {
-        inRange = false;
-        GameManager._instance.defuseLabel.SetActive(false);
+        if (other.CompareTag("Player"))
+        {
+            inRange = false;
+            GameManager._instance.defuseLabel.SetActive(false);
+        }
     }
 
     IEnumerator Defuse()
