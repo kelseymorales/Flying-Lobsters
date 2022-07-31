@@ -144,9 +144,11 @@ MonoBehaviour:
   fShootRate: 1
   gBullet: {fileID: 765824586908680669, guid: 43540270751a7044c85afda44d89ba0f, type: 3}
   gShootPosition: {fileID: 0}
+  gHealthPack: {fileID: 0}
+  gAmmoBox: {fileID: 0}
   aud: {fileID: 0}
-  gunShot: []
-  gunShotVol: 0
+  aGunShot: []
+  aGunShotVol: 0
 --- !u!195 &153851095110412567
 NavMeshAgent:
   m_ObjectHideFlags: 0
