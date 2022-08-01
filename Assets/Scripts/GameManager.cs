@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int iBombTimer;
     [SerializeField] public int iDefuseCountdownTime;
     [SerializeField] public GameObject _defuseCountdownObject;
+    [SerializeField] public GameObject _defuseSlider;
+    public Image _defuseSliderImage;
 
     [Header("Text Prompts\n------------------------------")]
     [SerializeField] public GameObject defuseLabel;

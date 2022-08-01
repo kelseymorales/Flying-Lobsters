@@ -8164,10 +8164,6 @@ PrefabInstance:
       value: UI
       objectReference: {fileID: 0}
     - target: {fileID: 3851521462602797558, guid: c9ac183780f11e246b81ab9448e54f7e, type: 3}
-      propertyPath: iBombTimer
-      value: 210
-      objectReference: {fileID: 0}
-    - target: {fileID: 3851521462602797558, guid: c9ac183780f11e246b81ab9448e54f7e, type: 3}
       propertyPath: _detonation
       value: 
       objectReference: {fileID: 2004004059}
@@ -16375,10 +16371,6 @@ PrefabInstance:
     - target: {fileID: 8448960639718001732, guid: 0f8b759cb32aed54d86396cde0a3834f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8448960639718001733, guid: 0f8b759cb32aed54d86396cde0a3834f, type: 3}
-      propertyPath: iPlayerHealth
-      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8448960639718001737, guid: 0f8b759cb32aed54d86396cde0a3834f, type: 3}
       propertyPath: m_Name

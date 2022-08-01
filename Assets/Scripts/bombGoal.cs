@@ -50,35 +50,45 @@ public class bombGoal : MonoBehaviour
     {
         if (canDefuse == true)
         {
-            canDefuse = false;
+            canDefuse = false; // cant defuse while currently defusing
 
-            GameManager._instance.tDefuseCountdown.text = "";
+            GameManager._instance.tDefuseCountdown.text = ""; // clear previous defuse text if needed
+            GameManager._instance._defuseSliderImage.fillAmount = GameManager._instance.iDefuseCountdownTime; // make sure slider bar is full before putting it onscreen
 
-            GameManager._instance._playerScript.LockInPlace();
+            GameManager._instance._playerScript.LockInPlace(); // lock player position, but allow camera control and shooting
+
+            // activate UI elements showing defusing in process
             GameManager._instance._defuseCountdownObject.SetActive(true);
+            GameManager._instance._defuseSlider.SetActive(true);
 
+            // defusal countdown
             for (int i = GameManager._instance.iDefuseCountdownTime; i > 0; i--)
             {
                 yield return new WaitForSeconds(1);
 
+                GameManager._instance._defuseSliderImage.fillAmount = (float)i / (float)GameManager._instance.iDefuseCountdownTime;
                 GameManager._instance.tDefuseCountdown.text = i.ToString("F0");
             }
 
+            // update game goals 
             GameManager._instance.iBombsActive--;
             GameManager._instance.iBombsDefusedCounter++;
 
+            //deactivate UI elements showing defusing in process
             GameManager._instance._defuseCountdownObject.SetActive(false);
-            GameManager._instance._playerScript.UnlockInPlace();
+            GameManager._instance._defuseSlider.SetActive(false);
 
-            GameManager._instance.defuseLabel.SetActive(false);
+            GameManager._instance._playerScript.UnlockInPlace(); // unlock player position
 
-            GameManager._instance.tBombsDefused.text = GameManager._instance.iBombsDefusedCounter.ToString("F0");
+            GameManager._instance.defuseLabel.SetActive(false); // make sure the prompt to defuse bombs deactivates now that bomb is defused
 
-            GameManager._instance._playerScript.defuseJingle();
+            GameManager._instance.tBombsDefused.text = GameManager._instance.iBombsDefusedCounter.ToString("F0"); // update bombs defused UI element
 
-            Destroy(gameObject);
+            GameManager._instance._playerScript.defuseJingle(); // play defuse audio jingle
 
-            canDefuse = true;
+            Destroy(gameObject); // destroy bomb object (may be better to add a particle effect or something instead, rather than bomb just disapearing)
+
+            canDefuse = true; // allow defusing again for when player reaches next bomb
 
             // Win Condition
             if (GameManager._instance.iBombsActive == 0)
