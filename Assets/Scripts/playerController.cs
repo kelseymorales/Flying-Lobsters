@@ -8,7 +8,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     [Header("Player Attributes")]
     [Header("--------------------------")]
-    [Range(5, 20)][SerializeField] int iPlayerHealth;
+    [Range(5, 40)][SerializeField] int iPlayerHealth;
     [Range(3, 6)][SerializeField] float fPlayerSpeed;
     [Range(1.5f, 4.0f)][SerializeField] float fSprintMulti; // multiplier for increasing player speed during use of the sprint() function
     [Range(6, 10)][SerializeField] float fJumpHeight;

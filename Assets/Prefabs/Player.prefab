@@ -314,14 +314,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 8448960639718001734}
-  iPlayerHealth: 20
+  iPlayerHealth: 40
   fPlayerSpeed: 4
   fSprintMulti: 2
   fJumpHeight: 8
   fGravityValue: 20
   iJumps: 1
-  iHealthPickupHealNum: 5
-  iAmmoPickupAmmoNum: 15
+  iHealthPickupHealNum: 15
+  iAmmoPickupAmmoNum: 25
   fShootRate: 0.2
   iWeaponDamage: 1
   iWeaponAmmo: 5
