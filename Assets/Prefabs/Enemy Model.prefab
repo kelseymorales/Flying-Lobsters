@@ -669,10 +669,12 @@ MonoBehaviour:
   iHP: 5
   iViewAngle: 25
   iPlayerFaceSpeed: 6
-  iRoamingRadius: 6
+  iRoamingRadius: 18
   fShootRate: 1
   gBullet: {fileID: 765824586908680669, guid: 43540270751a7044c85afda44d89ba0f, type: 3}
   gShootPosition: {fileID: 5318928998736304688}
+  gHealthPack: {fileID: 0}
+  gAmmoBox: {fileID: 0}
   aud: {fileID: 22301674}
   aGunShot:
   - {fileID: 8300000, guid: f91f0596c717b2744ba7889ead827dae, type: 3}

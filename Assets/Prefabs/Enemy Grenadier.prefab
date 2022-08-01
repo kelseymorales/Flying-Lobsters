@@ -239,7 +239,7 @@ Transform:
   - {fileID: 8521048783802596827}
   - {fileID: 8521048783802596841}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8521048782842498184
 MonoBehaviour:
@@ -259,7 +259,7 @@ MonoBehaviour:
   iHP: 5
   iViewAngle: 25
   iPlayerFaceSpeed: 6
-  iRoamingRadius: 6
+  iRoamingRadius: 18
   fShootRate: 3
   gBullet: {fileID: 6097911041965791826, guid: 4718ea7e93356af4eb18e462b2b06bda, type: 3}
   gShootPosition: {fileID: 7844407504085691519}
