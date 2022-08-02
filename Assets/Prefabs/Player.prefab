@@ -333,7 +333,7 @@ MonoBehaviour:
   aud: {fileID: 1679202259}
   aGunShot:
   - {fileID: 8300000, guid: f91f0596c717b2744ba7889ead827dae, type: 3}
-  aGunShotVol: 0.5
+  aGunShotVol: 0.35
   aPlayerHurt:
   - {fileID: 8300000, guid: 587251b6459465a42bfca89375147a24, type: 3}
   - {fileID: 8300000, guid: 9cffad5342792284d982dc7bb1c29b62, type: 3}
@@ -344,7 +344,7 @@ MonoBehaviour:
   aPlayerHurtVol: 0.5
   aPlayerReload:
   - {fileID: 8300000, guid: d4ff976628278eb41b0ea5dfcd7c7723, type: 3}
-  aPlayerReloadVol: 0.5
+  aPlayerReloadVol: 0.25
   aPlayerJump:
   - {fileID: 8300000, guid: c452e6fd949dc4c4e91b2ce9cba81a5b, type: 3}
   - {fileID: 8300000, guid: 3888121a7d990564d8bcfb6dfecb8158, type: 3}
@@ -360,10 +360,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c3ac56302efbf464da248c55504fac1a, type: 3}
   - {fileID: 8300000, guid: f5752674f3292c04891241aa7a062431, type: 3}
   - {fileID: 8300000, guid: b42dc042660f50447aa000b2bd648ac5, type: 3}
-  aPlayerFootstepsVol: 0.5
+  aPlayerFootstepsVol: 0.1
   aPlayerEmptyClip:
   - {fileID: 8300000, guid: ecb8d50805a83ad419074a424961affd, type: 3}
-  aPlayerEmptyClipVol: 0.5
+  aPlayerEmptyClipVol: 0.25
   aHeadShot:
   - {fileID: 8300000, guid: 5943a39f738752b429be53fac4459355, type: 3}
   aHeadShotVol: 0.5

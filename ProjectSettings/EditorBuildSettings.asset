@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Suggestion.unity
     guid: 808fccb757f80304cbe0fb5e71abaaef
+  - enabled: 1
+    path: Assets/Scenes/Tyler.unity
+    guid: b8c15fd782ef1dd4380f6656e737fe77
   m_configObjects: {}
