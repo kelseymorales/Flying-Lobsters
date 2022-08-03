@@ -3,17 +3,17 @@ using UnityEngine;
 
 public class bombGoal : MonoBehaviour
 {
-    public bool inRange = false;
-    bool canDefuse = true;
+    public bool inRange = false;    // tracks if player is in range of a bomb
+    bool canDefuse = true;          // tracks if a bomb is defusable
 
     // Start is called before the first frame update
     void Start()
     {
-        GameManager._instance.updateBombCount();
+        GameManager._instance.updateBombCount(); // update UI to reflect bombs in scene
 
-        GameManager._instance.defuseLabel.SetActive(false);
+        GameManager._instance.defuseLabel.SetActive(false); // small fix to make sure defuse prompt is hidden by default, until player moves into range of a bomb
 
-        StartCoroutine(bombTick());
+        StartCoroutine(bombTick()); // starts countdown timer - internally and on UI
     }
 
     // Update is called once per frame
@@ -28,6 +28,7 @@ public class bombGoal : MonoBehaviour
         }
     }
 
+    // Helper function for when player moves in range of a bomb
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -37,6 +38,7 @@ public class bombGoal : MonoBehaviour
         }
     }
 
+    // helper function for when player moves out of range of a bomb
     void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -66,6 +68,7 @@ public class bombGoal : MonoBehaviour
             {
                 yield return new WaitForSeconds(1);
 
+                // UI updates for defuse countdown
                 GameManager._instance._defuseSliderImage.fillAmount = (float)i / (float)GameManager._instance.iDefuseCountdownTime;
                 GameManager._instance.tDefuseCountdown.text = i.ToString("F0");
             }
@@ -100,7 +103,7 @@ public class bombGoal : MonoBehaviour
 
     IEnumerator bombTick()
     {
-
+        // countdown bomb timer, and update it on UI
         for (int i = GameManager._instance.iBombTimer; i > 0; i--)
         {
             yield return new WaitForSeconds(1);
@@ -108,11 +111,13 @@ public class bombGoal : MonoBehaviour
             GameManager._instance.tBombsTimer.text = i.ToString("F0");
         }
 
+        // once countdown reaches 0, exit forloop and detonate bomb
         Detonate();
     }
 
     void Detonate()
     {
+        // call to gameManager detonate function
         StartCoroutine(GameManager._instance.Detonate());
     }
 }
