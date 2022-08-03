@@ -6,67 +6,76 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager _instance;
+    public static GameManager _instance;                    // public variable referencing this (gameManager), used to communicate to gameManager from other scripts
 
     [Header("Player Referance\n------------------------------")]
-    public GameObject _player;
-    public playerController _playerScript;
+    public GameObject _player;                              // stores reference to the player game object
+    public playerController _playerScript;                  // stores reference to the playerController script
 
-    public Spawner[] _spawners;
+    public Spawner[] _spawners;                             // stores references to all spawners in current scene
 
     [Header("UI\n------------------------------")]
-    [HideInInspector] public bool isPaused = false;
-    [HideInInspector] public bool gameOver;
+    [HideInInspector] public bool isPaused = false;         // value storing whether game is paused or not
+    [HideInInspector] public bool gameOver;                 // value storing whether a gameOver condition has been reached
 
+    // game menus
     public GameObject _pauseMenu;
     public GameObject _playerDeadMenu;
     public GameObject _winGameMenu;
     public GameObject _loseGameMenu;
+
+    // UI - healthbar
     public Image _HpBar;
+
+    // UI - enemies dead and enemies spawned
     public TMP_Text tEnemiesDead;
     public TMP_Text tEnemyTotal;
+
+    // UI - bombs defused, bombs spawned total, bomb countdown timer, bomb defuse countdown
     public TMP_Text tBombTotal;
     public TMP_Text tBombsDefused;
     public TMP_Text tBombsTimer;
     public TMP_Text tDefuseCountdown;
 
+    // UI - player ammo total, ammo clip, and current shots left in clip
     public TMP_Text ammoTotal;
     public TMP_Text clipSize;
     public TMP_Text shotsInClip;
 
     [Header("Effects\n------------------------------")]
-    public GameObject _playerDamageFlash;
-    public GameObject _AmmoBoxFlash;
+    public GameObject _playerDamageFlash;                       // screenspace effect for player taking damage
+    public GameObject _AmmoBoxFlash;                            // effect for activating an ammo pickup
 
     [Header("Win Condition\n------------------------------")]
-    [SerializeField] GameObject _detonation;
-    [SerializeField] public int iBombTimer;
-    [SerializeField] public int iDefuseCountdownTime;
-    [SerializeField] public GameObject _defuseCountdownObject;
-    [SerializeField] public GameObject _defuseSlider;
-    public Image _defuseSliderImage;
+    [SerializeField] GameObject _detonation;                    // stores a reference to the detonation object placed, disabled, in the scene
+    [SerializeField] public int iBombTimer;                     // value for bomb timer countdown
+    [SerializeField] public int iDefuseCountdownTime;           // value for defuse countdown timer
+    [SerializeField] public GameObject _defuseCountdownObject;  // stores reference to UI - bomb defuse countdown
+    [SerializeField] public GameObject _defuseSlider;           // stores reference to UI - bomb defuse countdown slider
+    public Image _defuseSliderImage;                            // stores reference to UI - bomb defuse countdown slider fill
 
     [Header("Text Prompts\n------------------------------")]
-    [SerializeField] public GameObject defuseLabel;
+    [SerializeField] public GameObject defuseLabel;             // reference to prompt shown to defuse bombs
 
+    // stores variables keeping track of enemies killed, enemies spawned, bombs defused, bombs active, and original bomb total
     [HideInInspector] public int iEnemyKillGoal;
     [HideInInspector] int iEnemiesKilled;
     [HideInInspector] public int iBombsActive;
     [HideInInspector] public int iBombsDefusedCounter;
     [HideInInspector] public int iBombTotalOrig;
 
-    [HideInInspector] GameObject _menuCurrentlyOpen;
+    [HideInInspector] GameObject _menuCurrentlyOpen;            // stores reference to any game menu currently open/active
 
     void Awake()
     {
-        _instance = this;
-        _player = GameObject.FindGameObjectWithTag("Player");
-        _playerScript = _player.GetComponent<playerController>();
+        _instance = this;                                               // stores reference this for use in other scripts
+        _player = GameObject.FindGameObjectWithTag("Player");           // stores reference to player game object
+        _playerScript = _player.GetComponent<playerController>();       // stores reference to player script
 
-        iBombTotalOrig = iBombsActive;
-        tBombTotal.text = iBombTotalOrig.ToString("F0");
+        iBombTotalOrig = iBombsActive;                                  // stores total bombs placed in the scene at start of scene
+        tBombTotal.text = iBombTotalOrig.ToString("F0");          // stores bomb total as text for use in UI
 
-        GameObject[] s = GameObject.FindGameObjectsWithTag("Spawner");
+        GameObject[] s = GameObject.FindGameObjectsWithTag("Spawner");  // finds and references all spawners placed in scene
 
         if (s != null)
         {
@@ -81,7 +90,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Cancel") && !gameOver)
+        if (Input.GetButtonDown("Cancel") && !gameOver) // if actively playing the game (no game over), and Cancel button is pushed, pause game and show pause menu
         {
             if (!isPaused && !_menuCurrentlyOpen)
             {
@@ -97,7 +106,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Resume()
+    public void Resume()    // unpause game and hide pause menu
     {
         isPaused = false;
         _menuCurrentlyOpen.SetActive(false);
@@ -133,7 +142,8 @@ public class GameManager : MonoBehaviour
         tEnemiesDead.text = iEnemiesKilled.ToString("F0");
     }
 
-    public IEnumerator Detonate()
+    // function used to detonate bombs after bomb countdown reaches 0, this is a lose game scenario
+    public IEnumerator Detonate() 
     {
         // explosion effect
         _detonation.SetActive(true);
@@ -146,24 +156,25 @@ public class GameManager : MonoBehaviour
         _menuCurrentlyOpen.SetActive(true);
         LockCursorPause();
 
+        // play 'You Lose' audio clip
         _playerScript.loseJingle();
     }
 
-    public void LockCursorPause()
+    public void LockCursorPause()   // helper function for menu navigation - locks cursor 
     {
         Time.timeScale = 0;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
     }
 
-    public void UnlockCursorUnpause()
+    public void UnlockCursorUnpause()   // helper function for menu navigation - unlocks cursor
     {
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    public void Restart()
+    public void Restart()           // helper function for restarting scene
     {
         gameOver = false;
         _menuCurrentlyOpen.SetActive(false);
@@ -173,32 +184,33 @@ public class GameManager : MonoBehaviour
         _defuseCountdownObject.SetActive(false);
     }
 
-    public void updateEnemyCount()
+    public void updateEnemyCount()  // helper function for updating UI with current enemy count (killed and total)
     {
         iEnemyKillGoal++;
         tEnemyTotal.text = iEnemyKillGoal.ToString("F0");
     }
 
-    public void updateBombCount()
+    public void updateBombCount()   // helper function for updating UI with current bomb count
     {
         iBombsActive++;
         tBombTotal.text = iBombsActive.ToString("F0");
     }
 
-    public void updateAmmoCount()
+    public void updateAmmoCount()   // helper function for updating UI with current ammo count
     {
         ammoTotal.text = _playerScript.iTotalWeaponAmmo.ToString("F0"); // ammo pool total
         shotsInClip.text = _playerScript.iWeaponAmmo.ToString("F0"); // current Clip
         clipSize.text = _playerScript.iWeaponAmmoOrig.ToString("F0");
     }
 
-    public void WinGame()
+    public void WinGame()   // helper function for win game scenario
     {
         _menuCurrentlyOpen = _winGameMenu;
         _menuCurrentlyOpen.SetActive(true);
         gameOver = true;
         LockCursorPause();
 
+        // play 'You Win' audio clip
         _playerScript.winJingle();
 
     }
