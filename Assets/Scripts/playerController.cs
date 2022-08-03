@@ -8,36 +8,38 @@ public class playerController : MonoBehaviour, IDamageable
 
     [Header("Player Attributes")]
     [Header("--------------------------")]
-    [Range(5, 40)][SerializeField] int iPlayerHealth;
-    [Range(3, 6)][SerializeField] float fPlayerSpeed;
-    [Range(1.5f, 4.0f)][SerializeField] float fSprintMulti; // multiplier for increasing player speed during use of the sprint() function
-    [Range(6, 10)][SerializeField] float fJumpHeight;
-    [Range(15, 30)][SerializeField] float fGravityValue;
-    [Range(1, 4)][SerializeField] int iJumps; // Max jumps allowed
-    [Range(1, 40)][SerializeField] int iHealthPickupHealNum;
-    [Range(1, 40)][SerializeField] int iAmmoPickupAmmoNum;
+    [Range(5, 40)][SerializeField] int iPlayerHealth;               // Player Health 
+    [Range(3, 6)][SerializeField] float fPlayerSpeed;               // Player speed
+    [Range(1.5f, 4.0f)][SerializeField] float fSprintMulti;         // Multiplier for increasing player speed during use of the sprint() function
+    [Range(6, 10)][SerializeField] float fJumpHeight;               // Player Jump height
+    [Range(15, 30)][SerializeField] float fGravityValue;            // Player gravity scaler
+    [Range(1, 4)][SerializeField] int iJumps;                       // Max jumps allowed
+    [Range(1, 40)][SerializeField] int iHealthPickupHealNum;        // Value for how much health packs heal player when picked up
+    [Range(1, 40)][SerializeField] int iAmmoPickupAmmoNum;          // Value for how much ammo the ammo pickups give player when picked up
 
     [Header("Player Weapon Stats")]
     [Header("-------------------------")]
-    [Range(0.1f, 3.0f)][SerializeField] float fShootRate;
-    [Range(1, 10)][SerializeField] int iWeaponDamage;
-    [Range(1, 25)][SerializeField] public int iWeaponAmmo;
-    [SerializeField] public int iTotalWeaponAmmo;
+    [Range(0.1f, 3.0f)][SerializeField] float fShootRate;           // Player value for how fast they can shoot
+    [Range(1, 10)][SerializeField] int iWeaponDamage;               // Player Weapon Damage
+    [Range(1, 25)][SerializeField] public int iWeaponAmmo;          // Player weapon ammo clip size
+    [SerializeField] public int iTotalWeaponAmmo;                   // Player weapon ammo pool total
 
     [Header("Effects")]
     [Header("--------------------------")]
-    [SerializeField] GameObject _hitEffectSpark;
-    [SerializeField] GameObject _muzzleFlash;
+    [SerializeField] GameObject _hitEffectSpark;                    // Effect shown when player bullet hits something
+    [SerializeField] GameObject _muzzleFlash;                       // Effect shown at player weapon muzzle when fired
 
     [Header("Physics")]
     [Header("--------------------------")]
-    public Vector3 vPushBack = Vector3.zero;
-    [SerializeField] int iPushBackResolve;
+    public Vector3 vPushBack = Vector3.zero;                        // Vector used for calculating pushback physics on player character
+    [SerializeField] int iPushBackResolve;                          // Stores the speed at which pushback is resolved
 
     [Header("Audio")]
     [Header("--------------------------")]
-    public AudioSource aud;
-    [SerializeField] AudioClip[] aGunShot;
+    public AudioSource aud; // Player Audio Source
+
+    // Audio clips and Audio Clips volume
+    [SerializeField] AudioClip[] aGunShot;                         
     [Range(0.0f, 1.0f)][SerializeField] float aGunShotVol;
     [SerializeField] AudioClip[] aPlayerHurt;
     [Range(0.0f, 1.0f)][SerializeField] float aPlayerHurtVol;
@@ -62,15 +64,17 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField] AudioClip[] aAmmo;
     [Range(0.0f, 1.0f)][SerializeField] float aAmmoVol;
 
-    bool canShoot = true;
-    bool isSprinting = false;
-    bool bFootstepsPlaying;
+    // Bool variables for player character
+    bool canShoot = true;       // indicates whether player is allowed to shoot at any given moment
+    bool isSprinting = false;   // Indicates whether the player is currently sprinting
+    bool bFootstepsPlaying;     // Indicates if the footsteps audio affect is currently playing
 
-    float fPlayerSpeedOrig; // stores the starting player speed
-    int iPlayerHealthOrig; // stores the starting player health
+    float fPlayerSpeedOrig;     // stores the starting player speed
+    int iPlayerHealthOrig;      // stores the starting player health
     [HideInInspector] public int iWeaponAmmoOrig; // stores the default weapon ammo
-    int iTimesJumped;
+    int iTimesJumped;           // How many times the player is allowed to jump in a row
     
+    // Vector values for managing player physics and movement
     Vector3 _playerVelocity;
     Vector3 _move;
     Vector3 _playerSpawnPos;
@@ -85,7 +89,7 @@ public class playerController : MonoBehaviour, IDamageable
         iWeaponAmmoOrig = iWeaponAmmo;
 
         GameManager._instance.updateAmmoCount(); // update ui with ammo count info
-        GameManager._instance.defuseLabel.SetActive(false);
+        GameManager._instance.defuseLabel.SetActive(false); // small fix to make sure defuse prompt is inactive when player spawns
     }
 
     // Called every frame
@@ -93,8 +97,10 @@ public class playerController : MonoBehaviour, IDamageable
     {
         if (!GameManager._instance.isPaused) // if paused - disable player actions
         {
+            // handles pushback physics
             vPushBack = Vector3.Lerp(vPushBack, Vector3.zero, Time.deltaTime * iPushBackResolve);
 
+            // Various functions and coroutines that run constantly for player
             MovePlayer();
             Sprint();
             StartCoroutine(Shoot());
@@ -157,12 +163,14 @@ public class playerController : MonoBehaviour, IDamageable
 
     IEnumerator playFootsteps()
     {
+        // if player is moving, on solid ground, and footsteps audio not already playing, play footsteps audio
         if (_controller.isGrounded && _move.normalized.magnitude > 0.4f && !bFootstepsPlaying)
         {
             bFootstepsPlaying = true;
 
-            aud.PlayOneShot(aPlayerFootsteps[Random.Range(0, aPlayerFootsteps.Length)], aPlayerFootstepsVol);
+            aud.PlayOneShot(aPlayerFootsteps[Random.Range(0, aPlayerFootsteps.Length)], aPlayerFootstepsVol); // call to footsteps audio clip
 
+            // if player sprint function is active, play footstep sound clip faster to emulate players faster footfalls
             if (isSprinting)
             {
                 yield return new WaitForSeconds(0.3f);
@@ -178,6 +186,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     IEnumerator reload()
     {
+        // if reload button is pressed, and player has ammo is their total ammo pool, start reload function
         if (Input.GetButton("Reload") && iTotalWeaponAmmo > 0)
         {
             int shotsFired = iWeaponAmmoOrig - iWeaponAmmo; // determine how many shots were fired from the clip
@@ -197,6 +206,7 @@ public class playerController : MonoBehaviour, IDamageable
                 iTotalWeaponAmmo = 0; // set total to 0 since we just took the reamining ammo to fill the clip
             }
 
+            // Call to reload audio clip
             aud.PlayOneShot(aPlayerReload[Random.Range(0, aPlayerReload.Length)], aPlayerReloadVol);
         }
 
@@ -209,6 +219,7 @@ public class playerController : MonoBehaviour, IDamageable
         // if shoot button is pressed, but there is no ammo in clip, play sound file
         if (Input.GetButton("Shoot") && iWeaponAmmo <= 0)
         {
+            // call to empty clip audio clip
             aud.PlayOneShot(aPlayerEmptyClip[Random.Range(0, aPlayerEmptyClip.Length)], aPlayerEmptyClipVol);
         }
 
@@ -238,7 +249,7 @@ public class playerController : MonoBehaviour, IDamageable
                     IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
 
                     // check for body shot or head shot
-                    if (hit.collider is SphereCollider) // apply damage for head shot
+                    if (hit.collider is SphereCollider) // apply damage for head shot, and play headshot audio clip
                     {
                         isDamageable.TakeDamage(10000);
                         aud.PlayOneShot(aHeadShot[Random.Range(0, aHeadShot.Length)], aHeadShotVol);
@@ -265,13 +276,15 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void TakeDamage(int iDmg)
     {
-        iPlayerHealth -= iDmg;
+        iPlayerHealth -= iDmg; // apply damage to player health
 
+        // play player damage taken audio clip
         aud.PlayOneShot(aPlayerHurt[Random.Range(0, aPlayerHurt.Length)], aPlayerHurtVol);
 
         UpdateHealthBar(); 
         StartCoroutine(DamageFlash()); // flash screen red when damage is taken
 
+        // if playern health is 0 or lower, kill player
         if (iPlayerHealth <= 0) 
         {
             GameManager._instance.PlayerDead(); 
@@ -304,18 +317,19 @@ public class playerController : MonoBehaviour, IDamageable
         GameManager._instance.defuseLabel.SetActive(false);
     }
 
-
+    // helper function for picking up healthpack
     public void HealthPack()
     {
-        iPlayerHealth += iHealthPickupHealNum;
+        iPlayerHealth += iHealthPickupHealNum;  // apply health pickup value to player healthbar
         healthPickUp();
         UpdateHealthBar();
         
     }
 
+    // helper function for picking up ammo box
     public void AmmoBox()
     {
-        iTotalWeaponAmmo += iAmmoPickupAmmoNum;
+        iTotalWeaponAmmo += iAmmoPickupAmmoNum; // apply ammo pickup value to player total ammo pool
         GameManager._instance.updateAmmoCount();
         AmmoPickUp();
     }
@@ -375,11 +389,13 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void healthPickUp()
     {
+        // audio clip for health pickup
         aud.PlayOneShot(aHeal[Random.Range(0, aHeal.Length)], aHealVol);
     }
 
     public void AmmoPickUp()
     {
+        // audio clip for ammo pickup
         aud.PlayOneShot(aAmmo[Random.Range(0, aAmmo.Length)], aAmmoVol);
     }
 
