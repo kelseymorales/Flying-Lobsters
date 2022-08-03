@@ -7,57 +7,64 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour, IDamageable
 {
     [Header("Components")]
-    [SerializeField] NavMeshAgent nAgent;
-    [SerializeField] Renderer rRend;
-    [SerializeField] Animator aAnim;
+    [SerializeField] NavMeshAgent nAgent;               // enemy nav mesh
+    [SerializeField] Renderer rRend;                    // enemy renderer
+    [SerializeField] Animator aAnim;                    // enemy animator
 
     [Header("------------------------------")]
     [Header("Enemy Attributes")]
-    [SerializeField] int iHP;
-    [SerializeField] int iViewAngle; // fov
-    [SerializeField] int iPlayerFaceSpeed;
-    [SerializeField] int iRoamingRadius;
+    [SerializeField] int iHP;                           // enemy health
+    [SerializeField] int iViewAngle;                    // enemy field of view
+    [SerializeField] int iPlayerFaceSpeed;              // speed at which enemy rotates to face player while tracking them
+    [SerializeField] int iRoamingRadius;                // radius the enemy pathfinding is allowed to roam in
 
     [Header("------------------------------")]
     [Header("Weapon Stats")]
-    [SerializeField] float fShootRate;
-    [SerializeField] GameObject gBullet;
-    [SerializeField] GameObject gShootPosition;
+    [SerializeField] float fShootRate;                  // Rate at which enemy can fire their weapon
+    [SerializeField] GameObject gBullet;                // stores enemy bullet object (can be used to store various object that will be used like the bullet is - example, grenades)
+    [SerializeField] GameObject gShootPosition;         // stores position at which bullets are instantiated (in the case of guns, should be at the muzzle, for grenades it should be in an empty hand)
 
     [Header("------------------------------")]
     [Header("Drops")]
-    [SerializeField] GameObject gHealthPack;
-    [SerializeField] GameObject gAmmoBox;
+    [SerializeField] GameObject gHealthPack;            // slot for drops - healthpack (not currently implemented)
+    [SerializeField] GameObject gAmmoBox;               // slot for drops - ammo pack (not currently implemented)
 
     [Header("------------------------------")]
     [Header("Audio")]
-    public AudioSource aud;
+    public AudioSource aud;                             // enemy audio source
+
+    // enemy audio clips and clip volume
     [SerializeField] AudioClip[] aGunShot;
     [Range(0.0f, 1.0f)][SerializeField] float aGunShotVol;
 
-    bool bCanShoot = true;
-    bool bPlayerInRange;
-    Vector3 vStartingPos;
-    Vector3 vPlayerDirection;
+    bool bCanShoot = true;                              // value for whether enemy can currently fire their weapon
+    bool bPlayerInRange;                                // value tracking whether the player is in range of enemyAI
 
-    float fStoppingDistanceOrig;
+    Vector3 vStartingPos;                               // vector storing enemy starting position
+    Vector3 vPlayerDirection;                           // vector storing the direction the player is in from the perspective of the enemy
 
+    float fStoppingDistanceOrig;                        // float value for how close enemy can get to other enemies, player, and etc
+
+    // Called at Start
     void Start()
     {
-        vStartingPos = transform.position;
-        fStoppingDistanceOrig = nAgent.stoppingDistance;
-        GameManager._instance.updateEnemyCount();
+        vStartingPos = transform.position;                  // stores starting position
+        fStoppingDistanceOrig = nAgent.stoppingDistance;    // stores stopping distance
+        GameManager._instance.updateEnemyCount();           // update UI to reflect enemies placed in scene
     }
 
+    // Called every frame
     void Update()
     {
-        if (nAgent.isActiveAndEnabled)
+        if (nAgent.isActiveAndEnabled) // if navmesh is enabled
         {
+            // pass information to animator on how fast enemy is moving
             aAnim.SetFloat("Speed", Mathf.Lerp(aAnim.GetFloat("Speed"), nAgent.velocity.normalized.magnitude, Time.deltaTime * 5));
 
+            // gets player direction for tracking player
             vPlayerDirection = GameManager._instance._player.transform.position - transform.position;
 
-            if (bPlayerInRange)
+            if (bPlayerInRange) // if player is in range
             {
                 //agent lets enemies know where player is
                 nAgent.SetDestination(GameManager._instance._player.transform.position);
