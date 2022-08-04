@@ -323,7 +323,6 @@ public class playerController : MonoBehaviour, IDamageable
         iPlayerHealth += iHealthPickupHealNum;  // apply health pickup value to player healthbar
         healthPickUp(); //play health pack sound
         UpdateHealthBar(); //update health change in bar
-        
     }
 
     // helper function for picking up ammo box
