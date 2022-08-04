@@ -321,8 +321,8 @@ public class playerController : MonoBehaviour, IDamageable
     public void HealthPack()
     {
         iPlayerHealth += iHealthPickupHealNum;  // apply health pickup value to player healthbar
-        healthPickUp();
-        UpdateHealthBar();
+        healthPickUp(); //play health pack sound
+        UpdateHealthBar(); //update health change in bar
         
     }
 
@@ -330,8 +330,8 @@ public class playerController : MonoBehaviour, IDamageable
     public void AmmoBox()
     {
         iTotalWeaponAmmo += iAmmoPickupAmmoNum; // apply ammo pickup value to player total ammo pool
-        GameManager._instance.updateAmmoCount();
-        AmmoPickUp();
+        GameManager._instance.updateAmmoCount(); //play ammo pickup sound
+        AmmoPickUp(); //add ammo to player
     }
 
     public void UpdateHealthBar() // update the healthbar in the UI to reflect player's current health
@@ -343,18 +343,19 @@ public class playerController : MonoBehaviour, IDamageable
     {
         if(other.CompareTag("HealthPack") && iPlayerHealth < iPlayerHealthOrig) //Calls Health Amount
         {
-            HealthPack();
-            Destroy(other.gameObject);
+            HealthPack(); //calls health pack function
+            Destroy(other.gameObject); //destroys health pack
         }
-        else if (other.CompareTag("HealthPack") && iPlayerHealth == iPlayerHealthOrig)
+
+        else if (other.CompareTag("HealthPack") && iPlayerHealth == iPlayerHealthOrig) //if health is full, do nothing
         {
 
         }
 
         if(other.CompareTag("AmmoBox") && iWeaponAmmo < iTotalWeaponAmmo) // Calls Ammo Amount
         {
-            AmmoBox();
-            Destroy(other.gameObject);
+            AmmoBox(); //calls ammo function
+            Destroy(other.gameObject); //destroys ammo box
         }
         else if (other.CompareTag("AmmoBox")&& iWeaponAmmo==iTotalWeaponAmmo)
         {
