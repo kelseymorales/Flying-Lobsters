@@ -68,7 +68,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int iBombsDefusedCounter;
     [HideInInspector] public int iBombTotalOrig;
 
-    [HideInInspector] GameObject _menuCurrentlyOpen;            // stores reference to any game menu currently open/active
+    [HideInInspector] GameObject _menuCurrentlyOpen;           // stores reference to any game menu currently open/active
 
     void Awake()
     {
