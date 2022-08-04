@@ -5,6 +5,7 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private GameObject _mainMenu;
     [SerializeField] private GameObject _optionsMenu;
+    [SerializeField] private GameObject _credits;
 
 
     public void PlayGame()
@@ -18,6 +19,12 @@ public class MainMenu : MonoBehaviour
         _optionsMenu.SetActive(true);
     }
 
+    public void ShowCredits()
+    {
+        _mainMenu.SetActive(false);
+        _credits.SetActive(true);
+    }
+
     public void QuitGame()
     {
         Application.Quit();
@@ -27,5 +34,11 @@ public class MainMenu : MonoBehaviour
     {
         _mainMenu.SetActive(true);
         _optionsMenu.SetActive(false);
+    }
+
+    public void BackToMainFromCredits()
+    {
+        _mainMenu.SetActive(true);
+        _credits.SetActive(false);
     }
 }
