@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject _defuseCountdownObject;  // stores reference to UI - bomb defuse countdown
     [SerializeField] public GameObject _defuseSlider;           // stores reference to UI - bomb defuse countdown slider
     public Image _defuseSliderImage;                            // stores reference to UI - bomb defuse countdown slider fill
+    [HideInInspector] public int iScore;                        // stores player score - updated in checkEnemiesKilled, PlayerController shoot, and bombGoal defuse
 
     [Header("Text Prompts\n------------------------------")]
     [SerializeField] public GameObject defuseLabel;             // reference to prompt shown to defuse bombs
@@ -79,6 +80,8 @@ public class GameManager : MonoBehaviour
 
         iBombTotalOrig = iBombsActive;                                  // stores total bombs placed in the scene at start of scene
         tBombTotal.text = iBombTotalOrig.ToString("F0");          // stores bomb total as text for use in UI
+
+        iScore = 0;                                                     // sets iScore value to zero at start of game
 
         GameObject[] s = GameObject.FindGameObjectsWithTag("Spawner");  // finds and references all spawners placed in scene
 
@@ -145,6 +148,7 @@ public class GameManager : MonoBehaviour
     {
         iEnemiesKilled++;
         tEnemiesDead.text = iEnemiesKilled.ToString("F0");
+        iScore += iEnemiesKilled * 10; // score tracking for enemy kills - also bonus points are allocated for headshot kills in playerController shoot function
     }
 
     // function used to detonate bombs after bomb countdown reaches 0, this is a lose game scenario

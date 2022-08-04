@@ -253,6 +253,7 @@ public class playerController : MonoBehaviour, IDamageable
                     {
                         isDamageable.TakeDamage(10000);
                         aud.PlayOneShot(aHeadShot[Random.Range(0, aHeadShot.Length)], aHeadShotVol);
+                        GameManager._instance.iScore += 15;
                     }
                     else
                     {

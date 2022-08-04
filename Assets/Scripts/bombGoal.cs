@@ -76,6 +76,7 @@ public class bombGoal : MonoBehaviour
             // update game goals 
             GameManager._instance.iBombsActive--;
             GameManager._instance.iBombsDefusedCounter++;
+            GameManager._instance.iScore += 50;
 
             //deactivate UI elements showing defusing in process
             GameManager._instance._defuseCountdownObject.SetActive(false);
