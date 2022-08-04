@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject _defuseSlider;           // stores reference to UI - bomb defuse countdown slider
     public Image _defuseSliderImage;                            // stores reference to UI - bomb defuse countdown slider fill
     [HideInInspector] public int iScore;                        // stores player score - updated in checkEnemiesKilled, PlayerController shoot, and bombGoal defuse
+    [SerializeField] TMP_Text displayWinScore;                  // UI component that displays score on win screen
+    [SerializeField] TMP_Text displayLoseScore;                  // UI component that displays score on lose screen
 
     [Header("Text Prompts\n------------------------------")]
     [SerializeField] public GameObject defuseLabel;             // reference to prompt shown to defuse bombs
@@ -149,6 +151,7 @@ public class GameManager : MonoBehaviour
         iEnemiesKilled++;
         tEnemiesDead.text = iEnemiesKilled.ToString("F0");
         iScore += iEnemiesKilled * 10; // score tracking for enemy kills - also bonus points are allocated for headshot kills in playerController shoot function
+        UpdatePlayerScore(); // call to helper function to update score on win/lose screens
     }
 
     // function used to detonate bombs after bomb countdown reaches 0, this is a lose game scenario
@@ -222,5 +225,11 @@ public class GameManager : MonoBehaviour
         // play 'You Win' audio clip
         _playerScript.winJingle();
 
+    }
+
+    public void UpdatePlayerScore() // helper function for displaying score in the win screen and lose screen
+    {
+        displayLoseScore.text = iScore.ToString("F0"); // lose screen score
+        displayWinScore.text = iScore.ToString("F0"); // win screen score
     }
 }

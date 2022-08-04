@@ -254,6 +254,7 @@ public class playerController : MonoBehaviour, IDamageable
                         isDamageable.TakeDamage(10000);
                         aud.PlayOneShot(aHeadShot[Random.Range(0, aHeadShot.Length)], aHeadShotVol);
                         GameManager._instance.iScore += 15;
+                        GameManager._instance.UpdatePlayerScore(); // call to helper function to update score on win/lose screens
                     }
                     else
                     {
