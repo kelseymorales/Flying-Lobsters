@@ -25,7 +25,7 @@ public class LoadingScreen : MonoBehaviour
             _loadingBar.fillAmount = i / fwaitTime;
         }
 
-        yield return new WaitForSecondsRealtime(0.5f);;
+        yield return new WaitForSecondsRealtime(0.5f);
 
         Time.timeScale = 1;
         GameManager._instance.gameOver = false;
