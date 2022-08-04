@@ -123,14 +123,17 @@ public class GameManager : MonoBehaviour
     public void Resume()    // unpause game and hide pause menu
     {
         isPaused = false;
+        gameOver = false;
         _menuCurrentlyOpen.SetActive(false);
         _menuCurrentlyOpen = null;
         UnlockCursorUnpause();
+
     }
 
     public void PlayerDead()
     {
         gameOver = true;
+        isPaused = true;
         _menuCurrentlyOpen = _playerDeadMenu;
         _menuCurrentlyOpen.SetActive(true);
         LockCursorPause();
@@ -199,7 +202,7 @@ public class GameManager : MonoBehaviour
 
         defuseLabel.SetActive(false); // make sure the prompt to defuse bombs deactivates now that bomb is defused
 
-        tBombsDefused.text = GameManager._instance.iBombsDefusedCounter.ToString("F0"); // update bombs defused UI element
+        tBombsDefused.text = iBombsDefusedCounter.ToString("F0"); // update bombs defused UI element
 
         _playerScript.defuseJingle(); // play defuse audio jingle
 
@@ -223,6 +226,9 @@ public class GameManager : MonoBehaviour
 
         StopCoroutine(_defuseFunction);
 
+        // activate UI elements showing defusing in process
+        _defuseCountdownObject.SetActive(false);
+        _defuseSlider.SetActive(false);
     }
 
     IEnumerator bombTick()
