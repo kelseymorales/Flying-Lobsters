@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4358292771738537182}
   m_Layer: 0
   m_Name: AtomicBomb
-  m_TagString: Untagged
+  m_TagString: Bomb
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,7 +35,7 @@ Transform:
   - {fileID: 8558724456461275992}
   - {fileID: 8559030859684590622}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: -53.711, z: 0}
 --- !u!114 &2960962551958377644
 MonoBehaviour:
