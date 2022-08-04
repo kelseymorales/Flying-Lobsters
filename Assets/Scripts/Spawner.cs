@@ -28,10 +28,10 @@ public class Spawner : MonoBehaviour
     // Spawn points do not need to be set in the inspector
     [SerializeField] private Transform[] _spawnPoints;
 
-    bool canSpawn;
-
     private BoxCollider _trigger;
     private int iEnemiesSpawned;
+
+    private Coroutine spawnFunction;
 
     private void Start() 
     {
@@ -50,7 +50,7 @@ public class Spawner : MonoBehaviour
         // disables the box collider
         if (bAlwaysSpawn)
         {
-            StartCoroutine(StartSpawning());
+            StartSpawing();
             _trigger.enabled = false;
         }
     }
@@ -59,7 +59,7 @@ public class Spawner : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(StartSpawning());
+            StartSpawing();
         }    
     }
 
@@ -71,11 +71,14 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private IEnumerator StartSpawning()
+    public void StartSpawing()
     {
-        canSpawn = true;
+        spawnFunction = StartCoroutine(Spawning());
+    }
 
-        while(canSpawn)
+    private IEnumerator Spawning()
+    {
+        while(true)
         {
             yield return new WaitForSeconds(fSpawnInterval);
 
@@ -96,12 +99,12 @@ public class Spawner : MonoBehaviour
 
     public void StopSpawning()
     {
-        if (bAlwaysSpawn)
+        if (bAlwaysSpawn || spawnFunction == null)
         {
             return;
         }
 
-        canSpawn = false;
+        StopCoroutine(spawnFunction);
     }
 
     public void OnDrawGizmos() 

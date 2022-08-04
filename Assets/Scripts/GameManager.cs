@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     //Main menus
     public GameObject _optionsMenu;
-    public GameObject _infoMenu; 
+    public GameObject _infoMenu;
 
     // game menus
     public GameObject _pauseMenu;
@@ -72,7 +72,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int iBombsDefusedCounter;
     [HideInInspector] public int iBombTotalOrig;
 
-    [HideInInspector] GameObject _menuCurrentlyOpen;           // stores reference to any game menu currently open/active
+    [HideInInspector] GameObject _menuCurrentlyOpen; 
+    
+    Coroutine _defuseFunction;          // stores reference to any game menu currently open/active
 
     void Awake()
     {
@@ -93,9 +95,11 @@ public class GameManager : MonoBehaviour
 
             for (int i = 0; i < s.Length; i++)
             {
-                _spawners[i] = s[i].GetComponent<Spawner>();    
+                _spawners[i] = s[i].GetComponent<Spawner>();
             }
         }
+
+        StartCoroutine(bombTick());
     }
 
     private void Update()
@@ -119,20 +123,24 @@ public class GameManager : MonoBehaviour
     public void Resume()    // unpause game and hide pause menu
     {
         isPaused = false;
+        gameOver = false;
         _menuCurrentlyOpen.SetActive(false);
         _menuCurrentlyOpen = null;
         UnlockCursorUnpause();
+
     }
 
     public void PlayerDead()
     {
         gameOver = true;
+        isPaused = true;
         _menuCurrentlyOpen = _playerDeadMenu;
         _menuCurrentlyOpen.SetActive(true);
         LockCursorPause();
 
         _playerScript.loseJingle();
         StopSpawners();
+        StopDefuseing();
     }
 
     public void StopSpawners()
@@ -154,13 +162,103 @@ public class GameManager : MonoBehaviour
         UpdatePlayerScore(); // call to helper function to update score on win/lose screens
     }
 
+    public void CallDefuse(GameObject bomb)
+    {
+        _defuseFunction = StartCoroutine(Defuse(bomb));
+    }
+
+    IEnumerator Defuse(GameObject bomb)
+    {
+        tDefuseCountdown.text = ""; // clear previous defuse text if needed
+        _defuseSliderImage.fillAmount = GameManager._instance.iDefuseCountdownTime; // make sure slider bar is full before putting it onscreen
+
+        _playerScript.LockInPlace(); // lock player position, but allow camera control and shooting
+
+        // activate UI elements showing defusing in process
+        _defuseCountdownObject.SetActive(true);
+        _defuseSlider.SetActive(true);
+
+        // defusal countdown
+        for (int i = iDefuseCountdownTime; i >= 0; i--)
+        {
+            // UI updates for defuse countdown
+            _defuseSliderImage.fillAmount = (float)i / (float)GameManager._instance.iDefuseCountdownTime;
+            tDefuseCountdown.text = i.ToString("F0");
+         
+            yield return new WaitForSeconds(1);
+        }
+
+        // update game goals 
+        iBombsActive--;
+        iBombsDefusedCounter++;
+        iScore += 50;
+        UpdatePlayerScore(); // call to helper function to update score on win/lose screens
+
+        //deactivate UI elements showing defusing in process
+        _defuseCountdownObject.SetActive(false);
+        _defuseSlider.SetActive(false);
+
+        _playerScript.UnlockInPlace(); // unlock player position
+
+        defuseLabel.SetActive(false); // make sure the prompt to defuse bombs deactivates now that bomb is defused
+
+        tBombsDefused.text = iBombsDefusedCounter.ToString("F0"); // update bombs defused UI element
+
+        _playerScript.defuseJingle(); // play defuse audio jingle
+
+        Destroy(bomb); // destroy bomb object (may be better to add a particle effect or something instead, rather than bomb just disapearing)
+
+        // Level Win Condition
+        if (iBombsActive == 0)
+        {
+            levelWin = true;
+            WinGame(); // will need to be removed later, as the win game should be called at the end of level 3, and all we need here is the level win trigger for transitioning levels
+        }
+
+    }
+
+    private void StopDefuseing()
+    {
+        if (_defuseFunction == null)
+        {
+            return;
+        }
+
+        StopCoroutine(_defuseFunction);
+
+        // activate UI elements showing defusing in process
+        _defuseCountdownObject.SetActive(false);
+        _defuseSlider.SetActive(false);
+    }
+
+    IEnumerator bombTick()
+    {
+        // countdown bomb timer, and update it on UI
+        for (int i = iBombTimer; i >= 0; i--)
+        {
+            tBombsTimer.text = i.ToString("F0");
+            yield return new WaitForSeconds(1);
+        }
+
+        yield return new WaitForSeconds(.5f);
+
+        // once countdown reaches 0, exit forloop and detonate bomb
+        StartCoroutine(Detonate());
+    }
+
     // function used to detonate bombs after bomb countdown reaches 0, this is a lose game scenario
-    public IEnumerator Detonate() 
+    public IEnumerator Detonate()
     {
         // explosion effect
         _detonation.SetActive(true);
 
         yield return new WaitForSeconds(0.6f);
+
+        for (int i = 0; i < iBombsActive; i++)
+        {
+            // play 'You Lose' audio clip
+            _playerScript.loseJingle();
+        }
 
         // you lose menu
         gameOver = true;
@@ -168,8 +266,6 @@ public class GameManager : MonoBehaviour
         _menuCurrentlyOpen.SetActive(true);
         LockCursorPause();
 
-        // play 'You Lose' audio clip
-        _playerScript.loseJingle();
     }
 
     public void LockCursorPause()   // helper function for menu navigation - locks cursor 
