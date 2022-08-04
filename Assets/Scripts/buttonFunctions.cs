@@ -21,6 +21,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void Restart() //calling restart from gamemanger and reloading scene for menu UI
     {
+        GameManager._instance.levelWin = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // reload scene
         GameManager._instance.Restart();
     }

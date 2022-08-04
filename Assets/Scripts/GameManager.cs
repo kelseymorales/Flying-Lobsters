@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [Header("UI\n------------------------------")]
     [HideInInspector] public bool isPaused = false;         // value storing whether game is paused or not
     [HideInInspector] public bool gameOver;                 // value storing whether a gameOver condition has been reached
+    [HideInInspector] public bool levelWin = false;         // Stores whether the current level has been won - primarily for determining if player is allowed through level transition into next level
 
     //Main menus
     public GameObject _optionsMenu;

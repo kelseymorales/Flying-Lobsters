@@ -93,10 +93,11 @@ public class bombGoal : MonoBehaviour
 
             canDefuse = true; // allow defusing again for when player reaches next bomb
 
-            // Win Condition
+            // Level Win Condition
             if (GameManager._instance.iBombsActive == 0)
             {
-                GameManager._instance.WinGame();
+                GameManager._instance.levelWin = true;
+                GameManager._instance.WinGame(); // will need to be removed later, as the win game should be called at the end of level 3, and all we need here is the level win trigger for transitioning levels
             }
         }
     }
