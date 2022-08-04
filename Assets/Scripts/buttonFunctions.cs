@@ -24,4 +24,23 @@ public class buttonFunctions : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // reload scene
         GameManager._instance.Restart();
     }
+
+    #region Menus
+
+    public void OpenInfo() //Activates the Info tab
+    {
+        GameManager._instance._infoMenu.SetActive(true); 
+    }
+
+    public void OpenOptions() //Activates the options tab
+    {
+        GameManager._instance._optionsMenu.SetActive(true);
+    }
+
+    public void StartGame() //to implement.. 
+    {
+
+    }
+
+    #endregion
 }

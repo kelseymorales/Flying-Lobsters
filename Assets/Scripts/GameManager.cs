@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public bool isPaused = false;         // value storing whether game is paused or not
     [HideInInspector] public bool gameOver;                 // value storing whether a gameOver condition has been reached
 
+    //Main menus
+    public GameObject _optionsMenu;
+    public GameObject _infoMenu; 
+
     // game menus
     public GameObject _pauseMenu;
     public GameObject _playerDeadMenu;
