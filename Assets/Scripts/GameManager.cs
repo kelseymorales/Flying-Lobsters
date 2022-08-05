@@ -208,13 +208,14 @@ public class GameManager : MonoBehaviour
 
         Destroy(bomb); // destroy bomb object (may be better to add a particle effect or something instead, rather than bomb just disapearing)
 
+        StopSpawners();
+
         // Level Win Condition
         if (iBombsActive == 0)
         {
             levelWin = true;
             WinGame(); // will need to be removed later, as the win game should be called at the end of level 3, and all we need here is the level win trigger for transitioning levels
         }
-
     }
 
     private void StopDefuseing()
