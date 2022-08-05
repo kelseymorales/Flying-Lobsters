@@ -282,16 +282,6 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
     }
 
-    public void Restart()           // helper function for restarting scene
-    {
-        gameOver = false;
-        _menuCurrentlyOpen.SetActive(false);
-        _menuCurrentlyOpen = null;
-        UnlockCursorUnpause();
-
-        _defuseCountdownObject.SetActive(false);
-    }
-
     public void updateEnemyCount()  // helper function for updating UI with current enemy count (killed and total)
     {
         iEnemyKillGoal++;
