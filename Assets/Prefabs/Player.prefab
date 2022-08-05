@@ -326,7 +326,7 @@ MonoBehaviour:
   iWeaponDamage: 1
   iWeaponAmmo: 5
   iTotalWeaponAmmo: 25
-  gPlayerGrenade: {fileID: 6097911041965791826, guid: 4718ea7e93356af4eb18e462b2b06bda, type: 3}
+  gPlayerGrenade: {fileID: 6097911041965791826, guid: c809c5d6d4d589f4ca1c2f3096580af0, type: 3}
   iGrenadeCount: 3
   _hitEffectSpark: {fileID: 4448962958098883110, guid: 88760f2393d8b634385a5d08a3d4ca6b, type: 3}
   _muzzleFlash: {fileID: 8448960637801368390}

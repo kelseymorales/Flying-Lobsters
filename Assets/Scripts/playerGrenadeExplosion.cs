@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class explosion : MonoBehaviour
+public class playerGrenadeExplosion : MonoBehaviour
 {
     [SerializeField] int iDamage; // stores damage dealt by explosion
 
@@ -21,7 +23,7 @@ public class explosion : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         // if player or enemy is caught in explosion range
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Enemy"))
         {
             // apply physics pushback to player character
             GameManager._instance._playerScript.vPushBack =
