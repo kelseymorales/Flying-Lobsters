@@ -126,8 +126,8 @@ GameObject:
   - component: {fileID: 2487923305867378176}
   - component: {fileID: 8652155822761474032}
   - component: {fileID: 7423657210539569707}
-  - component: {fileID: 1097764991173851199}
   - component: {fileID: 7789246407994810527}
+  - component: {fileID: 7954984446568937654}
   m_Layer: 0
   m_Name: Object004
   m_TagString: AmmoBox
@@ -201,19 +201,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1097764991173851199
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9088108554106931584}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 400
-  m_Center: {x: 0, y: -0.00048828125, z: -0.000045776374}
 --- !u!54 &7789246407994810527
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -230,3 +217,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &7954984446568937654
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088108554106931584}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1282.2859, y: 719.42426, z: 406.82083}
+  m_Center: {x: 0, y: -0.00048828125, z: -0.000045776374}

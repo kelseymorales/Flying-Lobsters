@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4784216014281651098}
   - component: {fileID: 4557631428035152300}
   - component: {fileID: 7783201786474198357}
-  - component: {fileID: 1309162960110335108}
   - component: {fileID: 3529356177413793741}
+  - component: {fileID: 1203863822894664610}
   m_Layer: 0
   m_Name: HealthPack
   m_TagString: HealthPack
@@ -85,19 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &1309162960110335108
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8376601595360100745}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1
-  m_Center: {x: -2.9486413e-15, y: 1.2310424, z: 0.20749223}
 --- !u!54 &3529356177413793741
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -114,3 +101,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1203863822894664610
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8376601595360100745}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.9540799, y: 2.5032945, z: 0.4149847}
+  m_Center: {x: -2.9486413e-15, y: 1.2310424, z: 0.20749223}
