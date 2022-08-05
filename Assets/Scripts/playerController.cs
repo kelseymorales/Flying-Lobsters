@@ -286,34 +286,29 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void ThrowGrenade()
     {
-        // if input button "grenade" is pressed, and canShoot is enabled
-        if (Input.GetButton("Grenade") && canShoot)
+        if (Input.GetButtonDown("Grenade") && iGrenadeCount <= 0 || !canShoot) // if input button is pressed, player does not have grenade ammo to use OR canShoot is false
         {
+            // play "no grenades left" audio clip
+            aud.PlayOneShot(aGrenadeEmpty[Random.Range(0, aGrenadeEmpty.Length)], aGrenadeEmptyVol);
+        }
+        else if (Input.GetButtonDown("Grenade") && canShoot && iGrenadeCount > 0) // if input button "grenade" is pressed, player has grenade ammo, and canShoot is enabled
+        {
+            // decrement player grenade ammo
+            iGrenadeCount--;
+
+            // disable shooting until grenade throw is complete
             canShoot = false;
 
-            if (iGrenadeCount > 0) // if player has grenade ammo to use, canShoot is enabled, and input button is pressed
-            {
-                // play grenade pullpin audio clip
-                aud.PlayOneShot(aGrenade[Random.Range(0, aGrenade.Length)], aGrenadeVol);
+            // play grenade pullpin audio clip
+            aud.PlayOneShot(aGrenade[Random.Range(0, aGrenade.Length)], aGrenadeVol);
 
-                // instantiate grenade object
-                GameObject gTempGrenade = Instantiate(gPlayerGrenade, transform.position, transform.rotation);
+            // instantiate grenade object
+            Instantiate(gPlayerGrenade, transform.position, transform.rotation);
 
-                // launch grenade object in direction of player reticule
-                
+            // update grenade ammo UI component in gameManager
+            GameManager._instance.updateGrenadeCount();
 
-                // decrement player grenade ammo
-                iGrenadeCount--;
-
-                // update grenade ammo UI component in gameManager
-                GameManager._instance.updateGrenadeCount();
-            }
-            else if (iGrenadeCount <= 0) // if player does not have grenade ammo to use
-            {
-                // play "no grenades left" audio clip
-                aud.PlayOneShot(aGrenadeEmpty[Random.Range(0, aGrenadeEmpty.Length)], aGrenadeEmptyVol);
-            }
-
+            // reenable shooting
             canShoot = true;
         }
     }
