@@ -314,7 +314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 8448960639718001734}
-  iPlayerHealth: 40
+  iPlayerHealth: 19
   fPlayerSpeed: 4
   fSprintMulti: 2
   fJumpHeight: 8
@@ -326,6 +326,8 @@ MonoBehaviour:
   iWeaponDamage: 1
   iWeaponAmmo: 5
   iTotalWeaponAmmo: 25
+  gPlayerGrenade: {fileID: 6097911041965791826, guid: 4718ea7e93356af4eb18e462b2b06bda, type: 3}
+  iGrenadeCount: 3
   _hitEffectSpark: {fileID: 4448962958098883110, guid: 88760f2393d8b634385a5d08a3d4ca6b, type: 3}
   _muzzleFlash: {fileID: 8448960637801368390}
   vPushBack: {x: 0, y: 0, z: 0}
@@ -382,6 +384,12 @@ MonoBehaviour:
   aAmmo:
   - {fileID: 8300000, guid: 1df7d6ea12f395640ab62ddd252bde73, type: 3}
   aAmmoVol: 0.5
+  aGrenade:
+  - {fileID: 8300000, guid: f479719563b375e428f5a0aac2df9211, type: 3}
+  aGrenadeVol: 0.35
+  aGrenadeEmpty:
+  - {fileID: 8300000, guid: 2d061ba8c95e8aa42a94df3fecda7368, type: 3}
+  aGrenadeEmptyVol: 0.35
   iWeaponAmmoOrig: 0
 --- !u!143 &8448960639718001734
 CharacterController:
@@ -460,7 +468,7 @@ AudioSource:
   m_GameObject: {fileID: 8448960639718001737}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5992241618445561850, guid: 6f4b16b16ef35a44ba71e732f405b6b2, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1

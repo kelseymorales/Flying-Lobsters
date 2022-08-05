@@ -42,10 +42,11 @@ public class GameManager : MonoBehaviour
     public TMP_Text tBombsTimer;
     public TMP_Text tDefuseCountdown;
 
-    // UI - player ammo total, ammo clip, and current shots left in clip
+    // UI - player ammo total, ammo clip, current shots left in clip, and player grenade ammo
     public TMP_Text ammoTotal;
     public TMP_Text clipSize;
     public TMP_Text shotsInClip;
+    public TMP_Text grenadeAmmo;
 
     [Header("Effects\n------------------------------")]
     public GameObject _playerDamageFlash;                       // screenspace effect for player taking damage
@@ -300,6 +301,11 @@ public class GameManager : MonoBehaviour
         ammoTotal.text = _playerScript.iTotalWeaponAmmo.ToString("F0"); // ammo pool total
         shotsInClip.text = _playerScript.iWeaponAmmo.ToString("F0"); // current Clip
         clipSize.text = _playerScript.iWeaponAmmoOrig.ToString("F0");
+    }
+
+    public void updateGrenadeCount() // helper function for updating UI with current grenade count
+    {
+        grenadeAmmo.text = _playerScript.iGrenadeCount.ToString("F0");
     }
 
     public void WinGame()   // helper function for win game scenario

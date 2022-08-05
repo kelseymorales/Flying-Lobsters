@@ -23,6 +23,8 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(1, 10)][SerializeField] int iWeaponDamage;               // Player Weapon Damage
     [Range(1, 25)][SerializeField] public int iWeaponAmmo;          // Player weapon ammo clip size
     [SerializeField] public int iTotalWeaponAmmo;                   // Player weapon ammo pool total
+    [SerializeField] GameObject gPlayerGrenade;                     // stores prefab for player grenade
+    [SerializeField] public int iGrenadeCount;                      // stores ammo count for player grenades
 
     [Header("Effects")]
     [Header("--------------------------")]
@@ -63,6 +65,10 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(0.0f, 1.0f)][SerializeField] float aHealVol;
     [SerializeField] AudioClip[] aAmmo;
     [Range(0.0f, 1.0f)][SerializeField] float aAmmoVol;
+    [SerializeField] AudioClip[] aGrenade;
+    [Range(0.0f, 1.0f)][SerializeField] float aGrenadeVol;
+    [SerializeField] AudioClip[] aGrenadeEmpty;
+    [Range(0.0f, 1.0f)][SerializeField] float aGrenadeEmptyVol;
 
     // Bool variables for player character
     bool canShoot = true;       // indicates whether player is allowed to shoot at any given moment
@@ -90,6 +96,7 @@ public class playerController : MonoBehaviour, IDamageable
 
         GameManager._instance.updateAmmoCount(); // update ui with ammo count info
         GameManager._instance.defuseLabel.SetActive(false); // small fix to make sure defuse prompt is inactive when player spawns
+        GameManager._instance.updateGrenadeCount(); // update UI with grenade count info
     }
 
     // Called every frame
@@ -106,6 +113,7 @@ public class playerController : MonoBehaviour, IDamageable
             StartCoroutine(Shoot());
             StartCoroutine(reload());
             StartCoroutine(playFootsteps());
+            ThrowGrenade();
         }
     }
 
@@ -187,7 +195,7 @@ public class playerController : MonoBehaviour, IDamageable
     IEnumerator reload()
     {
         // if reload button is pressed, and player has ammo is their total ammo pool, start reload function
-        if (Input.GetButton("Reload") && iTotalWeaponAmmo > 0)
+        if (Input.GetButtonDown("Reload") && iTotalWeaponAmmo > 0)
         {
             int shotsFired = iWeaponAmmoOrig - iWeaponAmmo; // determine how many shots were fired from the clip
 
@@ -273,6 +281,40 @@ public class playerController : MonoBehaviour, IDamageable
             canShoot = true;
 
             GameManager._instance.updateAmmoCount();
+        }
+    }
+
+    public void ThrowGrenade()
+    {
+        // if input button "grenade" is pressed, and canShoot is enabled
+        if (Input.GetButton("Grenade") && canShoot)
+        {
+            canShoot = false;
+
+            if (iGrenadeCount > 0) // if player has grenade ammo to use, canShoot is enabled, and input button is pressed
+            {
+                // play grenade pullpin audio clip
+                aud.PlayOneShot(aGrenade[Random.Range(0, aGrenade.Length)], aGrenadeVol);
+
+                // instantiate grenade object
+                GameObject gTempGrenade = Instantiate(gPlayerGrenade, transform.position, transform.rotation);
+
+                // launch grenade object in direction of player reticule
+                
+
+                // decrement player grenade ammo
+                iGrenadeCount--;
+
+                // update grenade ammo UI component in gameManager
+                GameManager._instance.updateGrenadeCount();
+            }
+            else if (iGrenadeCount <= 0) // if player does not have grenade ammo to use
+            {
+                // play "no grenades left" audio clip
+                aud.PlayOneShot(aGrenadeEmpty[Random.Range(0, aGrenadeEmpty.Length)], aGrenadeEmptyVol);
+            }
+
+            canShoot = true;
         }
     }
 
