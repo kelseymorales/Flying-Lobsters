@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
 
@@ -70,7 +71,8 @@ public class GameManager : MonoBehaviour
     public Image _defuseSliderImage;                            // stores reference to UI - bomb defuse countdown slider fill
     [HideInInspector] public int iScore;                        // stores player score - updated in checkEnemiesKilled, PlayerController shoot, and bombGoal defuse
     [SerializeField] TMP_Text displayWinScore;                  // UI component that displays score on win screen
-    [SerializeField] TMP_Text displayLoseScore;                  // UI component that displays score on lose screen
+    [SerializeField] TMP_Text displayLoseScore;                 // UI component that displays score on lose screen
+    [SerializeField] private bool bRestartCurrentLevel; 
 
     [Header("Text Prompts\n------------------------------")]
     [SerializeField] public GameObject defuseLabel;             // reference to prompt shown to defuse bombs
@@ -139,6 +141,22 @@ public class GameManager : MonoBehaviour
         _menuCurrentlyOpen = null;
         UnlockCursorUnpause();
 
+    }
+
+    public void Restart()
+    {
+        UnlockCursorUnpause();
+
+        if (bRestartCurrentLevel)
+        {
+            Debug.Log("Current Scene loaded");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        else
+        {
+            Debug.Log("Level 1 loaded");
+            SceneManager.LoadScene(1);
+        }
     }
 
     public void PlayerDead()

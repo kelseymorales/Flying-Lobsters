@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Collin.unity
     guid: d80bc1004d2eb014fa0e471d9bd032d9
+  - enabled: 1
+    path: Assets/Scenes/Raymond.unity
+    guid: 8c9058275b9e7c74093f0e85f68248b4
   m_configObjects: {}

@@ -21,8 +21,7 @@ public class buttonFunctions : MonoBehaviour
 
     public void Restart() //calling restart from gamemanger and reloading scene for menu UI
     {
-        GameManager._instance.UnlockCursorUnpause();
-        SceneManager.LoadScene(1); // load to level 1
+        GameManager._instance.Restart();
     }
 
     #region Menus
