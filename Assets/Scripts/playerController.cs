@@ -201,7 +201,7 @@ public class playerController : MonoBehaviour, IDamageable
         if (hasGun)
         {
             // if reload button is pressed, the current clip is not full, and player has ammo is their total ammo pool, start reload function
-            if (Input.GetButtonDown("Reload") && iTotalWeaponAmmo > 0 && iWeaponAmmo < iTotalWeaponAmmo)
+            if (Input.GetButtonDown("Reload") && iTotalWeaponAmmo > 0 && iWeaponAmmo < iWeaponAmmoOrig)
             {
                 int shotsFired = iWeaponAmmoOrig - iWeaponAmmo; // determine how many shots were fired from the clip
 
