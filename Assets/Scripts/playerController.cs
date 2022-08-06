@@ -466,6 +466,10 @@ public class playerController : MonoBehaviour, IDamageable
         //load model
         gunModel.GetComponent<MeshFilter>().sharedMesh = model.GetComponent<MeshFilter>().sharedMesh;
         gunModel.GetComponent<MeshRenderer>().sharedMaterial = model.GetComponent<MeshRenderer>().sharedMaterial;
+
+        // Scale model
+        gunModel.transform.localScale = model.transform.localScale;
+
     }
 
 }
