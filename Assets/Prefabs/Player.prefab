@@ -405,7 +405,7 @@ MonoBehaviour:
   iJumps: 1
   iHealthPickupHealNum: 5
   iAmmoPickupAmmoNum: 25
-  fShootRate: 0.2
+  fShootRate: 0.1
   iWeaponDamage: 1
   fGunRange: 0
   iWeaponAmmo: 5

@@ -200,8 +200,8 @@ public class playerController : MonoBehaviour, IDamageable
     {
         if (hasGun)
         {
-            // if reload button is pressed, and player has ammo is their total ammo pool, start reload function
-            if (Input.GetButtonDown("Reload") && iTotalWeaponAmmo > 0)
+            // if reload button is pressed, the current clip is not full, and player has ammo is their total ammo pool, start reload function
+            if (Input.GetButtonDown("Reload") && iTotalWeaponAmmo > 0 && iWeaponAmmo < iTotalWeaponAmmo)
             {
                 int shotsFired = iWeaponAmmoOrig - iWeaponAmmo; // determine how many shots were fired from the clip
 
@@ -256,26 +256,29 @@ public class playerController : MonoBehaviour, IDamageable
                 // Casts a ray from the player camera and performs an action where the ray hits
                 if (Physics.Raycast(UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit))
                 {
-                    // play spark effect where ray hits
-                    Instantiate(_hitEffectSpark, hit.point, _hitEffectSpark.transform.rotation);
-
-                    // if the target is damageable, it takes damage
-                    if (hit.collider.GetComponent<IDamageable>() != null)
+                    if (hit.distance <= fGunRange) // if raycast is within the player's gun's range stat, continue
                     {
-                        // get target
-                        IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
+                        // play spark effect where ray hits
+                        Instantiate(_hitEffectSpark, hit.point, _hitEffectSpark.transform.rotation);
 
-                        // check for body shot or head shot
-                        if (hit.collider is SphereCollider) // apply damage for head shot, and play headshot audio clip
+                        // if the target is damageable, it takes damage
+                        if (hit.collider.GetComponent<IDamageable>() != null)
                         {
-                            isDamageable.TakeDamage(10000);
-                            aud.PlayOneShot(aHeadShot[Random.Range(0, aHeadShot.Length)], aHeadShotVol);
-                            GameManager._instance.iScore += 15;
-                            GameManager._instance.UpdatePlayerScore(); // call to helper function to update score on win/lose screens
-                        }
-                        else
-                        {
-                            isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                            // get target
+                            IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
+
+                            // check for body shot or head shot
+                            if (hit.collider is SphereCollider) // apply damage for head shot, and play headshot audio clip
+                            {
+                                isDamageable.TakeDamage(10000);
+                                aud.PlayOneShot(aHeadShot[Random.Range(0, aHeadShot.Length)], aHeadShotVol);
+                                GameManager._instance.iScore += 15;
+                                GameManager._instance.UpdatePlayerScore(); // call to helper function to update score on win/lose screens
+                            }
+                            else
+                            {
+                                isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                            }
                         }
                     }
                 }
