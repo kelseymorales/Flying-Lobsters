@@ -379,12 +379,17 @@ public class playerController : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("HealthPack") && iPlayerHealth < iPlayerHealthOrig) //Calls Health Amount
+        if(other.CompareTag("HealthPack") && (iPlayerHealth+iHealthPickupHealNum) < iPlayerHealthOrig) //Checks to see if health amount is less than original health and health pack amount
         {
             HealthPack(); //calls health pack function
             Destroy(other.gameObject); //destroys health pack
         }
-
+        else if (other.CompareTag("HealthPack") && iPlayerHealth<iPlayerHealthOrig && (iPlayerHealth + iHealthPickupHealNum) >= iPlayerHealthOrig) //Checks if health amount is less than original and greater than heal amount
+        {
+            iPlayerHealth=iPlayerHealthOrig; //calls health pack function
+            UpdateHealthBar();
+            Destroy(other.gameObject); //destroys health pack
+        }
         else if (other.CompareTag("HealthPack") && iPlayerHealth == iPlayerHealthOrig) //if health is full, do nothing
         {
 
