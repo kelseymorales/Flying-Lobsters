@@ -68,14 +68,14 @@ public class TrapDamage : MonoBehaviour
 
             if (isHazardousTrap)
             {
-                if (collider.GetComponent<IDamagable>() != null)
+                if (collider.GetComponent<IDamageable>() != null)
                 {
-                    IDamagable isDamagable = collider.GetComponent<IDamagable>();
+                    IDamageable isDamagable = collider.GetComponent<IDamageable>();
 
                     if(canTakeDamage)
                     {
                         StartCoroutine(ConstantDamageTrap());
-                        isDamagable.takeDamage(fHazardousTrapDamage);
+                        isDamagable.TakeDamage(fHazardousTrapDamage);
                     }
                         
                 }
