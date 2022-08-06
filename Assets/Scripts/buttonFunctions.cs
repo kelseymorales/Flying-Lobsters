@@ -37,6 +37,21 @@ public class buttonFunctions : MonoBehaviour
         GameManager._instance._optionsMenu.SetActive(true);
     }
 
+    public void CloseOptions()
+    {
+        if(!GameManager._instance.isPaused)
+            GameManager._instance._optionsMenu.SetActive(false);
+        else
+            GameManager._instance.CloseOptionsInGame();
+    }
+
+    public void OpenOptionsInGame() 
+    {
+        GameManager._instance._optionsMenu.SetActive(true);
+        GameManager._instance.OpenOptionsInGame(); 
+
+    }
+
     public void StartGame() //to implement.. 
     {
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Audio; 
 
 public class GameManager : MonoBehaviour
 {
@@ -47,6 +48,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text clipSize;
     public TMP_Text shotsInClip;
     public TMP_Text grenadeAmmo;
+
+    [Header("Audio\n------------------------------")]
+    [SerializeField] AudioMixer _mixer;
 
     [Header("Effects\n------------------------------")]
     public GameObject _playerDamageFlash;                       // screenspace effect for player taking damage
@@ -99,7 +103,6 @@ public class GameManager : MonoBehaviour
                 _spawners[i] = s[i].GetComponent<Spawner>();
             }
         }
-
         StartCoroutine(bombTick());
     }
 
@@ -325,4 +328,21 @@ public class GameManager : MonoBehaviour
         displayLoseScore.text = iScore.ToString("F0"); // lose screen score
         displayWinScore.text = iScore.ToString("F0"); // win screen score
     }
+
+    public void OpenOptionsInGame() //Created to open the menu inside the actual game and not in the main menu
+    {
+        _menuCurrentlyOpen.SetActive(false); 
+        _menuCurrentlyOpen = _optionsMenu;
+        _menuCurrentlyOpen.SetActive(true);
+        LockCursorPause();
+    }
+
+    public void CloseOptionsInGame() //Created to close the menu inside the actual game and not in the main menu
+    {
+        _menuCurrentlyOpen.SetActive(false);
+        _menuCurrentlyOpen = _pauseMenu;
+        _menuCurrentlyOpen.SetActive(true);
+    }
+
+    
 }

@@ -16,6 +16,8 @@ public class VolumeManager : MonoBehaviour
     {
         _volumeSlider.onValueChanged.AddListener(HandleSliderValueChanged);
         _toggle.onValueChanged.AddListener(HandleToggleValueChanged);
+
+        
     }
 
     private void HandleSliderValueChanged(float value) //Will convert the change in the slider (value 1-0) to decibels
@@ -27,6 +29,7 @@ public class VolumeManager : MonoBehaviour
         isToggleEventDisable = true; 
         _toggle.isOn = _volumeSlider.value > _volumeSlider.minValue;
         isToggleEventDisable = false; 
+
     }
 
     private void HandleToggleValueChanged(bool enableSound) //Handles the muting and setting back the sound to a value using the toggle
