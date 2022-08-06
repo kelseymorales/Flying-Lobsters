@@ -286,7 +286,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void ThrowGrenade()
     {
-        if (Input.GetButtonDown("Grenade") && iGrenadeCount <= 0 || !canShoot) // if input button is pressed, player does not have grenade ammo to use OR canShoot is false
+        if (Input.GetButtonDown("Grenade") && (iGrenadeCount <= 0 || !canShoot)) // if input button is pressed, player does not have grenade ammo to use OR canShoot is false
         {
             // play "no grenades left" audio clip
             aud.PlayOneShot(aGrenadeEmpty[Random.Range(0, aGrenadeEmpty.Length)], aGrenadeEmptyVol);
