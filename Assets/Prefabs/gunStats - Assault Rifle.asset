@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fFireRate: 0.2
   iDamage: 1
-  gGunModel: {fileID: 4585239487053244516, guid: 3541160667a8c294b812a93529486cee, type: 3}
+  gGunModel: {fileID: 8257945635518313060, guid: 435cbae6fa49329439f23ba765d4d6e7, type: 3}
   iClipSize: 15
   fGunRange: 20

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class playerController : MonoBehaviour, IDamageable
 {
@@ -21,10 +22,12 @@ public class playerController : MonoBehaviour, IDamageable
     [Header("-------------------------")]
     [Range(0.1f, 3.0f)][SerializeField] float fShootRate;           // Player value for how fast they can shoot
     [Range(1, 10)][SerializeField] int iWeaponDamage;               // Player Weapon Damage
+    [Range(1, 50)] [SerializeField] float fGunRange;                // Range of player's weapon
     [Range(1, 25)][SerializeField] public int iWeaponAmmo;          // Player weapon ammo clip size
     [SerializeField] public int iTotalWeaponAmmo;                   // Player weapon ammo pool total
     [SerializeField] GameObject gPlayerGrenade;                     // stores prefab for player grenade
     [SerializeField] public int iGrenadeCount;                      // stores ammo count for player grenades
+    [SerializeField] GameObject gunModel;                           // Stores reference to the gun object attatched to the player/camera (used in weapon swap)
 
     [Header("Effects")]
     [Header("--------------------------")]
@@ -74,6 +77,7 @@ public class playerController : MonoBehaviour, IDamageable
     bool canShoot = true;       // indicates whether player is allowed to shoot at any given moment
     bool isSprinting = false;   // Indicates whether the player is currently sprinting
     bool bFootstepsPlaying;     // Indicates if the footsteps audio affect is currently playing
+    bool hasGun = false;        // Indicates whether the player has picked up a gun
 
     float fPlayerSpeedOrig;     // stores the starting player speed
     int iPlayerHealthOrig;      // stores the starting player health
@@ -194,93 +198,99 @@ public class playerController : MonoBehaviour, IDamageable
 
     IEnumerator reload()
     {
-        // if reload button is pressed, and player has ammo is their total ammo pool, start reload function
-        if (Input.GetButtonDown("Reload") && iTotalWeaponAmmo > 0)
+        if (hasGun)
         {
-            int shotsFired = iWeaponAmmoOrig - iWeaponAmmo; // determine how many shots were fired from the clip
-
-            
-            if (iTotalWeaponAmmo >= shotsFired)
+            // if reload button is pressed, and player has ammo is their total ammo pool, start reload function
+            if (Input.GetButtonDown("Reload") && iTotalWeaponAmmo > 0)
             {
-                // has more or the same amount of ammo then what the clip can hold
-                iTotalWeaponAmmo -= shotsFired; // take ammo needed to refill the clip from the total amount of ammo
+                int shotsFired = iWeaponAmmoOrig - iWeaponAmmo; // determine how many shots were fired from the clip
 
-                iWeaponAmmo = iWeaponAmmoOrig; // reload clip
-            }
-            else
-            {
-                // has less then the max slip allowed
-                iWeaponAmmo += iTotalWeaponAmmo; // take remaining ammo from the total
-                iTotalWeaponAmmo = 0; // set total to 0 since we just took the reamining ammo to fill the clip
+
+                if (iTotalWeaponAmmo >= shotsFired)
+                {
+                    // has more or the same amount of ammo then what the clip can hold
+                    iTotalWeaponAmmo -= shotsFired; // take ammo needed to refill the clip from the total amount of ammo
+
+                    iWeaponAmmo = iWeaponAmmoOrig; // reload clip
+                }
+                else
+                {
+                    // has less then the max slip allowed
+                    iWeaponAmmo += iTotalWeaponAmmo; // take remaining ammo from the total
+                    iTotalWeaponAmmo = 0; // set total to 0 since we just took the reamining ammo to fill the clip
+                }
+
+                // Call to reload audio clip
+                aud.PlayOneShot(aPlayerReload[Random.Range(0, aPlayerReload.Length)], aPlayerReloadVol);
             }
 
-            // Call to reload audio clip
-            aud.PlayOneShot(aPlayerReload[Random.Range(0, aPlayerReload.Length)], aPlayerReloadVol);
+            yield return new WaitForSeconds(2.0f);
+            GameManager._instance.updateAmmoCount();
         }
-
-        yield return new WaitForSeconds(2.0f);
-        GameManager._instance.updateAmmoCount();
     }
 
     IEnumerator Shoot()
     {
-        // if shoot button is pressed, but there is no ammo in clip, play sound file
-        if (Input.GetButton("Shoot") && iWeaponAmmo <= 0)
+        if (hasGun)
         {
-            // call to empty clip audio clip
-            aud.PlayOneShot(aPlayerEmptyClip[Random.Range(0, aPlayerEmptyClip.Length)], aPlayerEmptyClipVol);
-        }
-
-        // get input for shooting
-        if (Input.GetButton("Shoot") && canShoot && iWeaponAmmo > 0)
-        {
-            iWeaponAmmo--;
-
-            // turns shooting off so it cant be immediately executed again
-            canShoot = false;
-
-            // play audio clip
-            aud.PlayOneShot(aGunShot[Random.Range(0, aGunShot.Length)], aGunShotVol);
-
-            RaycastHit hit;
-
-            // Casts a ray from the player camera and performs an action where the ray hits
-            if (Physics.Raycast(UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit))
+            // if shoot button is pressed, but there is no ammo in clip, play sound file
+            if (Input.GetButton("Shoot") && iWeaponAmmo <= 0)
             {
-                // play spark effect where ray hits
-                Instantiate(_hitEffectSpark, hit.point, _hitEffectSpark.transform.rotation);
+                // call to empty clip audio clip
+                aud.PlayOneShot(aPlayerEmptyClip[Random.Range(0, aPlayerEmptyClip.Length)], aPlayerEmptyClipVol);
+            }
 
-                // if the target is damageable, it takes damage
-                if (hit.collider.GetComponent<IDamageable>() != null)
+            // get input for shooting
+            if (Input.GetButton("Shoot") && canShoot && iWeaponAmmo > 0)
+            {
+                iWeaponAmmo--;
+
+                // turns shooting off so it cant be immediately executed again
+                canShoot = false;
+
+                // play audio clip
+                aud.PlayOneShot(aGunShot[Random.Range(0, aGunShot.Length)], aGunShotVol);
+
+                RaycastHit hit;
+
+                // Casts a ray from the player camera and performs an action where the ray hits
+                if (Physics.Raycast(UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit))
                 {
-                    // get target
-                    IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
+                    // play spark effect where ray hits
+                    Instantiate(_hitEffectSpark, hit.point, _hitEffectSpark.transform.rotation);
 
-                    // check for body shot or head shot
-                    if (hit.collider is SphereCollider) // apply damage for head shot, and play headshot audio clip
+                    // if the target is damageable, it takes damage
+                    if (hit.collider.GetComponent<IDamageable>() != null)
                     {
-                        isDamageable.TakeDamage(10000);
-                        aud.PlayOneShot(aHeadShot[Random.Range(0, aHeadShot.Length)], aHeadShotVol);
-                        GameManager._instance.iScore += 15;
-                        GameManager._instance.UpdatePlayerScore(); // call to helper function to update score on win/lose screens
-                    }
-                    else
-                    {
-                        isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                        // get target
+                        IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
+
+                        // check for body shot or head shot
+                        if (hit.collider is SphereCollider) // apply damage for head shot, and play headshot audio clip
+                        {
+                            isDamageable.TakeDamage(10000);
+                            aud.PlayOneShot(aHeadShot[Random.Range(0, aHeadShot.Length)], aHeadShotVol);
+                            GameManager._instance.iScore += 15;
+                            GameManager._instance.UpdatePlayerScore(); // call to helper function to update score on win/lose screens
+                        }
+                        else
+                        {
+                            isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                        }
                     }
                 }
+                // muzzle flash effect
+                _muzzleFlash.transform.localRotation = Quaternion.Euler(0, 0, Random.Range(0, 360)); // rotate effect along Z-axis randomly for every shot
+                _muzzleFlash.SetActive(true);
+                yield return new WaitForSeconds(0.05f);
+                _muzzleFlash.SetActive(false);
+
+                // Timer runs, based off of player shootRate, and then re-enables shooting
+                yield return new WaitForSeconds(fShootRate);
+                canShoot = true;
+
+                GameManager._instance.updateAmmoCount();
             }
-            // muzzle flash effect
-            _muzzleFlash.transform.localRotation = Quaternion.Euler(0, 0, Random.Range(0, 360)); // rotate effect along Z-axis randomly for every shot
-            _muzzleFlash.SetActive(true);
-            yield return new WaitForSeconds(0.05f);
-            _muzzleFlash.SetActive(false);
-
-            // Timer runs, based off of player shootRate, and then re-enables shooting
-            yield return new WaitForSeconds(fShootRate);
-            canShoot = true;
-
-            GameManager._instance.updateAmmoCount();
         }
     }
 
@@ -441,6 +451,21 @@ public class playerController : MonoBehaviour, IDamageable
     {
         // audio clip for ammo pickup
         aud.PlayOneShot(aAmmo[Random.Range(0, aAmmo.Length)], aAmmoVol);
+    }
+
+    public void gunPickup(float fireRate, int damage, GameObject model, int clipSize, float range) // function for picking up new gun
+    {
+        hasGun = true;
+
+        // load stats
+        fShootRate = fireRate;
+        iWeaponDamage = damage;
+        iWeaponAmmoOrig = clipSize;
+        fGunRange = range;
+
+        //load model
+        gunModel.GetComponent<MeshFilter>().sharedMesh = model.GetComponent<MeshFilter>().sharedMesh;
+        gunModel.GetComponent<MeshRenderer>().sharedMaterial = model.GetComponent<MeshRenderer>().sharedMaterial;
     }
 
 }
