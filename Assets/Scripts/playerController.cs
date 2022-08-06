@@ -316,7 +316,10 @@ public class playerController : MonoBehaviour, IDamageable
             aud.PlayOneShot(aGrenade[Random.Range(0, aGrenade.Length)], aGrenadeVol);
 
             // instantiate grenade object
-            Instantiate(gPlayerGrenade, transform.position, transform.rotation);
+            GameObject newNade = Instantiate(gPlayerGrenade, transform.position, transform.rotation);
+
+            // apply force
+            newNade.GetComponent<Rigidbody>().AddForce(transform.forward, ForceMode.Impulse);
 
             // update grenade ammo UI component in gameManager
             GameManager._instance.updateGrenadeCount();
@@ -464,6 +467,7 @@ public class playerController : MonoBehaviour, IDamageable
         fShootRate = fireRate;
         iWeaponDamage = damage;
         iWeaponAmmoOrig = clipSize;
+        iWeaponAmmo = clipSize;
         fGunRange = range;
 
         //load model
