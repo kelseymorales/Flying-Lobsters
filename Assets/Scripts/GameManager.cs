@@ -33,6 +33,13 @@ public class GameManager : MonoBehaviour
     public GameObject _winGameMenu;
     public GameObject _loseGameMenu;
 
+    //game menu first options for implemented keyboard input
+    public EventSystem _eventSystem;    
+    public GameObject _pauseMenuFirstOption;
+    public GameObject _loseGameMenuFirstOption;
+    public GameObject _playerDeadMenuFirstOption;
+    public GameObject _winGameMenuFirstOption;
+
     
    
 
@@ -123,8 +130,10 @@ public class GameManager : MonoBehaviour
                 _menuCurrentlyOpen = _pauseMenu;
                 _menuCurrentlyOpen.SetActive(true);
                 LockCursorPause();
-
-
+                //Setting up event system to show highlighted button
+                _eventSystem.SetSelectedGameObject(null);
+                _eventSystem.SetSelectedGameObject(_pauseMenuFirstOption);          
+                
             }
             else
             {
@@ -167,6 +176,9 @@ public class GameManager : MonoBehaviour
         _menuCurrentlyOpen.SetActive(true);
         LockCursorPause();
 
+        //Setting up event system to show highlighted button
+        _eventSystem.SetSelectedGameObject(null);
+        _eventSystem.SetSelectedGameObject(_playerDeadMenuFirstOption);
 
         _playerScript.loseJingle();
         StopSpawners();
@@ -295,6 +307,9 @@ public class GameManager : MonoBehaviour
         _menuCurrentlyOpen = _loseGameMenu;
         _menuCurrentlyOpen.SetActive(true);
         LockCursorPause();
+        //Setting up event system to show highlighted button
+        _eventSystem.SetSelectedGameObject(null);
+        _eventSystem.SetSelectedGameObject(_loseGameMenuFirstOption);
 
     }
 
@@ -342,6 +357,10 @@ public class GameManager : MonoBehaviour
         _menuCurrentlyOpen.SetActive(true);
         gameOver = true;
         LockCursorPause();
+
+        //Setting up event system to show highlighted button
+        _eventSystem.SetSelectedGameObject(null);
+        _eventSystem.SetSelectedGameObject(_winGameMenuFirstOption);
 
         // play 'You Win' audio clip
         _playerScript.winJingle();
