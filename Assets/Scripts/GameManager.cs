@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Audio; 
+using UnityEngine.Audio;
+using UnityEngine.EventSystems;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -29,6 +31,9 @@ public class GameManager : MonoBehaviour
     public GameObject _playerDeadMenu;
     public GameObject _winGameMenu;
     public GameObject _loseGameMenu;
+
+    
+   
 
     // UI - healthbar
     public Image _HpBar;
@@ -116,6 +121,8 @@ public class GameManager : MonoBehaviour
                 _menuCurrentlyOpen = _pauseMenu;
                 _menuCurrentlyOpen.SetActive(true);
                 LockCursorPause();
+
+
             }
             else
             {
@@ -141,6 +148,7 @@ public class GameManager : MonoBehaviour
         _menuCurrentlyOpen = _playerDeadMenu;
         _menuCurrentlyOpen.SetActive(true);
         LockCursorPause();
+
 
         _playerScript.loseJingle();
         StopSpawners();
