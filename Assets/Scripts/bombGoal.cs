@@ -6,6 +6,9 @@ public class bombGoal : MonoBehaviour
     public bool inRange = false;    // tracks if player is in range of a bomb
     bool canDefuse = true;          // tracks if a bomb is defusable
 
+    public Color _defusedShade;
+    [SerializeField] MeshRenderer ren;
+
 
     void Start()
     {
@@ -51,8 +54,13 @@ public class bombGoal : MonoBehaviour
             return;
         }
 
-        canDefuse = false; // cant defuse while currently defusing
+        canDefuse = false; // can't defuse while currently defusing
 
-        GameManager._instance.CallDefuse(gameObject);
+        GameManager._instance.CallDefuse(this);
+    }
+
+    public void SetDefusedState()
+    {
+        ren.material.color = Color.Lerp(ren.material.color, _defusedShade, 1.0f);
     }
 }

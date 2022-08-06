@@ -35,7 +35,7 @@ Transform:
   - {fileID: 8558724456461275992}
   - {fileID: 8559030859684590622}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -53.711, z: 0}
 --- !u!114 &2960962551958377644
 MonoBehaviour:
@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inRange: 0
+  _defusedShade: {r: 0, g: 0.31132078, b: 0.028884377, a: 1}
+  ren: {fileID: 8546530563521143248}
 --- !u!65 &8516137233018456266
 BoxCollider:
   m_ObjectHideFlags: 0

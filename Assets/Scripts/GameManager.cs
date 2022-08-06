@@ -192,12 +192,12 @@ public class GameManager : MonoBehaviour
         UpdatePlayerScore(); // call to helper function to update score on win/lose screens
     }
 
-    public void CallDefuse(GameObject bomb)
+    public void CallDefuse(bombGoal bomb)
     {
         _defuseFunction = StartCoroutine(Defuse(bomb));
     }
 
-    IEnumerator Defuse(GameObject bomb)
+    IEnumerator Defuse(bombGoal bomb)
     {
         tDefuseCountdown.text = ""; // clear previous defuse text if needed
         _defuseSliderImage.fillAmount = GameManager._instance.iDefuseCountdownTime; // make sure slider bar is full before putting it onscreen
@@ -236,8 +236,7 @@ public class GameManager : MonoBehaviour
 
         _playerScript.defuseJingle(); // play defuse audio jingle
 
-        Destroy(bomb); // destroy bomb object (may be better to add a particle effect or something instead, rather than bomb just disapearing)
-
+        bomb.SetDefusedState();       // tells the bomb it is defused
         StopSpawners();
 
         // Level Win Condition
