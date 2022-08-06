@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb7d476c3073b742a837a15c42223d5, type: 3}
+  m_Name: gunStats - Shotgun
+  m_EditorClassIdentifier: 
+  fFireRate: 4
+  iDamage: 15
+  gGunModel: {fileID: 9062127156039001622, guid: 9c9fa1cc62a62a7439f1b91dc94210d0, type: 3}
+  iClipSize: 2
+  fGunRange: 10
