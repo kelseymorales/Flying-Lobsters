@@ -418,9 +418,8 @@ MonoBehaviour:
   vPushBack: {x: 0, y: 0, z: 0}
   iPushBackResolve: 5
   aud: {fileID: 1679202259}
-  aGunShot:
-  - {fileID: 8300000, guid: f91f0596c717b2744ba7889ead827dae, type: 3}
-  aGunShotVol: 0.35
+  aGunShot: []
+  aGunShotVol: 0
   aPlayerHurt:
   - {fileID: 8300000, guid: 587251b6459465a42bfca89375147a24, type: 3}
   - {fileID: 8300000, guid: 9cffad5342792284d982dc7bb1c29b62, type: 3}

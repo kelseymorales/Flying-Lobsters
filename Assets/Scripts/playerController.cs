@@ -453,7 +453,7 @@ public class playerController : MonoBehaviour, IDamageable
         aud.PlayOneShot(aAmmo[Random.Range(0, aAmmo.Length)], aAmmoVol);
     }
 
-    public void gunPickup(float fireRate, int damage, GameObject model, int clipSize, float range) // function for picking up new gun
+    public void gunPickup(float fireRate, int damage, GameObject model, int clipSize, float range, AudioClip[] soundFile, float audioVol) // function for picking up new gun
     {
         hasGun = true;
 
@@ -470,6 +470,9 @@ public class playerController : MonoBehaviour, IDamageable
         // Scale model
         gunModel.transform.localScale = model.transform.localScale;
 
+        // audio
+        aGunShot = soundFile;
+        aGunShotVol = audioVol;
     }
 
 }

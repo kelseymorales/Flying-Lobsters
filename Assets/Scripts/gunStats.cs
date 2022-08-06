@@ -12,4 +12,7 @@ public class gunStats : ScriptableObject
 
     public int iClipSize;
     public float fGunRange;
+
+    [SerializeField] public AudioClip[] aGunShot;
+    [Range(0.0f, 1.0f)][SerializeField] public float aGunShotVol;
 }

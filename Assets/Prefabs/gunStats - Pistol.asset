@@ -17,3 +17,6 @@ MonoBehaviour:
   gGunModel: {fileID: 1266057262475763365, guid: 2f3593fa1b125e74c91247fe2e96b1db, type: 3}
   iClipSize: 5
   fGunRange: 25
+  aGunShot:
+  - {fileID: 8300000, guid: f91f0596c717b2744ba7889ead827dae, type: 3}
+  aGunShotVol: 0.35
