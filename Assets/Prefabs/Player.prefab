@@ -320,7 +320,7 @@ MonoBehaviour:
   fJumpHeight: 8
   fGravityValue: 20
   iJumps: 1
-  iHealthPickupHealNum: 15
+  iHealthPickupHealNum: 5
   iAmmoPickupAmmoNum: 25
   fShootRate: 0.2
   iWeaponDamage: 1
