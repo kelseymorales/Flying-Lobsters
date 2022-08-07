@@ -20,9 +20,14 @@ public class bombGoal : MonoBehaviour
     {
         if (inRange) // player in range
         {
-            if (Input.GetButton("Activate")) // activate key
+            if (Input.GetButtonDown("Activate"))
             {
                 Defuse();
+            }
+            if (Input.GetButtonUp("Activate"))
+            {
+                GameManager._instance.StopDefuseing();
+                canDefuse = true;
             }
         }
     }
