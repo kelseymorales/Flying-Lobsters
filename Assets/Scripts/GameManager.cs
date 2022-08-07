@@ -243,12 +243,16 @@ public class GameManager : MonoBehaviour
         _playerScript.UnlockInPlace(); // unlock player position
 
         defuseLabel.SetActive(false); // make sure the prompt to defuse bombs deactivates now that bomb is defused
+        
+
 
         tBombsDefused.text = iBombsDefusedCounter.ToString("F0"); // update bombs defused UI element
 
         _playerScript.defuseJingle(); // play defuse audio jingle
 
         bomb.SetDefusedState();       // tells the bomb it is defused
+
+
         StopSpawners();
 
         // Level Win Condition
@@ -259,7 +263,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void StopDefuseing()
+    public void StopDefuseing()
     {
         if (_defuseFunction == null)
         {
