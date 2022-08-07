@@ -18,6 +18,6 @@ MonoBehaviour:
   iClipSize: 2
   fGunRange: 50
   aGunShot:
-  - {fileID: 8300000, guid: f91f0596c717b2744ba7889ead827dae, type: 3}
+  - {fileID: 8300000, guid: 0ec0a787765d1d24cb5b63b1ed3546c1, type: 3}
   aGunShotVol: 0.35
   _anim: {fileID: 9100000, guid: e99bc7cf3625e7c4489f9b61c78718b2, type: 2}
