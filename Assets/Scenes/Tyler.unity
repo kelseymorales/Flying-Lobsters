@@ -3424,6 +3424,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5962362303640334612, guid: adb5c5930b6946446b06063b674b2b4b, type: 3}
+      propertyPath: isAcid
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5962362303640334612, guid: adb5c5930b6946446b06063b674b2b4b, type: 3}
       propertyPath: isFire
       value: 1
       objectReference: {fileID: 0}

@@ -59,19 +59,22 @@ public class TrapDamage : MonoBehaviour
         //Waits for delay
         yield return new WaitForSeconds(fStartTimeDelay); 
         //Checks if acid or fire trap
-        if(isAcid)
+        if(isHazardousTrap)
         {
-            Instantiate(_acidParticles, _roof.transform.position, _acidParticles.transform.rotation); //Instantiate acid particle system
-            //Acid droping Audio here (loop) 
+            if (isAcid)
+            {
+                Instantiate(_acidParticles, _roof.transform.position, _acidParticles.transform.rotation); //Instantiate acid particle system
+                                                                                                          //Acid droping Audio here (loop) 
+            }
+
+            if (isFire)
+            {
+                for (int i = 0; i < (int)Random.Range(3, 5); i++)
+                    InstantiateFIreRandom(); //Instantiate fire particle system, multiple times because its a small flame
+                                             //Fire burning Audio here (loop)
+            }
         }
-            
-            
-        if(isFire)
-        {
-            for (int i = 0; i < (int)Random.Range(3,5); i++)
-                InstantiateFIreRandom(); //Instantiate fire particle system, multiple times because its a small flame
-            //Fire burning Audio here (loop)
-        }
+        
             
         isTrapActive = true; //Sets trap back to active
     }

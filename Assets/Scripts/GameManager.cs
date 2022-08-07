@@ -284,6 +284,8 @@ public class GameManager : MonoBehaviour
         // activate UI elements showing defusing in process
         _defuseCountdownObject.SetActive(false);
         _defuseSlider.SetActive(false);
+
+        _playerScript.UnlockInPlace(); 
     }
 
     IEnumerator bombTick()
