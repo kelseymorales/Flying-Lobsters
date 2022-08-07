@@ -403,7 +403,7 @@ Transform:
   m_Children:
   - {fileID: 8448960638106335432}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8448960639718001733
 MonoBehaviour:
@@ -419,13 +419,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controller: {fileID: 8448960639718001734}
   _anim: {fileID: 5011508482565970742}
-  iPlayerHealth: 19
+  iPlayerHealth: 30
   fPlayerSpeed: 4
   fSprintMulti: 2
   fJumpHeight: 8
   fGravityValue: 20
   iJumps: 1
-  iHealthPickupHealNum: 5
+  iHealthPickupHealNum: 10
   iAmmoPickupAmmoNum: 25
   fShootRate: 0.1
   iWeaponDamage: 1
@@ -434,6 +434,7 @@ MonoBehaviour:
   iTotalWeaponAmmo: 25
   gPlayerGrenade: {fileID: 6097911041965791826, guid: c809c5d6d4d589f4ca1c2f3096580af0, type: 3}
   iGrenadeCount: 3
+  iGrenadeThrowStrength: 10
   gunModel: {fileID: 1509647309}
   _hitEffectSpark: {fileID: 4448962958098883110, guid: 88760f2393d8b634385a5d08a3d4ca6b, type: 3}
   _muzzleFlash: {fileID: 8448960637801368390}
