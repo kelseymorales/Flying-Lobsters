@@ -9,6 +9,8 @@ public class bombGoal : MonoBehaviour
     public Color _defusedShade;
     [SerializeField] MeshRenderer ren;
 
+    
+
 
     void Start()
     {
@@ -64,7 +66,7 @@ public class bombGoal : MonoBehaviour
         GameManager._instance.CallDefuse(this);
     }
 
-    public void SetDefusedState()
+    public virtual void SetDefusedState()
     {
         ren.material.color = Color.Lerp(ren.material.color, _defusedShade, 1.0f);
         inRange = false;

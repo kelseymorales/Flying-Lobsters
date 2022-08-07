@@ -25,7 +25,7 @@ public class TrapDamage : MonoBehaviour
     [SerializeField] GameObject _spikes; 
 
     [Header("Grenade Trap\n------------------------------")]
-    [SerializeField] GameObject _grenadeToSpawn; //Grenade object
+    [SerializeField] GameObject _tripWire; //Trip wire object
 
     [Header("Type Trap\n------------------------------")]
     //Controls what trap is going to be activated
@@ -45,6 +45,11 @@ public class TrapDamage : MonoBehaviour
         {
             _roof.SetActive(false);
             Instantiate(_spikes, transform.position - new Vector3(0, 1.8f, 0), _spikes.transform.rotation);
+        }
+        if(isGranadeTrap)
+        {
+            _roof.SetActive(false); 
+            Instantiate(_tripWire, transform.position +  new Vector3(0,-1.8f, 0f), _tripWire.transform.rotation);
         }
     }
 
@@ -112,13 +117,7 @@ public class TrapDamage : MonoBehaviour
                         
                 }
             }
-            else if (isGranadeTrap)
-            {
-                //Calls cluster grenade code
-                ThrowGrenades(); 
 
-                //Grenade audio here
-            }
         }
     }
 
@@ -147,15 +146,6 @@ public class TrapDamage : MonoBehaviour
         Instantiate(_fireParticles, transform.position + ranPos, _fireParticles.transform.rotation); //Using random position to instantiate particle system inside the collider
     }
 
-    private void ThrowGrenades()
-    {
-        //Launches the greanades 
-        float throwForce = .05f; 
-        Vector3 ranPos = new Vector3(Random.Range((-transform.localScale.x / 2) * throwForce, (transform.localScale.x / 2) * throwForce), 0f, Random.Range((-transform.localScale.z / 2) * throwForce, (transform.localScale.z / 2) * throwForce));
-        _grenadeToSpawn.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        Instantiate(_grenadeToSpawn, _roof.transform.position + ranPos, _grenadeToSpawn.transform.rotation); 
-        isTrapActive = false; 
-    }
 
 
 }

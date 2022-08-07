@@ -231,12 +231,21 @@ public class GameManager : MonoBehaviour
          
             yield return new WaitForSeconds(1);
         }
+        if(!isDefusingTrap) //Checks whether we are defusing a bomb or a trap
+        {
+            // update game goals 
+            iBombsActive--;
+            iBombsDefusedCounter++;
+            iScore += 50;
+            UpdatePlayerScore(); // call to helper function to update score on win/lose screens
 
-        // update game goals 
-        iBombsActive--;
-        iBombsDefusedCounter++;
-        iScore += 50;
-        UpdatePlayerScore(); // call to helper function to update score on win/lose screens
+            //deactivate UI elements showing defusing in process
+
+            tBombsDefused.text = iBombsDefusedCounter.ToString("F0"); // update bombs defused UI element
+
+            StopSpawners();
+        }
+
 
         //deactivate UI elements showing defusing in process
         _defuseCountdownObject.SetActive(false);
@@ -246,13 +255,14 @@ public class GameManager : MonoBehaviour
 
         defuseLabel.SetActive(false); // make sure the prompt to defuse bombs deactivates now that bomb is defused
 
-        tBombsDefused.text = iBombsDefusedCounter.ToString("F0"); // update bombs defused UI element
+        
 
         _playerScript.defuseJingle(); // play defuse audio jingle
 
         bomb.SetDefusedState();       // tells the bomb it is defused
 
-        StopSpawners();
+        if (isDefusingTrap)
+            isDefusingTrap = false; 
 
         // Level Win Condition
         if (iBombsActive == 0)

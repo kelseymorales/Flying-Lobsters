@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class TripWireDefuser : bombGoal
 {
-    
+    //Added for the TripWireDefuser class
+    [SerializedField] public GameObject trap;
 
     public override void OnTriggerEnter(Collider other)
     {
@@ -26,5 +27,10 @@ public class TripWireDefuser : bombGoal
     public override void Defuse()
     {
         base.Defuse();
+    }
+    public override void SetDefusedState()
+    {
+        Debug.Log("Destroy object called"); 
+        Destroy(trap); 
     }
 }
