@@ -470,7 +470,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b42dc042660f50447aa000b2bd648ac5, type: 3}
   aPlayerFootstepsVol: 0.1
   aPlayerEmptyClip:
-  - {fileID: 8300000, guid: ecb8d50805a83ad419074a424961affd, type: 3}
+  - {fileID: 8300000, guid: e581f33490d33c54680b225d8dac855b, type: 3}
   aPlayerEmptyClipVol: 0.25
   aHeadShot:
   - {fileID: 8300000, guid: 5943a39f738752b429be53fac4459355, type: 3}
