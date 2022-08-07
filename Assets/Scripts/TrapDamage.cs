@@ -50,16 +50,25 @@ public class TrapDamage : MonoBehaviour
 
     private IEnumerator ActivateTrap() //Start the trap based on a timer 
     {
+
+        //Waits for delay
         yield return new WaitForSeconds(fStartTimeDelay); 
+        //Checks if acid or fire trap
         if(isAcid)
-            Instantiate(_acidParticles,_roof.transform.position, _acidParticles.transform.rotation);
+        {
+            Instantiate(_acidParticles, _roof.transform.position, _acidParticles.transform.rotation); //Instantiate acid particle system
+            //Acid droping Audio here (loop) 
+        }
+            
+            
         if(isFire)
         {
             for (int i = 0; i < (int)Random.Range(3,5); i++)
-                InstantiateFIreRandom();
+                InstantiateFIreRandom(); //Instantiate fire particle system, multiple times because its a small flame
+            //Fire burning Audio here (loop)
         }
             
-        isTrapActive = true; 
+        isTrapActive = true; //Sets trap back to active
     }
 
 
@@ -79,21 +88,36 @@ public class TrapDamage : MonoBehaviour
             //Controls the trap damage or activation type
             if (isHazardousTrap)
             {
+                //Checks trap type and checks for IDamageable component
                 if (collider.GetComponent<IDamageable>() != null)
                 {
                     IDamageable isDamagable = collider.GetComponent<IDamageable>();
 
                     if(canTakeDamage)
                     {
+                        //Calls Ienumerator so the player can receive damage per time assigned 
                         StartCoroutine(ConstantDamageTrap());
                         isDamagable.TakeDamage(fHazardousTrapDamage);
+
+                        if(isFire)
+                        {
+                            //Audio for player interacting here (fire)
+                        }
+                        if(isAcid)
+                        {
+                            //Audio for player interacting here (acid)
+                        }
+
                     }
                         
                 }
             }
             else if (isGranadeTrap)
             {
+                //Calls cluster grenade code
                 ThrowGrenades(); 
+
+                //Grenade audio here
             }
         }
     }
@@ -113,14 +137,14 @@ public class TrapDamage : MonoBehaviour
     {
         //Stops trap
         yield return new WaitForSeconds(fHazardousTrapDuration);
-        isTrapActive = false; 
+        isTrapActive = false; //Deactivates trap
     }
 
     private void InstantiateFIreRandom()
     {
         //Creates a random spawn for the fire particles
-        Vector3 ranPos = new Vector3(Random.Range(-transform.localScale.x / 2, transform.localScale.x / 2), -2f, Random.Range(-transform.localScale.z / 2, transform.localScale.z / 2));
-        Instantiate(_fireParticles, transform.position + ranPos, _fireParticles.transform.rotation); 
+        Vector3 ranPos = new Vector3(Random.Range(-transform.localScale.x / 2, transform.localScale.x / 2), -2f, Random.Range(-transform.localScale.z / 2, transform.localScale.z / 2)); //Sets random position 
+        Instantiate(_fireParticles, transform.position + ranPos, _fireParticles.transform.rotation); //Using random position to instantiate particle system inside the collider
     }
 
     private void ThrowGrenades()

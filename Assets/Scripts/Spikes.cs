@@ -10,16 +10,17 @@ public class Spikes : MonoBehaviour
 
     public void OnTriggerStay(Collider collider)
     {
-        if (collider.tag == "Player" )
+        if (collider.tag == "Player" ) //Checks if the player is colliding
         {
-            if (collider.GetComponent<IDamageable>() != null)
+            if (collider.GetComponent<IDamageable>() != null) //Checks for Idamageable
             {
                 IDamageable isDamagable = collider.GetComponent<IDamageable>();
 
                 if (canTakeDamage)
                 {
-                    StartCoroutine(DamagePlayer());
+                    StartCoroutine(DamagePlayer()); //Damage per time assigned 
                     isDamagable.TakeDamage(iSpikeDamage);
+                    //Audio for player touching spikes here
                 }
 
             }
