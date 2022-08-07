@@ -6,6 +6,7 @@ public class playerController : MonoBehaviour, IDamageable
 {
     [Header("Components")]
     [SerializeField] CharacterController _controller;
+    [SerializeField] private Animator _anim;
 
     [Header("Player Attributes")]
     [Header("--------------------------")]
@@ -288,6 +289,7 @@ public class playerController : MonoBehaviour, IDamageable
                 yield return new WaitForSeconds(0.05f);
                 _muzzleFlash.SetActive(false);
 
+                _anim.SetTrigger("Fire");
                 // Timer runs, based off of player shootRate, and then re-enables shooting
                 yield return new WaitForSeconds(fShootRate);
                 canShoot = true;
@@ -459,7 +461,7 @@ public class playerController : MonoBehaviour, IDamageable
         aud.PlayOneShot(aAmmo[Random.Range(0, aAmmo.Length)], aAmmoVol);
     }
 
-    public void gunPickup(float fireRate, int damage, GameObject model, int clipSize, float range, AudioClip[] soundFile, float audioVol) // function for picking up new gun
+    public void gunPickup(float fireRate, int damage, GameObject model, int clipSize, float range, AudioClip[] soundFile, float audioVol, RuntimeAnimatorController anim) // function for picking up new gun
     {
         hasGun = true;
 
@@ -480,6 +482,9 @@ public class playerController : MonoBehaviour, IDamageable
         // audio
         aGunShot = soundFile;
         aGunShotVol = audioVol;
+
+        _anim.runtimeAnimatorController = anim;
+        _anim.speed = 1.0f / fireRate;
     }
 
 }

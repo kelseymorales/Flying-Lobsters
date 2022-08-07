@@ -15,4 +15,6 @@ public class gunStats : ScriptableObject
 
     [SerializeField] public AudioClip[] aGunShot;
     [Range(0.0f, 1.0f)][SerializeField] public float aGunShotVol;
+
+    public RuntimeAnimatorController _anim;
 }

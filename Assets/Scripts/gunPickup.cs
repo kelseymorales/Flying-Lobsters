@@ -10,7 +10,7 @@ public class gunPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameManager._instance._playerScript.gunPickup(gunStat.fFireRate, gunStat.iDamage, gunStat.gGunModel, gunStat.iClipSize, gunStat.fGunRange, gunStat.aGunShot, gunStat.aGunShotVol);
+            GameManager._instance._playerScript.gunPickup(gunStat.fFireRate, gunStat.iDamage, gunStat.gGunModel, gunStat.iClipSize, gunStat.fGunRange, gunStat.aGunShot, gunStat.aGunShotVol, gunStat._anim);
         }
     }
 }
