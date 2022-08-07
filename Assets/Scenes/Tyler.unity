@@ -1816,6 +1816,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 847709090}
     m_Modifications:
+    - target: {fileID: 2960962551958377644, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: _defusedShade.b
+      value: 0.11227306
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960962551958377644, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: _defusedShade.g
+      value: 0.11227306
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960962551958377644, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: _defusedShade.r
+      value: 0.2735849
+      objectReference: {fileID: 0}
     - target: {fileID: 8559060485881202266, guid: 955904580273bf9439fe98c32eb20745, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -16084,6 +16096,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 847709090}
     m_Modifications:
+    - target: {fileID: 2960962551958377644, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: _defusedShade.b
+      value: 0.31937578
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960962551958377644, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: _defusedShade.g
+      value: 0.3207547
+      objectReference: {fileID: 0}
+    - target: {fileID: 2960962551958377644, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: _defusedShade.r
+      value: 0.3192417
+      objectReference: {fileID: 0}
     - target: {fileID: 8559060485881202266, guid: 955904580273bf9439fe98c32eb20745, type: 3}
       propertyPath: m_RootOrder
       value: -1

@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inRange: 0
-  _defusedShade: {r: 0, g: 0.31132078, b: 0.028884377, a: 1}
+  _defusedShade: {r: 0.2924528, g: 0.1448469, b: 0.1448469, a: 1}
   ren: {fileID: 8546530563521143248}
 --- !u!65 &8516137233018456266
 BoxCollider:

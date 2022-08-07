@@ -18,7 +18,7 @@ public class bombGoal : MonoBehaviour
     // Update is called once per frame
     public virtual void Update()
     {
-        if (inRange) // player in range
+        if (inRange==true) // player in range
         {
             if (Input.GetButtonDown("Activate"))
             {
@@ -27,7 +27,6 @@ public class bombGoal : MonoBehaviour
             if (Input.GetButtonUp("Activate"))
             {
                 GameManager._instance.StopDefuseing();
-                canDefuse = true;
             }
         }
     }
@@ -67,5 +66,7 @@ public class bombGoal : MonoBehaviour
     public void SetDefusedState()
     {
         ren.material.color = Color.Lerp(ren.material.color, _defusedShade, 1.0f);
+        inRange = false;
+        canDefuse = false;
     }
 }
