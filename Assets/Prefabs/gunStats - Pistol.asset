@@ -20,3 +20,4 @@ MonoBehaviour:
   aGunShot:
   - {fileID: 8300000, guid: f91f0596c717b2744ba7889ead827dae, type: 3}
   aGunShotVol: 0.35
+  _anim: {fileID: 9100000, guid: aa67ff478857b8446890d61fe91b4f12, type: 2}
