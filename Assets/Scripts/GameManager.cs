@@ -95,6 +95,8 @@ public class GameManager : MonoBehaviour
     
     Coroutine _defuseFunction;          // stores reference to any game menu currently open/active
 
+    public bool isDefusingTrap; 
+
     void Awake()
     {
         _instance = this;                                               // stores reference this for use in other scripts

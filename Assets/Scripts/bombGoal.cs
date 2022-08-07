@@ -16,7 +16,7 @@ public class bombGoal : MonoBehaviour
     }
     
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         if (inRange) // player in range
         {
@@ -33,7 +33,7 @@ public class bombGoal : MonoBehaviour
     }
 
     // Helper function for when player moves in range of a bomb
-    void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -43,7 +43,7 @@ public class bombGoal : MonoBehaviour
     }
 
     // helper function for when player moves out of range of a bomb
-    void OnTriggerExit(Collider other)
+    public virtual void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -52,7 +52,7 @@ public class bombGoal : MonoBehaviour
         }
     }
 
-    void Defuse()
+    public virtual void Defuse()
     {
         if (canDefuse == false)
         {
