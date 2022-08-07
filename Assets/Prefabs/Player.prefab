@@ -496,6 +496,9 @@ MonoBehaviour:
   aGrenadeEmpty:
   - {fileID: 8300000, guid: 2d061ba8c95e8aa42a94df3fecda7368, type: 3}
   aGrenadeEmptyVol: 0.35
+  aWeaponPickup:
+  - {fileID: 8300000, guid: 59b5d870dcdbd8b4c922dab79f3b3e8d, type: 3}
+  aWeaponPickupVol: 0.481
   iWeaponAmmoOrig: 0
 --- !u!143 &8448960639718001734
 CharacterController:

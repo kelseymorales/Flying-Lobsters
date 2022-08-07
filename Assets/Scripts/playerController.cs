@@ -73,6 +73,8 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(0.0f, 1.0f)][SerializeField] float aGrenadeVol;
     [SerializeField] AudioClip[] aGrenadeEmpty;
     [Range(0.0f, 1.0f)][SerializeField] float aGrenadeEmptyVol;
+    [SerializeField] AudioClip[] aWeaponPickup;
+    [Range(0.0f, 1.0f)][SerializeField] float aWeaponPickupVol;
 
     // Bool variables for player character
     bool canShoot = true;       // indicates whether player is allowed to shoot at any given moment
@@ -482,6 +484,8 @@ public class playerController : MonoBehaviour, IDamageable
         // audio
         aGunShot = soundFile;
         aGunShotVol = audioVol;
+        //audio for weapon pick up
+        aud.PlayOneShot(aWeaponPickup[Random.Range(0, aWeaponPickup.Length)], aWeaponPickupVol);
 
         _anim.runtimeAnimatorController = anim;
         _anim.speed = 1.0f / fireRate;
