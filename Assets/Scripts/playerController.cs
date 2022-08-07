@@ -28,6 +28,7 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField] public int iTotalWeaponAmmo;                   // Player weapon ammo pool total
     [SerializeField] GameObject gPlayerGrenade;                     // stores prefab for player grenade
     [SerializeField] public int iGrenadeCount;                      // stores ammo count for player grenades
+    [SerializeField] int iGrenadeThrowStrength;                     // multiplier value for the physics behind throwing a grenade
     [SerializeField] GameObject gunModel;                           // Stores reference to the gun object attatched to the player/camera (used in weapon swap)
 
     [Header("Effects")]
@@ -323,7 +324,8 @@ public class playerController : MonoBehaviour, IDamageable
             GameObject newNade = Instantiate(gPlayerGrenade, transform.position, transform.rotation);
 
             // apply force
-            newNade.GetComponent<Rigidbody>().AddForce(transform.forward, ForceMode.Impulse);
+            Rigidbody grenadeRB = newNade.GetComponent<Rigidbody>();            // get grenades rigidbody component
+            grenadeRB.AddForce(transform.forward * iGrenadeThrowStrength, ForceMode.VelocityChange);      // apply physics to the rigidbody
 
             // update grenade ammo UI component in gameManager
             GameManager._instance.updateGrenadeCount();
