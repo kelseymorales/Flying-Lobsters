@@ -27,6 +27,7 @@ public class bombGoal : MonoBehaviour
             if (Input.GetButtonUp("Activate"))
             {
                 GameManager._instance.StopDefuseing();
+                canDefuse = true;
             }
         }
     }
@@ -68,5 +69,6 @@ public class bombGoal : MonoBehaviour
         ren.material.color = Color.Lerp(ren.material.color, _defusedShade, 1.0f);
         inRange = false;
         canDefuse = false;
+        GetComponent<SphereCollider>().enabled = false;
     }
 }
