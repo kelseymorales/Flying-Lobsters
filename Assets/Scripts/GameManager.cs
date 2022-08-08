@@ -40,8 +40,8 @@ public class GameManager : MonoBehaviour
     public GameObject _playerDeadMenuFirstOption;
     public GameObject _winGameMenuFirstOption;
 
-    
-   
+    // UI - sniperZoom
+    public GameObject SniperScope;
 
     // UI - healthbar
     public Image _HpBar;

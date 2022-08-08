@@ -520,8 +520,10 @@ public class playerController : MonoBehaviour, IDamageable
             }
 
             // hide gun
+            gunModel.GetComponent<Renderer>().enabled = false;
 
             // unhide scope UI
+            GameManager._instance.SniperScope.SetActive(true);
         }
         else if (Input.GetButtonDown("Zoom") && isZoomed) // when pressing zoom button and already zoomed - unzoom in
         {
@@ -529,8 +531,10 @@ public class playerController : MonoBehaviour, IDamageable
             isZoomed = false;
 
             // hide scope UI
+            GameManager._instance.SniperScope.SetActive(false);
 
             // unhide gun
+            gunModel.GetComponent<Renderer>().enabled = true;
 
             // unhide normal HUD UI
             foreach (GameObject VARIABLE in HUD)
