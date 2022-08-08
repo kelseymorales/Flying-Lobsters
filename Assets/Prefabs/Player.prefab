@@ -436,6 +436,7 @@ MonoBehaviour:
   iGrenadeCount: 3
   iGrenadeThrowStrength: 10
   gunModel: {fileID: 1509647309}
+  iSniperZoomAmount: 45
   _hitEffectSpark: {fileID: 4448962958098883110, guid: 88760f2393d8b634385a5d08a3d4ca6b, type: 3}
   _muzzleFlash: {fileID: 8448960637801368390}
   vPushBack: {x: 0, y: 0, z: 0}
@@ -500,6 +501,8 @@ MonoBehaviour:
   aWeaponPickup:
   - {fileID: 8300000, guid: 59b5d870dcdbd8b4c922dab79f3b3e8d, type: 3}
   aWeaponPickupVol: 0.481
+  sniperGun: 0
+  ShotgunGun: 0
   iWeaponAmmoOrig: 0
 --- !u!143 &8448960639718001734
 CharacterController:

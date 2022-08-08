@@ -8210,10 +8210,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
-    - target: {fileID: 3851521462602797558, guid: c9ac183780f11e246b81ab9448e54f7e, type: 3}
-      propertyPath: _detonation
-      value: 
-      objectReference: {fileID: 2004004059}
     - target: {fileID: 6089820663269220501, guid: c9ac183780f11e246b81ab9448e54f7e, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -21321,11 +21317,6 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5617f09499355b14bb58fe8aeb052d7e, type: 3}
---- !u!1 &2004004059 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5919563822289782376, guid: 6932db2b6c86aae4d84dc53a2848ddbe, type: 3}
-  m_PrefabInstance: {fileID: 1083884035}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2005907192
 PrefabInstance:
   m_ObjectHideFlags: 0

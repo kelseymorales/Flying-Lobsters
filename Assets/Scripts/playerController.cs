@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Header("Components")]
     [SerializeField] CharacterController _controller;
     [SerializeField] private Animator _anim;
+    [HideInInspector] GameObject[] HUD;
 
     [Header("Player Attributes")]
     [Header("--------------------------")]
@@ -30,6 +31,7 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField] public int iGrenadeCount;                      // stores ammo count for player grenades
     [SerializeField] int iGrenadeThrowStrength;                     // multiplier value for the physics behind throwing a grenade
     [SerializeField] GameObject gunModel;                           // Stores reference to the gun object attatched to the player/camera (used in weapon swap)
+    [SerializeField] int iSniperZoomAmount;                         // amount added or subtracted to field of view for sniper zoom function
 
     [Header("Effects")]
     [Header("--------------------------")]
@@ -78,10 +80,13 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(0.0f, 1.0f)][SerializeField] float aWeaponPickupVol;
 
     // Bool variables for player character
-    bool canShoot = true;       // indicates whether player is allowed to shoot at any given moment
-    bool isSprinting = false;   // Indicates whether the player is currently sprinting
-    bool bFootstepsPlaying;     // Indicates if the footsteps audio affect is currently playing
-    bool hasGun = false;        // Indicates whether the player has picked up a gun
+    bool canShoot = true;           // indicates whether player is allowed to shoot at any given moment
+    bool isSprinting = false;       // Indicates whether the player is currently sprinting
+    bool bFootstepsPlaying;         // Indicates if the footsteps audio affect is currently playing
+    bool hasGun = false;            // Indicates whether the player has picked up a gun
+    public bool sniperGun = false;  // Indicates whether the gun being used is a sniper
+    public bool ShotgunGun = false; // Indicates whether the gun being used is a shotgun
+    bool isZoomed = false;          // Indicates whether the zoom function is currently in use (only for sniper weapon)
 
     float fPlayerSpeedOrig;     // stores the starting player speed
     int iPlayerHealthOrig;      // stores the starting player health
@@ -105,6 +110,9 @@ public class playerController : MonoBehaviour, IDamageable
         GameManager._instance.updateAmmoCount(); // update ui with ammo count info
         GameManager._instance.defuseLabel.SetActive(false); // small fix to make sure defuse prompt is inactive when player spawns
         GameManager._instance.updateGrenadeCount(); // update UI with grenade count info
+
+        // find all HUD objects and stores a reference to them
+        HUD = GameObject.FindGameObjectsWithTag("HUD");
     }
 
     // Called every frame
@@ -122,6 +130,11 @@ public class playerController : MonoBehaviour, IDamageable
             StartCoroutine(reload());
             StartCoroutine(playFootsteps());
             ThrowGrenade();
+
+            if (sniperGun)
+            {
+                SniperFunctionality();
+            }
         }
     }
 
@@ -493,4 +506,51 @@ public class playerController : MonoBehaviour, IDamageable
         _anim.speed = 1.0f / fireRate;
     }
 
+    public void SniperFunctionality()
+    {
+        if (Input.GetButtonDown("Zoom") && !isZoomed) // when pressing zoom button and not zoomed - zoom in
+        {
+            SniperZoomIn(); // call zoom in function
+            isZoomed = true;
+
+            // Hide normal HUD UI
+            foreach (GameObject VARIABLE in HUD)
+            {
+                VARIABLE.SetActive(false);
+            }
+
+            // hide gun
+            gunModel.GetComponent<Renderer>().enabled = false;
+
+            // unhide scope UI
+            GameManager._instance.SniperScope.SetActive(true);
+        }
+        else if (Input.GetButtonDown("Zoom") && isZoomed) // when pressing zoom button and already zoomed - unzoom in
+        {
+            SniperZoomOut(); // call zoom out function
+            isZoomed = false;
+
+            // hide scope UI
+            GameManager._instance.SniperScope.SetActive(false);
+
+            // unhide gun
+            gunModel.GetComponent<Renderer>().enabled = true;
+
+            // unhide normal HUD UI
+            foreach (GameObject VARIABLE in HUD)
+            {
+                VARIABLE.SetActive(true);
+            }
+        }
+    }
+
+    private void SniperZoomIn() // helper function for sniperFunctionality
+    {
+        UnityEngine.Camera.main.fieldOfView -= iSniperZoomAmount;
+    }
+
+    private void SniperZoomOut() // helper function for sniperFunctionality
+    {
+        UnityEngine.Camera.main.fieldOfView += iSniperZoomAmount;
+    }
 }
