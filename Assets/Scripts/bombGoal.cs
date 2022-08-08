@@ -12,7 +12,7 @@ public class bombGoal : MonoBehaviour
     
 
 
-    void Start()
+    public virtual void Start()
     {
         GameManager._instance.updateBombCount();
     }
