@@ -21,6 +21,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(1, 40)][SerializeField] int iHealthPickupHealNum;        // Value for how much health packs heal player when picked up
     [Range(1, 40)][SerializeField] int iAmmoPickupAmmoNum;          // Value for how much ammo the ammo pickups give player when picked up
     [SerializedField] public float fDodgeDistance;                  // how far does player dodge
+    [SerializedField] public float fDodgeWaitInterval;              // how long to wait before allowing another dodge after just executing one
 
     [Header("Player Weapon Stats")]
     [Header("-------------------------")]
@@ -102,6 +103,7 @@ public class playerController : MonoBehaviour, IDamageable
     Vector3 _playerVelocity;
     Vector3 _move;
     Vector3 _playerSpawnPos;
+    Vector3 _dodgeMove;
 
     // Called at Start
     void Start()
@@ -192,11 +194,14 @@ public class playerController : MonoBehaviour, IDamageable
             // play dodge audio
             aud.PlayOneShot(aPlayerDodge[Random.Range(0, aPlayerDodge.Length)], aPlayerDodgeVol);
 
-            // execute dodge
+            // recieve input
+            _dodgeMove = ((transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"))) * fDodgeDistance;
 
+            // execute dodge
+            _controller.Move(_dodgeMove * Time.deltaTime * fPlayerSpeedOrig);
 
             // wait before allowing another dodge to be executed
-            yield return new WaitForSeconds(3.0f);
+            yield return new WaitForSeconds(fDodgeWaitInterval);
 
             isDodging = false;
         }

@@ -521,6 +521,8 @@ MonoBehaviour:
   iJumps: 1
   iHealthPickupHealNum: 10
   iAmmoPickupAmmoNum: 25
+  fDodgeDistance: 40
+  fDodgeWaitInterval: 2
   fShootRate: 0.1
   iWeaponDamage: 1
   fGunRange: 0
@@ -595,6 +597,9 @@ MonoBehaviour:
   aWeaponPickup:
   - {fileID: 8300000, guid: 59b5d870dcdbd8b4c922dab79f3b3e8d, type: 3}
   aWeaponPickupVol: 0.481
+  aPlayerDodge:
+  - {fileID: 8300000, guid: 3888121a7d990564d8bcfb6dfecb8158, type: 3}
+  aPlayerDodgeVol: 0.3
   sniperGun: 0
   ShotgunGun: 0
   iWeaponAmmoOrig: 0
