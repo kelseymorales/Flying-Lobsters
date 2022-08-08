@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - HealthPack
+  - HUD
+  - AmmoBox
+  - Spawner
+  - Enemy
+  - Bomb
   layers:
   - Default
   - TransparentFX
