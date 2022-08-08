@@ -8,6 +8,7 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField] CharacterController _controller;
     [SerializeField] private Animator _anim;
     [HideInInspector] GameObject[] HUD;
+    [HideInInspector] GameObject cGunCam;
 
     [Header("Player Attributes")]
     [Header("--------------------------")]
@@ -113,6 +114,9 @@ public class playerController : MonoBehaviour, IDamageable
 
         // find all HUD objects and stores a reference to them
         HUD = GameObject.FindGameObjectsWithTag("HUD");
+
+        // find gunCam for rendering fix
+        cGunCam = GameObject.FindGameObjectWithTag("gunCam");
     }
 
     // Called every frame
@@ -551,11 +555,16 @@ public class playerController : MonoBehaviour, IDamageable
         // audio
         aGunShot = soundFile;
         aGunShotVol = audioVol;
+
         //audio for weapon pick up
         aud.PlayOneShot(aWeaponPickup[Random.Range(0, aWeaponPickup.Length)], aWeaponPickupVol);
 
         _anim.runtimeAnimatorController = anim;
         _anim.speed = 1.0f / fireRate;
+
+        // fix for gunCam rendering issue
+        cGunCam.SetActive(false);
+        cGunCam.SetActive(true);
     }
 
     public void SniperFunctionality()
