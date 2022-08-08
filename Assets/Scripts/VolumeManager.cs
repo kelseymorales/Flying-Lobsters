@@ -74,18 +74,22 @@ public class VolumeManager : MonoBehaviour
     {
         string sStringSeparator = "|";
         
+        //Creates writers to both values and names files
         StreamWriter writerValues = new StreamWriter(File.OpenWrite(Application.dataPath + "/saveAudioValues.txt"));
-        StreamWriter writerNames = new StreamWriter(File.OpenWrite(Application.dataPath + "/saveAudioNames.txt"));
+        StreamWriter writerNames = new StreamWriter(File.OpenWrite(Application.dataPath + "/saveAudioNames.txt")); 
 
         for (int i = 0; i < GameManager._instance.options.Count; i++)
         {
-            writerNames.Write(GameManager._instance.sNames[i] + sStringSeparator);
-            writerValues.Write(GameManager._instance.options[GameManager._instance.sNames[i]] + sStringSeparator);
+            //In both cases we add a separator
+            writerNames.Write(GameManager._instance.sNames[i] + sStringSeparator); //Saves name to the  names file
+            writerValues.Write(GameManager._instance.options[GameManager._instance.sNames[i]] + sStringSeparator); //Saves value to the values file
         }
 
          
         //string sSaveStringValues = string.Join(sStringSeparator, sContentsValues);
         // string sSaveStringNames = string.Join(sStringSeparator, sContentsNames);
+
+        //Closes writers
         writerValues.Close(); 
         writerNames.Close(); 
 
