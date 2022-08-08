@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using System.IO; 
 
 
 public class GameManager : MonoBehaviour
@@ -64,6 +65,8 @@ public class GameManager : MonoBehaviour
 
     [Header("Audio\n------------------------------")]
     [SerializeField] AudioMixer _mixer;
+    public Dictionary<string, string> options = new Dictionary<string, string>();
+    public List<string> sNames = new List<string>();
 
     [Header("Effects\n------------------------------")]
     public GameObject _playerDamageFlash;                       // screenspace effect for player taking damage
@@ -120,6 +123,8 @@ public class GameManager : MonoBehaviour
             }
         }
         StartCoroutine(bombTick());
+
+        LoadAudioSettings(); 
     }
 
     private void Update()
@@ -403,5 +408,36 @@ public class GameManager : MonoBehaviour
         _menuCurrentlyOpen.SetActive(true);
     }
 
-    
+    public void LoadAudioSettings()
+    {
+        if(File.Exists(Application.dataPath + "/saveAudioValues.txt"))
+        {
+            //string sStringSeparator = "|";
+            //string sLoadStringValues = File.ReadAllText(Application.dataPath + "/saveAudioValues.txt");
+            //string sLoadStringNames = File.ReadAllText(Application.dataPath + "/saveAudioNames.txt");
+
+            //string[] sLoadedContentValues = sLoadStringValues.Split(new[] { sStringSeparator }, System.StringSplitOptions.None);
+            //string[] sLoadedContentNames = sLoadStringNames.Split(new[] { sStringSeparator }, System.StringSplitOptions.None);
+
+            //for (int i = 0; i < sLoadedContentNames.Length - 1; i++)
+            //{
+            //    if (i > 0)
+            //        sLoadedContentNames[i] = sLoadedContentNames[i].Substring(2);
+            //    if (float.Parse(sLoadedContentValues[i]) <= 0)
+            //        _mixer.SetFloat(sLoadedContentNames[i], -75.0f);
+            //    else
+            //    {
+            //        float f = Mathf.Log10(float.Parse(sLoadedContentValues[i])) * 20;
+            //        _mixer.SetFloat(sLoadedContentNames[i], f);
+            //    }
+
+            //}
+
+
+            _mixer.SetFloat("MasterVolume", Mathf.Log10(PlayerPrefs.GetFloat("MasterVolume"))*20);
+            _mixer.SetFloat("MusicVolume", Mathf.Log10(PlayerPrefs.GetFloat("MusicVolume"))*20);
+            _mixer.SetFloat("EffectsVolume", Mathf.Log10(PlayerPrefs.GetFloat("EffectsVolume"))*20);
+        }
+        
+    }
 }
