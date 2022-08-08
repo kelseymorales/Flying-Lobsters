@@ -1905,7 +1905,7 @@ GameObject:
   - component: {fileID: 486711744}
   m_Layer: 5
   m_Name: Ammo
-  m_TagString: Untagged
+  m_TagString: HUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2366,7 +2366,7 @@ GameObject:
   - component: {fileID: 661139326}
   m_Layer: 5
   m_Name: Game Goals
-  m_TagString: Untagged
+  m_TagString: HUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7539,7 +7539,7 @@ GameObject:
   - component: {fileID: 8475238024886352877}
   m_Layer: 5
   m_Name: HP Background
-  m_TagString: Untagged
+  m_TagString: HUD
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8676,6 +8676,10 @@ MonoBehaviour:
   displayWinScore: {fileID: 466827680}
   displayLoseScore: {fileID: 1070820810}
   bRestartCurrentLevel: 0
+  _HealthBarHUD: {fileID: 0}
+  _GameGoalsHUD: {fileID: 0}
+  _AmmoHUD: {fileID: 0}
+  _MiniMapHUD: {fileID: 0}
   defuseLabel: {fileID: 1889794592}
   iEnemyKillGoal: 0
   iBombsActive: 0
@@ -9879,6 +9883,10 @@ PrefabInstance:
     - target: {fileID: 3736756993808763663, guid: 3e778883fdb8ba84184a729f9102907a, type: 3}
       propertyPath: m_Name
       value: MinMap Canvas Object
+      objectReference: {fileID: 0}
+    - target: {fileID: 3736756993808763663, guid: 3e778883fdb8ba84184a729f9102907a, type: 3}
+      propertyPath: m_TagString
+      value: HUD
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3736756993808763891, guid: 3e778883fdb8ba84184a729f9102907a, type: 3}
