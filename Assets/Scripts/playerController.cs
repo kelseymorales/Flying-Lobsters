@@ -268,37 +268,45 @@ public class playerController : MonoBehaviour, IDamageable
                 // play audio clip
                 aud.PlayOneShot(aGunShot[Random.Range(0, aGunShot.Length)], aGunShotVol);
 
-                RaycastHit hit;
-
-                // Casts a ray from the player camera and performs an action where the ray hits
-                if (Physics.Raycast(UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit))
+                if (ShotgunGun) // if shotgun, execute different raycast shoot system
                 {
-                    if (hit.distance <= fGunRange) // if raycast is within the player's gun's range stat, continue
+                    ShotgunRay();
+                }
+                else
+                {
+                    RaycastHit hit;
+
+                    // Casts a ray from the player camera and performs an action where the ray hits
+                    if (Physics.Raycast(UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit))
                     {
-                        // play spark effect where ray hits
-                        Instantiate(_hitEffectSpark, hit.point, _hitEffectSpark.transform.rotation);
-
-                        // if the target is damageable, it takes damage
-                        if (hit.collider.GetComponent<IDamageable>() != null)
+                        if (hit.distance <= fGunRange) // if raycast is within the player's gun's range stat, continue
                         {
-                            // get target
-                            IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
+                            // play spark effect where ray hits
+                            Instantiate(_hitEffectSpark, hit.point, _hitEffectSpark.transform.rotation);
 
-                            // check for body shot or head shot
-                            if (hit.collider is SphereCollider) // apply damage for head shot, and play headshot audio clip
+                            // if the target is damageable, it takes damage
+                            if (hit.collider.GetComponent<IDamageable>() != null)
                             {
-                                isDamageable.TakeDamage(10000);
-                                aud.PlayOneShot(aHeadShot[Random.Range(0, aHeadShot.Length)], aHeadShotVol);
-                                GameManager._instance.iScore += 15;
-                                GameManager._instance.UpdatePlayerScore(); // call to helper function to update score on win/lose screens
-                            }
-                            else
-                            {
-                                isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                                // get target
+                                IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
+
+                                // check for body shot or head shot
+                                if (hit.collider is SphereCollider) // apply damage for head shot, and play headshot audio clip
+                                {
+                                    isDamageable.TakeDamage(10000);
+                                    aud.PlayOneShot(aHeadShot[Random.Range(0, aHeadShot.Length)], aHeadShotVol);
+                                    GameManager._instance.iScore += 15;
+                                    GameManager._instance.UpdatePlayerScore(); // call to helper function to update score on win/lose screens
+                                }
+                                else
+                                {
+                                    isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                                }
                             }
                         }
                     }
                 }
+                
                 // muzzle flash effect
                 _muzzleFlash.transform.localRotation = Quaternion.Euler(0, 0, Random.Range(0, 360)); // rotate effect along Z-axis randomly for every shot
                 _muzzleFlash.SetActive(true);
@@ -311,6 +319,50 @@ public class playerController : MonoBehaviour, IDamageable
                 canShoot = true;
 
                 GameManager._instance.updateAmmoCount();
+            }
+        }
+    }
+
+    private void ShotgunRay() // helper function for shotgun raycast
+    {
+        int iAmountOfProjectiles = 8;
+
+        for (int i = 0; i < iAmountOfProjectiles; i++)
+        {
+            Vector3 direction = UnityEngine.Camera.main.transform.forward; // your initial aim.
+            Vector3 spread = Vector3.zero;
+            spread += UnityEngine.Camera.main.transform.up * Random.Range(-1f, 1f); // add random up or down (because random can get negative too)
+            spread += UnityEngine.Camera.main.transform.right * Random.Range(-1f, 1f); // add random left or right
+
+            spread = Vector3.Normalize(spread);
+
+            // Using random up and right values will lead to a square spray pattern. If we normalize this vector, we'll get the spread direction, but as a circle.
+            // Since the radius is always 1 then (after normalization), we need another random call. 
+            direction += spread * Random.Range(0f, 0.2f);
+
+            RaycastHit hit;
+
+            if (Physics.Raycast(UnityEngine.Camera.main.transform.position, direction, out hit))
+            {
+
+                // debug line: uncomment to enable drawing of rays on screen, to see shotgread spread working
+                //Debug.DrawLine(UnityEngine.Camera.main.transform.position, hit.point, Color.green, 1f);
+
+                if (hit.distance <= fGunRange) // if raycast is within the player's gun's range stat, continue
+                {
+                    // play spark effect where ray hits
+                    Instantiate(_hitEffectSpark, hit.point, _hitEffectSpark.transform.rotation);
+
+                    // if the target is damageable, it takes damage
+                    if (hit.collider.GetComponent<IDamageable>() != null)
+                    {
+                        // get target
+                        IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
+
+                        // apply damage (shotguns dont get headshots)
+                        isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                    }
+                }
             }
         }
     }
