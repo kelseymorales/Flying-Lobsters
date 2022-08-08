@@ -20,6 +20,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(1, 4)][SerializeField] int iJumps;                       // Max jumps allowed
     [Range(1, 40)][SerializeField] int iHealthPickupHealNum;        // Value for how much health packs heal player when picked up
     [Range(1, 40)][SerializeField] int iAmmoPickupAmmoNum;          // Value for how much ammo the ammo pickups give player when picked up
+    [SerializedField] public float fDodgeDistance;                  // how far does player dodge
 
     [Header("Player Weapon Stats")]
     [Header("-------------------------")]
@@ -79,6 +80,8 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(0.0f, 1.0f)][SerializeField] float aGrenadeEmptyVol;
     [SerializeField] AudioClip[] aWeaponPickup;
     [Range(0.0f, 1.0f)][SerializeField] float aWeaponPickupVol;
+    [SerializeField] AudioClip[] aPlayerDodge;
+    [Range(0.0f, 1.0f)][SerializeField] float aPlayerDodgeVol;
 
     // Bool variables for player character
     bool canShoot = true;           // indicates whether player is allowed to shoot at any given moment
@@ -88,6 +91,7 @@ public class playerController : MonoBehaviour, IDamageable
     public bool sniperGun = false;  // Indicates whether the gun being used is a sniper
     public bool ShotgunGun = false; // Indicates whether the gun being used is a shotgun
     bool isZoomed = false;          // Indicates whether the zoom function is currently in use (only for sniper weapon)
+    bool isDodging = false;         // indicates if the player is currently dodging
 
     float fPlayerSpeedOrig;     // stores the starting player speed
     int iPlayerHealthOrig;      // stores the starting player health
@@ -134,6 +138,7 @@ public class playerController : MonoBehaviour, IDamageable
             StartCoroutine(reload());
             StartCoroutine(playFootsteps());
             ThrowGrenade();
+            StartCoroutine(dodge());
 
             if (sniperGun)
             {
@@ -176,6 +181,25 @@ public class playerController : MonoBehaviour, IDamageable
 
         // add gravity back into the character controller move
         _controller.Move(_playerVelocity * Time.deltaTime);
+    }
+
+    IEnumerator dodge()
+    {
+        if (Input.GetButtonDown("Dodge") && !isDodging)
+        {
+            isDodging = true;
+
+            // play dodge audio
+            aud.PlayOneShot(aPlayerDodge[Random.Range(0, aPlayerDodge.Length)], aPlayerDodgeVol);
+
+            // execute dodge
+
+
+            // wait before allowing another dodge to be executed
+            yield return new WaitForSeconds(3.0f);
+
+            isDodging = false;
+        }
     }
 
     void Sprint()
