@@ -9,14 +9,14 @@ public class grenade : MonoBehaviour
     [SerializeField] int iTimer;                // timer value that counts down to grenade exploding
 
     [SerializeField] GameObject gExplosion; // stores explosion effect for grenade detonation
-    [SerializedField] public GameObject gDefusion;
+    //[SerializedField] public GameObject gDefusion;
 
     
 
     // Start is called before the first frame update
     void Start()
     {
-        GameManager._instance.grenadeDefuseLabel.SetActive(false);
+        //GameManager._instance.grenadeDefuseLabel.SetActive(false);
         
         
 
@@ -28,30 +28,28 @@ public class grenade : MonoBehaviour
     }
     private void Update()
     {
-        if (GameManager._instance.isGrenadeDefused == true)
-        {
-            Destroy(gameObject);
-        }
+        //if (GameManager._instance.isGrenadeDefused == true)
+        //{
+        //    Destroy(gameObject);
+        //}
     }
     
 
     IEnumerator explosionTime()
     {
         
-        _rigidBody.velocity = new Vector3(0, 0, 0);        
+              
 
         // timer countdown
         yield return new WaitForSeconds(iTimer);
 
-        if (GameManager._instance.isGrenadeDefused == false)
-        {
             
             // spawn explosion effect at grenade position
             Instantiate(gExplosion, transform.position, gExplosion.transform.rotation);
 
             // destroy grenade game object
             Destroy(gameObject);
-        }
+        
         
         
     }
