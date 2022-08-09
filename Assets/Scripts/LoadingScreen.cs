@@ -12,8 +12,8 @@ public class LoadingScreen : MonoBehaviour
     void Start()
     {
         Time.timeScale = 0;
-        GameManager._instance.gameOver = true;
-        GameManager._instance.isPaused = true;
+        //GameManager._instance.gameOver = true;
+        //GameManager._instance.isPaused = true;
         StartCoroutine(StartCountDown());
     }
 
@@ -29,8 +29,8 @@ public class LoadingScreen : MonoBehaviour
         SceneManager.LoadScene(1);
 
         Time.timeScale = 1;
-        GameManager._instance.gameOver = false;
-        GameManager._instance.isPaused = false;
+        //GameManager._instance.gameOver = false;
+        //GameManager._instance.isPaused = false;
         Destroy(gameObject);
     }
 }

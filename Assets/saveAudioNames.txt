@@ -1,1 +1,1 @@
-MasterVolume|EffectsVolume|MusicVolume|
+EffectsVolume|ffectsVolume|MusicVolume|
