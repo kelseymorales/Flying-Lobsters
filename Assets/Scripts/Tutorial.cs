@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Tutorial : MonoBehaviour
 {
-    [SerializedField] private GameObject moveUi;
-    [SerializedField] private GameObject dogeUi;
-    [SerializedField] private GameObject AttackUi;
-    [SerializedField] private GameObject reloadUi;
+    [SerializeField] private GameObject moveUi;
+    [SerializeField] private GameObject dogeUi;
+    [SerializeField] private GameObject sprintUi;
+    [SerializeField] private GameObject jumpUi;
+    [SerializeField] private GameObject AttackUi;
+    [SerializeField] private GameObject reloadUi;
+    [SerializeField] private GameObject goalUi;
+    [SerializeField] private GameObject gunUi;
 
     private bool[] checks = new bool[4];
 
@@ -19,18 +23,17 @@ public class Tutorial : MonoBehaviour
             if (Input.GetButtonDown("W"))
             {
                 checks[0] = true;
+                Debug.Log("Holding w");
             }
-            if (Input.GetButtonDown("S"))
+            else if (Input.GetButtonDown("S"))
             {
                 checks[1] = true;
             }
-
-            if (Input.GetButtonDown("A"))
+            else if (Input.GetButtonDown("A"))
             {
                 checks[2] = true;
             }
-
-            if (Input.GetButtonDown("D"))
+            else if (Input.GetButtonDown("D"))
             {
                 checks[3] = true;
             }
@@ -45,15 +48,33 @@ public class Tutorial : MonoBehaviour
 
             moveUi.SetActive(false);
             dogeUi.SetActive(true);
-
-            checks = new bool[1];
         }
-
+        
         if (dogeUi.activeSelf)
         {
-            if (Input.GetButtonDown("Doge"))
+            if (Input.GetButtonDown("Dodge"))
             {
                 dogeUi.SetActive(false);
+                sprintUi.SetActive(true);
+
+                checks = new bool[2];
+            }
+        }
+
+        if (sprintUi.activeSelf)
+        {
+            if (Input.GetButtonDown("Sprint"))
+            {
+                sprintUi.SetActive(false);
+                jumpUi.SetActive(true);
+            }
+        }
+
+        if (jumpUi.activeSelf)
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                jumpUi.SetActive(false);
                 AttackUi.SetActive(true);
 
                 checks = new bool[2];
@@ -64,8 +85,53 @@ public class Tutorial : MonoBehaviour
         {
             if (Input.GetButtonDown("Shoot"))
             {
-                
+                checks[0] = true;
+            }
+
+            if (Input.GetButtonDown("Grenade"))
+            {
+                checks[1] = true;
+            }
+
+            for (int i = 0; i < checks.Length; i++)
+            {
+                if (checks[i] == false)
+                {
+                    return;
+                }
+            }
+
+            AttackUi.SetActive(false);
+            reloadUi.SetActive(true);
+        }
+
+        if (reloadUi.activeSelf)
+        {
+            if (Input.GetButtonDown("Reload"))
+            {
+                reloadUi.SetActive(false);
+                StartCoroutine(GoalGame());
             }
         }
+    }
+
+    IEnumerator GoalGame()
+    {
+        goalUi.SetActive(true);
+
+        yield return new WaitForSeconds(8f);
+
+        goalUi.SetActive(false);
+
+        StartCoroutine(Guns());
+    }
+
+    IEnumerator Guns()
+    {
+        gunUi.SetActive(true);
+
+        yield return new WaitForSeconds(8f);
+
+        gunUi.SetActive(false);
     }
 }
