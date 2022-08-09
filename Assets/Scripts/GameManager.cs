@@ -98,7 +98,9 @@ public class GameManager : MonoBehaviour
     
     Coroutine _defuseFunction;          // stores reference to any game menu currently open/active
 
-    public bool isDefusingTrap; 
+    public bool isDefusingTrap;
+    public bool isDefusingGrenade; //bool for defusing enemy grenades
+    public bool isGrenadeDefused;
 
     void Awake()
     {
@@ -236,7 +238,7 @@ public class GameManager : MonoBehaviour
          
             yield return new WaitForSeconds(1);
         }
-        if(!isDefusingTrap) //Checks whether we are defusing a bomb or a trap
+        if(!isDefusingTrap && !isDefusingGrenade) //Checks whether we are defusing a bomb or a trap and grenade
         {
             // update game goals 
             iBombsActive--;
@@ -267,7 +269,9 @@ public class GameManager : MonoBehaviour
         bomb.SetDefusedState();       // tells the bomb it is defused
 
         if (isDefusingTrap)
-            isDefusingTrap = false; 
+            isDefusingTrap = false;
+        if (isDefusingGrenade)
+            isDefusingGrenade = false;
 
         // Level Win Condition
         if (iBombsActive == 0)

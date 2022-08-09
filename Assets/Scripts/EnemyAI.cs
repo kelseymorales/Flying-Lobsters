@@ -21,7 +21,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [Header("------------------------------")]
     [Header("Weapon Stats")]
     [SerializeField] float fShootRate;                  // Rate at which enemy can fire their weapon
-    [SerializeField] GameObject gBullet;                // stores enemy bullet object (can be used to store various object that will be used like the bullet is - example, grenades)
+    [SerializeField] public GameObject gBullet;                // stores enemy bullet object (can be used to store various object that will be used like the bullet is - example, grenades)
     [SerializeField] GameObject gShootPosition;         // stores position at which bullets are instantiated (in the case of guns, should be at the muzzle, for grenades it should be in an empty hand)
 
     [Header("------------------------------")]
@@ -44,6 +44,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     Vector3 vPlayerDirection;                           // vector storing the direction the player is in from the perspective of the enemy
 
     float fStoppingDistanceOrig;                        // float value for how close enemy can get to other enemies, player, and etc
+    [SerializedField] public GameObject gDefusion;      //game object for defusion grenades
 
     // Called at Start
     void Start()
@@ -191,6 +192,11 @@ public class EnemyAI : MonoBehaviour, IDamageable
         aAnim.SetTrigger("Shoot");
         aud.PlayOneShot(aGunShot[Random.Range(0, aGunShot.Length)], aGunShotVol);
         Instantiate(gBullet, gShootPosition.transform.position, gBullet.transform.rotation);
+        //setting up defusor when bullet is grenade
+        if(gBullet.tag == "EnemyGrenade")
+        {            
+            Instantiate(gDefusion, gBullet.transform.position, gDefusion.transform.rotation);
+        }
         yield return new WaitForSeconds(fShootRate);
         bCanShoot=true;
     }

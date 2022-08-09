@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8882850221857179023
 MonoBehaviour:
@@ -50,8 +50,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rigidBody: {fileID: 2601803184443665178}
   iSpeed: 12
-  iTimer: 3
+  iTimer: 20
   gExplosion: {fileID: 5840865308621281003, guid: 9deee5dd44cd2ce47bdb7214bfef4b87, type: 3}
+  gDefusion: {fileID: 2429891258340401631, guid: 9966258277031ec499150a9dd56fda8b, type: 3}
 --- !u!33 &6115199107883933208
 MeshFilter:
   m_ObjectHideFlags: 0
