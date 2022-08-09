@@ -282,7 +282,7 @@ public class playerController : MonoBehaviour, IDamageable
         if (hasGun)
         {
             // if shoot button is pressed, but there is no ammo in clip, play sound file
-            if (Input.GetButton("Shoot") && iWeaponAmmo <= 0)
+            if (Input.GetButtonDown("Shoot") && iWeaponAmmo <= 0)
             {
                 // call to empty clip audio clip
                 aud.PlayOneShot(aPlayerEmptyClip[Random.Range(0, aPlayerEmptyClip.Length)], aPlayerEmptyClipVol);

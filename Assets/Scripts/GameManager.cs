@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-using System.IO; 
+using System.IO;
 
 
 public class GameManager : MonoBehaviour
@@ -34,8 +34,11 @@ public class GameManager : MonoBehaviour
     public GameObject _winGameMenu;
     public GameObject _loseGameMenu;
 
+    //control display screen
+    public GameObject _controlWindow;
+
     //game menu first options for implemented keyboard input
-    public EventSystem _eventSystem;    
+    public EventSystem _eventSystem;
     public GameObject _pauseMenuFirstOption;
     public GameObject _loseGameMenuFirstOption;
     public GameObject _playerDeadMenuFirstOption;
@@ -82,7 +85,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int iScore;                        // stores player score - updated in checkEnemiesKilled, PlayerController shoot, and bombGoal defuse
     [SerializeField] TMP_Text displayWinScore;                  // UI component that displays score on win screen
     [SerializeField] TMP_Text displayLoseScore;                 // UI component that displays score on lose screen
-    [SerializeField] private bool bRestartCurrentLevel; 
+    [SerializeField] private bool bRestartCurrentLevel;
 
     [Header("Text Prompts\n------------------------------")]
     [SerializeField] public GameObject defuseLabel;             // reference to prompt shown to defuse bombs
@@ -94,8 +97,8 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int iBombsDefusedCounter;
     [HideInInspector] public int iBombTotalOrig;
 
-    [HideInInspector] GameObject _menuCurrentlyOpen; 
-    
+    [HideInInspector] GameObject _menuCurrentlyOpen;
+
     Coroutine _defuseFunction;          // stores reference to any game menu currently open/active
 
     public bool isDefusingTrap;
@@ -126,7 +129,7 @@ public class GameManager : MonoBehaviour
         }
         StartCoroutine(bombTick());
 
-        LoadAudioSettings(); 
+        LoadAudioSettings();
     }
 
     private void Update()
@@ -141,8 +144,8 @@ public class GameManager : MonoBehaviour
                 LockCursorPause();
                 //Setting up event system to show highlighted button
                 _eventSystem.SetSelectedGameObject(null);
-                _eventSystem.SetSelectedGameObject(_pauseMenuFirstOption);          
-                
+                _eventSystem.SetSelectedGameObject(_pauseMenuFirstOption);
+
             }
             else
             {
@@ -235,10 +238,10 @@ public class GameManager : MonoBehaviour
             // UI updates for defuse countdown
             _defuseSliderImage.fillAmount = (float)i / (float)GameManager._instance.iDefuseCountdownTime;
             tDefuseCountdown.text = i.ToString("F0");
-         
+
             yield return new WaitForSeconds(1);
         }
-        if(!isDefusingTrap && !isDefusingGrenade) //Checks whether we are defusing a bomb or a trap and grenade
+        if (!isDefusingTrap && !isDefusingGrenade) //Checks whether we are defusing a bomb or a trap and grenade
         {
             // update game goals 
             iBombsActive--;
@@ -262,7 +265,7 @@ public class GameManager : MonoBehaviour
 
         defuseLabel.SetActive(false); // make sure the prompt to defuse bombs deactivates now that bomb is defused
 
-        
+
 
         _playerScript.defuseJingle(); // play defuse audio jingle
 
@@ -294,7 +297,7 @@ public class GameManager : MonoBehaviour
         _defuseCountdownObject.SetActive(false);
         _defuseSlider.SetActive(false);
 
-        _playerScript.UnlockInPlace(); 
+        _playerScript.UnlockInPlace();
     }
 
     IEnumerator bombTick()
@@ -399,11 +402,24 @@ public class GameManager : MonoBehaviour
 
     public void OpenOptionsInGame() //Created to open the menu inside the actual game and not in the main menu
     {
-        _menuCurrentlyOpen.SetActive(false); 
+        _menuCurrentlyOpen.SetActive(false);
         _menuCurrentlyOpen = _optionsMenu;
         _menuCurrentlyOpen.SetActive(true);
         LockCursorPause();
     }
+    public void OpenControlWindow()
+    {
+        _menuCurrentlyOpen.SetActive(false);
+        _menuCurrentlyOpen = _controlWindow;
+        _menuCurrentlyOpen.SetActive(true);
+        LockCursorPause();
+    }
+    public void CloseControlWindow()
+    {
+        _menuCurrentlyOpen.SetActive(false);
+        _menuCurrentlyOpen = _pauseMenu;
+        _menuCurrentlyOpen.SetActive(true);
+    } 
 
     public void CloseOptionsInGame() //Created to close the menu inside the actual game and not in the main menu
     {
