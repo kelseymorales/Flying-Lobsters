@@ -779,7 +779,14 @@ MonoBehaviour:
     Dodge
     - Left Ctrl
 
-'
+    E - Activate
+
+    R - Reload
+
+    Left Mouse Click - Shoot
+
+    Right
+    Mouse Click - Grenade'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
   m_sharedMaterial: {fileID: -5058014768078378672, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
@@ -9618,12 +9625,14 @@ MonoBehaviour:
   displayWinScore: {fileID: 466827680}
   displayLoseScore: {fileID: 1070820810}
   bRestartCurrentLevel: 0
+  buildIndex: 0
   defuseLabel: {fileID: 1889794592}
   grenadeDefuseLabel: {fileID: 186502412}
   iEnemyKillGoal: 0
   iEnemiesKilled: 0
   iBombsActive: 0
   iBombsDefusedCounter: 0
+  iGrenadesDefusedCounter: 0
   iBombTotalOrig: 0
   isDefusingTrap: 0
   isDefusingGrenade: 0
