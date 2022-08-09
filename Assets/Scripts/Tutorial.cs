@@ -59,5 +59,13 @@ public class Tutorial : MonoBehaviour
                 checks = new bool[2];
             }
         }
+
+        if (AttackUi.activeSelf)
+        {
+            if (Input.GetButtonDown("Shoot"))
+            {
+                
+            }
+        }
     }
 }
