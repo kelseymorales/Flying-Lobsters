@@ -338,7 +338,7 @@ public class playerController : MonoBehaviour, IDamageable
                                     int afterEnemyKillCount = GameManager._instance.iEnemiesKilled; //enemy kill count after shooting
                                     if(afterEnemyKillCount > currentEnemyKillCount) //checking if enemy was killed
                                     {
-                                        //add audio clip here
+                                        aud.PlayOneShot(aEnemyBodyshotDeath[Random.Range(0, aEnemyBodyshotDeath.Length)], aEnemyBodyshotDeathVol);
                                     }
 
                                 }
