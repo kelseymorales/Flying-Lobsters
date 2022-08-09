@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text displayWinScore;                  // UI component that displays score on win screen
     [SerializeField] TMP_Text displayLoseScore;                 // UI component that displays score on lose screen
     [SerializeField] private bool bRestartCurrentLevel;
+    [SerializeField] private int buildIndex;
 
     [Header("Text Prompts\n------------------------------")]
     [SerializeField] public GameObject defuseLabel;             // reference to prompt shown to defuse bombs
@@ -172,13 +173,11 @@ public class GameManager : MonoBehaviour
 
         if (bRestartCurrentLevel)
         {
-            Debug.Log("Current Scene loaded");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         else
         {
-            Debug.Log("Level 1 loaded");
-            SceneManager.LoadScene(1);
+            SceneManager.LoadScene(buildIndex);
         }
     }
 
@@ -291,7 +290,7 @@ public class GameManager : MonoBehaviour
         {
             levelWin = true;
 
-            //WinGame();
+            WinGame();
             // will need to be removed later, as the win game should be called at the end of level 3, and all we need here is the level win trigger for transitioning levels
         }
     }

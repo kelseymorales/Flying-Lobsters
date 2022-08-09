@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Finished Game scenes/Main Menu.unity
     guid: eee018737e7280947bfdc6de66513d28
   - enabled: 1
-    path: Assets/Scenes/Collin.unity
-    guid: d80bc1004d2eb014fa0e471d9bd032d9
+    path: Assets/Scenes/Tutorial.unity
+    guid: 6028139a8e5aaa9408ef3f9eefc731a4
   - enabled: 1
-    path: Assets/Scenes/Raymond.unity
-    guid: 8c9058275b9e7c74093f0e85f68248b4
+    path: Assets/Scenes/Showcase.unity
+    guid: 1ff65087046d7f045910e72e44fb26fd
   m_configObjects: {}
