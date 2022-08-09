@@ -423,8 +423,7 @@ public class GameManager : MonoBehaviour
 
             for (int i = 0; i < sLoadedContentNames.Length - 1; i++) //Makes sure the last empty elements is not read
             {
-                if (i > 0) //Checks for the first elements to skip it
-                    sLoadedContentNames[i] = sLoadedContentNames[i].Substring(2);
+                ;
                 if (float.Parse(sLoadedContentValues[i]) <= 0) 
                     _mixer.SetFloat(sLoadedContentNames[i], -75.0f); //Sets the Value on the mixer to a "mute" state
                 else
@@ -436,9 +435,9 @@ public class GameManager : MonoBehaviour
             }
 
             //Logic to load through playerprefs
-            _mixer.SetFloat("MasterVolume", Mathf.Log10(PlayerPrefs.GetFloat("MasterVolume"))*20);
-            _mixer.SetFloat("MusicVolume", Mathf.Log10(PlayerPrefs.GetFloat("MusicVolume"))*20);
-            _mixer.SetFloat("EffectsVolume", Mathf.Log10(PlayerPrefs.GetFloat("EffectsVolume"))*20);
+            //_mixer.SetFloat("MasterVolume", Mathf.Log10(PlayerPrefs.GetFloat("MasterVolume"))*20);
+            //_mixer.SetFloat("MusicVolume", Mathf.Log10(PlayerPrefs.GetFloat("MusicVolume"))*20);
+            //_mixer.SetFloat("EffectsVolume", Mathf.Log10(PlayerPrefs.GetFloat("EffectsVolume"))*20);
         }
         
     }

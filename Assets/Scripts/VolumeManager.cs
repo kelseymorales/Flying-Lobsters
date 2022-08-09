@@ -60,8 +60,6 @@ public class VolumeManager : MonoBehaviour
         PlayerPrefs.SetFloat(sVolumeParameter, _volumeSlider.value);
         PlayerPrefs.Save();
 
-        
-
         SaveOptions();
     }
     // Start is called before the first frame update
