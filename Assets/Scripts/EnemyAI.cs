@@ -39,6 +39,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
     bool bCanShoot = true;                              // value for whether enemy can currently fire their weapon
     bool bPlayerInRange;                                // value tracking whether the player is in range of enemyAI
+    public bool isGrenadier;
 
     Vector3 vStartingPos;                               // vector storing enemy starting position
     Vector3 vPlayerDirection;                           // vector storing the direction the player is in from the perspective of the enemy
@@ -193,9 +194,10 @@ public class EnemyAI : MonoBehaviour, IDamageable
         aud.PlayOneShot(aGunShot[Random.Range(0, aGunShot.Length)], aGunShotVol);
         Instantiate(gBullet, gShootPosition.transform.position, gBullet.transform.rotation);
         //setting up defusor when bullet is grenade
-        if(gBullet.tag == "EnemyGrenade")
-        {            
-            Instantiate(gDefusion, gBullet.transform.position, gDefusion.transform.rotation);
+        if(isGrenadier == true)
+        {
+            
+            gDefusion.SetActive(true);
         }
         yield return new WaitForSeconds(fShootRate);
         bCanShoot=true;

@@ -117,6 +117,7 @@ public class playerController : MonoBehaviour, IDamageable
 
         GameManager._instance.updateAmmoCount(); // update ui with ammo count info
         GameManager._instance.defuseLabel.SetActive(false); // small fix to make sure defuse prompt is inactive when player spawns
+        GameManager._instance.grenadeDefuseLabel.SetActive(false); //make sure grenade defuse is inactive
         GameManager._instance.updateGrenadeCount(); // update UI with grenade count info
 
         // find all HUD objects and stores a reference to them
@@ -487,6 +488,7 @@ public class playerController : MonoBehaviour, IDamageable
         UpdateHealthBar();
 
         GameManager._instance.defuseLabel.SetActive(false);
+        GameManager._instance.grenadeDefuseLabel.SetActive(false);
     }
 
     // helper function for picking up healthpack

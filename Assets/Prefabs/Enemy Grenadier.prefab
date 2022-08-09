@@ -239,7 +239,7 @@ Transform:
   - {fileID: 8521048783802596827}
   - {fileID: 8521048783802596841}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8521048782842498184
 MonoBehaviour:
@@ -269,6 +269,8 @@ MonoBehaviour:
   aGunShot:
   - {fileID: 8300000, guid: f479719563b375e428f5a0aac2df9211, type: 3}
   aGunShotVol: 0.5
+  isGrenadier: 1
+  gDefusion: {fileID: 2429891258340401631, guid: 9966258277031ec499150a9dd56fda8b, type: 3}
 --- !u!95 &8521048783810007611
 Animator:
   serializedVersion: 4

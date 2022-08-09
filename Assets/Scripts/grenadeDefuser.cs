@@ -5,23 +5,32 @@ using UnityEngine;
 public class grenadeDefuser : bombGoal
 {
     [SerializedField] public GameObject _grenade;
-    [SerializedField] public EnemyAI _enemyScript;
+    
 
     public override void Start()
     {
-        _grenade = _enemyScript.gBullet;
         
     }
 
     public override void OnTriggerEnter(Collider other)
     {
-        base.OnTriggerEnter(other);        
+        if(other.CompareTag("Player"))
+        {
+            base.inRange = true;
+            GameManager._instance.grenadeDefuseLabel.SetActive(true);
+            GameManager._instance.isDefusingGrenade = true;
+        }
+              
     }
 
     // helper function for when player moves out of range of a grenade
     public override void OnTriggerExit(Collider other)
     {
-        base.OnTriggerExit(other);
+        if (other.CompareTag("Player"))
+        {
+            base.inRange = false;
+            GameManager._instance.grenadeDefuseLabel.SetActive(false);
+        }
     }
     public override void Update()
     {
@@ -43,6 +52,7 @@ public class grenadeDefuser : bombGoal
         
         GameManager._instance._playerScript.iGrenadeCount++;
         GameManager._instance.updateGrenadeCount();
+        Destroy(gameObject);
     }
 
 }

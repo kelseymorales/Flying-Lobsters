@@ -14,7 +14,9 @@ public class bombGoal : MonoBehaviour
 
     public virtual void Start()
     {
+
         GameManager._instance.updateBombCount();
+        
     }
     
     // Update is called once per frame

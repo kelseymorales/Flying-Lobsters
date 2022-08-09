@@ -89,12 +89,14 @@ public class GameManager : MonoBehaviour
 
     [Header("Text Prompts\n------------------------------")]
     [SerializeField] public GameObject defuseLabel;             // reference to prompt shown to defuse bombs
+    [SerializeField] public GameObject grenadeDefuseLabel;      //reference to prompt show to defuse grenade
 
     // stores variables keeping track of enemies killed, enemies spawned, bombs defused, bombs active, and original bomb total
     [HideInInspector] public int iEnemyKillGoal;
     [HideInInspector] public int iEnemiesKilled;
     [HideInInspector] public int iBombsActive;
     [HideInInspector] public int iBombsDefusedCounter;
+    [HideInInspector] public int iGrenadesDefusedCounter;              //helper int for grenades defused
     [HideInInspector] public int iBombTotalOrig;
 
     [HideInInspector] GameObject _menuCurrentlyOpen;
@@ -255,6 +257,12 @@ public class GameManager : MonoBehaviour
 
             StopSpawners();
         }
+        if(isDefusingGrenade)
+        {
+            iGrenadesDefusedCounter++;
+            Debug.Log(iGrenadesDefusedCounter.ToString());
+            
+        }
 
 
         //deactivate UI elements showing defusing in process
@@ -264,6 +272,7 @@ public class GameManager : MonoBehaviour
         _playerScript.UnlockInPlace(); // unlock player position
 
         defuseLabel.SetActive(false); // make sure the prompt to defuse bombs deactivates now that bomb is defused
+        grenadeDefuseLabel.SetActive(false);
 
 
 
@@ -271,6 +280,7 @@ public class GameManager : MonoBehaviour
 
         bomb.SetDefusedState();       // tells the bomb it is defused
 
+        //resets trap and grenade bools after defusing
         if (isDefusingTrap)
             isDefusingTrap = false;
         if (isDefusingGrenade)
@@ -280,7 +290,9 @@ public class GameManager : MonoBehaviour
         if (iBombsActive == 0)
         {
             levelWin = true;
-            WinGame(); // will need to be removed later, as the win game should be called at the end of level 3, and all we need here is the level win trigger for transitioning levels
+
+            WinGame();
+            // will need to be removed later, as the win game should be called at the end of level 3, and all we need here is the level win trigger for transitioning levels
         }
     }
 
