@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
-using System.IO; 
+using System.IO;
+
 
 public class VolumeManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class VolumeManager : MonoBehaviour
     [SerializeField] AudioMixer _mixer; // To access the mixer 
     [SerializeField] private Toggle _toggle; //Toggle used to mute the audio completely
     private bool isToggleEventDisable; //Boolean to check if the toggle is disabled. 
+
+    
 
     private void Awake() 
     {
