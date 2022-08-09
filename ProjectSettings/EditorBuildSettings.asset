@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Finished Game scenes/Main Menu.unity
     guid: eee018737e7280947bfdc6de66513d28
   - enabled: 1
-    path: Assets/Scenes/Showcase.unity
+    path: Assets/Scenes/Showcase/Showcase.unity
     guid: 1ff65087046d7f045910e72e44fb26fd
   - enabled: 1
     path: Assets/Scenes/Kelsey/Opening Scene.unity
