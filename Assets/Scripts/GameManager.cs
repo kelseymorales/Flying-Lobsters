@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text displayWinScore;                  // UI component that displays score on win screen
     [SerializeField] TMP_Text displayLoseScore;                 // UI component that displays score on lose screen
     [SerializeField] private bool bRestartCurrentLevel;
+    [SerializeField] private int buildIndex;
 
     [Header("Text Prompts\n------------------------------")]
     [SerializeField] public GameObject defuseLabel;             // reference to prompt shown to defuse bombs
@@ -131,11 +132,6 @@ public class GameManager : MonoBehaviour
         }
         StartCoroutine(bombTick());
 
-        
-    }
-
-    private void Start()
-    {
         LoadAudioSettings();
     }
 
@@ -177,13 +173,11 @@ public class GameManager : MonoBehaviour
 
         if (bRestartCurrentLevel)
         {
-            Debug.Log("Current Scene loaded");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         else
         {
-            
-            SceneManager.LoadScene(4);
+            SceneManager.LoadScene(buildIndex);
         }
     }
 
@@ -296,7 +290,7 @@ public class GameManager : MonoBehaviour
         {
             levelWin = true;
 
-            //WinGame();
+            WinGame();
             // will need to be removed later, as the win game should be called at the end of level 3, and all we need here is the level win trigger for transitioning levels
         }
     }
@@ -447,39 +441,34 @@ public class GameManager : MonoBehaviour
 
     public void LoadAudioSettings()
     {
-        //if(File.Exists(Application.dataPath + "/saveAudioValues.txt"))
-        //{
-        //    //Complete logic for Loading through saved file.
-
-        //    string sStringSeparator = "|";
-        //    string sLoadStringValues = File.ReadAllText(Application.dataPath + "/saveAudioValues.txt"); //Reads the values file
-        //    string sLoadStringNames = File.ReadAllText(Application.dataPath + "/saveAudioNames.txt"); //Reads the names file
-
-        //    string[] sLoadedContentValues = sLoadStringValues.Split(new[] { sStringSeparator }, System.StringSplitOptions.None); //String array that contains the Names for the mixer
-        //    string[] sLoadedContentNames = sLoadStringNames.Split(new[] { sStringSeparator }, System.StringSplitOptions.None); //String array that contains the Values for the mixer (float)
-
-        //    for (int i = 0; i < sLoadedContentNames.Length - 1; i++) //Makes sure the last empty elements is not read
-        //    {
-        //        ;
-        //        if (float.Parse(sLoadedContentValues[i]) <= 0) 
-        //            _mixer.SetFloat(sLoadedContentNames[i], -75.0f); //Sets the Value on the mixer to a "mute" state
-        //        else
-        //        {
-        //            float f = Mathf.Log10(float.Parse(sLoadedContentValues[i])) * 20; // Converts float from 0 to 1 -> to decibels
-        //            _mixer.SetFloat(sLoadedContentNames[i], f); //Sets the Value on the mixer equal to the decibels saved
-        //        }
-
-        //    }
-
-        //    //Logic to load through playerprefs
-            
-        //}
-
-        if(PlayerPrefs.HasKey("MasterVolume"))
+        if(File.Exists(Application.dataPath + "/saveAudioValues.txt"))
         {
-            _mixer.SetFloat("MasterVolume", Mathf.Log10(PlayerPrefs.GetFloat("MasterVolume")) * 20);
-            _mixer.SetFloat("MusicVolume", Mathf.Log10(PlayerPrefs.GetFloat("MusicVolume")) * 20);
-            _mixer.SetFloat("EffectsVolume", Mathf.Log10(PlayerPrefs.GetFloat("EffectsVolume")) * 20);
+            //Complete logic for Loading through saved file.
+
+            string sStringSeparator = "|";
+            string sLoadStringValues = File.ReadAllText(Application.dataPath + "/saveAudioValues.txt"); //Reads the values file
+            string sLoadStringNames = File.ReadAllText(Application.dataPath + "/saveAudioNames.txt"); //Reads the names file
+
+            string[] sLoadedContentValues = sLoadStringValues.Split(new[] { sStringSeparator }, System.StringSplitOptions.None); //String array that contains the Names for the mixer
+            string[] sLoadedContentNames = sLoadStringNames.Split(new[] { sStringSeparator }, System.StringSplitOptions.None); //String array that contains the Values for the mixer (float)
+
+            for (int i = 0; i < sLoadedContentNames.Length - 1; i++) //Makes sure the last empty elements is not read
+            {
+                ;
+                if (float.Parse(sLoadedContentValues[i]) <= 0) 
+                    _mixer.SetFloat(sLoadedContentNames[i], -75.0f); //Sets the Value on the mixer to a "mute" state
+                else
+                {
+                    float f = Mathf.Log10(float.Parse(sLoadedContentValues[i])) * 20; // Converts float from 0 to 1 -> to decibels
+                    _mixer.SetFloat(sLoadedContentNames[i], f); //Sets the Value on the mixer equal to the decibels saved
+                }
+
+            }
+
+            //Logic to load through playerprefs
+            //_mixer.SetFloat("MasterVolume", Mathf.Log10(PlayerPrefs.GetFloat("MasterVolume"))*20);
+            //_mixer.SetFloat("MusicVolume", Mathf.Log10(PlayerPrefs.GetFloat("MusicVolume"))*20);
+            //_mixer.SetFloat("EffectsVolume", Mathf.Log10(PlayerPrefs.GetFloat("EffectsVolume"))*20);
         }
         
     }

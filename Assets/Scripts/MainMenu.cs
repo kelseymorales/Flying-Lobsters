@@ -13,6 +13,11 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(2);
     }
 
+    public void PlayTurtorial()
+    {
+        SceneManager.LoadScene(1);
+    }
+
     public void OptionsMenu()
     {
         _mainMenu.SetActive(false);

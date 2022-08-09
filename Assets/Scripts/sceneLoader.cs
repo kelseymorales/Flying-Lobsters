@@ -5,13 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class sceneLoader : MonoBehaviour
 {
-    [SerializedField] public int iSceneIndex;
-
+    //only loads temp loading screen
+    //change title to correct scene want to load to
     void OnEnable()
     {
-        //Load based on sceneName field
-        SceneManager.LoadScene(iSceneIndex, LoadSceneMode.Single);
-
+        SceneManager.LoadScene("Temp Loading Scene", LoadSceneMode.Single);
     }
 
 }

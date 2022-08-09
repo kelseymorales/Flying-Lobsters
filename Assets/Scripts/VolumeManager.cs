@@ -43,9 +43,8 @@ public class VolumeManager : MonoBehaviour
         {
             GameManager._instance.options[sVolumeParameter] = _volumeSlider.value.ToString();
         }
+       
 
-        PlayerPrefs.SetFloat(sVolumeParameter, _volumeSlider.value);
-        PlayerPrefs.Save();
 
     }
 
@@ -59,39 +58,45 @@ public class VolumeManager : MonoBehaviour
             _volumeSlider.value = _volumeSlider.minValue; 
     }
 
+    private void OnDisable() //Sets the preference so the next time the user opens the game the option changes are saved
+    {
+        PlayerPrefs.SetFloat(sVolumeParameter, _volumeSlider.value);
+        PlayerPrefs.Save();
 
+        SaveOptions();
+    }
     // Start is called before the first frame update
     void Start()
     {
         _volumeSlider.value = PlayerPrefs.GetFloat(sVolumeParameter, _volumeSlider.value); 
     }
 
-    //public void SaveOptions()
-    //{
-    //    string sStringSeparator = "|";
+    public void SaveOptions()
+    {
+        string sStringSeparator = "|";
         
-    //    //Creates writers to both values and names files
-    //    StreamWriter writerValues = new StreamWriter(File.OpenWrite(Application.dataPath + "/saveAudioValues.txt"));
-    //    StreamWriter writerNames = new StreamWriter(File.OpenWrite(Application.dataPath + "/saveAudioNames.txt")); 
+        //Creates writers to both values and names files
+        StreamWriter writerValues = new StreamWriter(File.OpenWrite(Application.dataPath + "/saveAudioValues.txt"));
+        StreamWriter writerNames = new StreamWriter(File.OpenWrite(Application.dataPath + "/saveAudioNames.txt")); 
 
-    //    for (int i = 0; i < GameManager._instance.options.Count; i++)
-    //    {
-    //        //In both cases we add a separator
-    //        writerNames.Write(GameManager._instance.sNames[i] + sStringSeparator); //Saves name to the  names file
-    //        writerValues.Write(GameManager._instance.options[GameManager._instance.sNames[i]] + sStringSeparator); //Saves value to the values file
-    //    }
+        for (int i = 0; i < GameManager._instance.options.Count; i++)
+        {
+            //In both cases we add a separator
+            writerNames.Write(GameManager._instance.sNames[i] + sStringSeparator); //Saves name to the  names file
+            writerValues.Write(GameManager._instance.options[GameManager._instance.sNames[i]] + sStringSeparator); //Saves value to the values file
+        }
 
          
-    //    //string sSaveStringValues = string.Join(sStringSeparator, sContentsValues);
-    //    // string sSaveStringNames = string.Join(sStringSeparator, sContentsNames);
+        //string sSaveStringValues = string.Join(sStringSeparator, sContentsValues);
+        // string sSaveStringNames = string.Join(sStringSeparator, sContentsNames);
 
-    //    //Closes writers
-    //    writerValues.Close(); 
-    //    writerNames.Close(); 
+        //Closes writers
+        writerValues.Close(); 
+        writerNames.Close(); 
 
-    //    //File.WriteAllText(Application.dataPath + "/saveAudioValues.txt", sSaveStringValues);
-    //   // File.WriteAllText(Application.dataPath + "/saveAudioNames.txt", sSaveStringNames);
-    //}
+        //File.WriteAllText(Application.dataPath + "/saveAudioValues.txt", sSaveStringValues);
+       // File.WriteAllText(Application.dataPath + "/saveAudioNames.txt", sSaveStringNames);
+    }
 
     
 }
