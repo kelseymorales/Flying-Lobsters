@@ -366,6 +366,7 @@ public class playerController : MonoBehaviour, IDamageable
     private void ShotgunRay() // helper function for shotgun raycast
     {
         int iAmountOfProjectiles = 8;
+        int currentEnemyKillCount = GameManager._instance.iEnemiesKilled; //get current enemy kill count before shooting
 
         for (int i = 0; i < iAmountOfProjectiles; i++)
         {
@@ -401,6 +402,11 @@ public class playerController : MonoBehaviour, IDamageable
 
                         // apply damage (shotguns dont get headshots)
                         isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                        int afterEnemyKillCount = GameManager._instance.iEnemiesKilled; //enemy kill count after shooting
+                        if (afterEnemyKillCount > currentEnemyKillCount) //checking if enemy was killed
+                        {
+                            aud.PlayOneShot(aEnemyBodyshotDeath[Random.Range(0, aEnemyBodyshotDeath.Length)], aEnemyBodyshotDeathVol);
+                        }
                     }
                 }
             }

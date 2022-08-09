@@ -602,7 +602,7 @@ MonoBehaviour:
   aPlayerDodgeVol: 0.3
   aEnemyBodyshotDeath:
   - {fileID: 8300000, guid: c68fa1025df46c34b8744b0bdd059013, type: 3}
-  aEnemyBodyshotDeathVol: 0
+  aEnemyBodyshotDeathVol: 0.398
   sniperGun: 0
   ShotgunGun: 0
   iWeaponAmmoOrig: 0
