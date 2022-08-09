@@ -46,8 +46,8 @@ public class buttonFunctions : MonoBehaviour
 
     public void OpenOptionsInGame() 
     {
-        GameManager._instance._optionsMenu.SetActive(true);
-        GameManager._instance.OpenOptionsInGame(); 
+        GameManager._instance.OpenOptionsInGame();
+         
 
     }
 
