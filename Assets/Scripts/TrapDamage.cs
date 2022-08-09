@@ -33,10 +33,20 @@ public class TrapDamage : MonoBehaviour
     [SerializeField] bool isSpikeTrap;
     [SerializeField] bool isGranadeTrap;
 
+    [Header("Audio\n------------------------------")]
+    public AudioSource aud; //trap audio source
+    //clips for traps audio
+    [SerializeField] AudioClip[] aFireTrap;
+    [Range(0.0f, 1.0f)][SerializeField] float aFireTrapVol;
+    [SerializeField] AudioClip[] aAcidTrap;
+    [Range(0.0f, 1.0f)][SerializeField] float aAcidTrapVol;
+
     [Header("Components\n------------------------------")]
     [SerializeField] float fStartTimeDelay; 
     [SerializeField] GameObject _roof; //Roof of the trap
     private bool isTrapActive = true; //Checks if the trap is active or not
+
+    
 
 
     private void Start()
@@ -109,11 +119,11 @@ public class TrapDamage : MonoBehaviour
 
                         if(isFire)
                         {
-                            //Audio for player interacting here (fire)
+                            aud.PlayOneShot(aFireTrap[Random.Range(0, aFireTrap.Length)], aFireTrapVol);
                         }
                         if(isAcid)
                         {
-                            //Audio for player interacting here (acid)
+                            aud.PlayOneShot(aAcidTrap[Random.Range(0, aAcidTrap.Length)], aAcidTrapVol);
                         }
 
                     }

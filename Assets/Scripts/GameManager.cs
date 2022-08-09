@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
 
     // stores variables keeping track of enemies killed, enemies spawned, bombs defused, bombs active, and original bomb total
     [HideInInspector] public int iEnemyKillGoal;
-    [HideInInspector] int iEnemiesKilled;
+    [HideInInspector] public int iEnemiesKilled;
     [HideInInspector] public int iBombsActive;
     [HideInInspector] public int iBombsDefusedCounter;
     [HideInInspector] public int iBombTotalOrig;
