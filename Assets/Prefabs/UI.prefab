@@ -9608,7 +9608,7 @@ MonoBehaviour:
   sNames: []
   _playerDamageFlash: {fileID: 2046789939}
   _AmmoBoxFlash: {fileID: 0}
-  _detonation: {fileID: 0}
+  _detonation: {fileID: 5919563822289782376, guid: 6932db2b6c86aae4d84dc53a2848ddbe, type: 3}
   iBombTimer: 210
   iDefuseCountdownTime: 6
   _defuseCountdownObject: {fileID: 203647280}
@@ -9624,6 +9624,7 @@ MonoBehaviour:
   iEnemiesKilled: 0
   iBombsActive: 0
   iBombsDefusedCounter: 0
+  iGrenadesDefusedCounter: 0
   iBombTotalOrig: 0
   isDefusingTrap: 0
   isDefusingGrenade: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LoadingScreen : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class LoadingScreen : MonoBehaviour
             _loadingBar.fillAmount = i / fwaitTime;
         }
 
-        yield return new WaitForSecondsRealtime(0.5f);
+        SceneManager.LoadScene(1);
 
         Time.timeScale = 1;
         GameManager._instance.gameOver = false;

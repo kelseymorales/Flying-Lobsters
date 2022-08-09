@@ -177,8 +177,8 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Level 1 loaded");
-            SceneManager.LoadScene(1);
+            
+            SceneManager.LoadScene(4);
         }
     }
 

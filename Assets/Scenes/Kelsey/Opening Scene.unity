@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0aef4e253c348f4f9dffb39b1ed6f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iSceneIndex: 3
 --- !u!1 &435636316
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +497,8 @@ PlayableDirector:
     value: {fileID: 1640330551}
   - key: {fileID: -595448607434298852, guid: 80877b905b6209545baeb3013a6324e9, type: 2}
     value: {fileID: 130398299}
+  - key: {fileID: -2818187079328707591, guid: 80877b905b6209545baeb3013a6324e9, type: 2}
+    value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
 --- !u!114 &1186318365
