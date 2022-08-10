@@ -757,7 +757,7 @@ MonoBehaviour:
   iPlayerFaceSpeed: 1
   iRoamingRadius: 5
   fShootRate: 0.5
-  gBullet: {fileID: 765824586908680669, guid: 43540270751a7044c85afda44d89ba0f, type: 3}
+  gBullet: {fileID: 765824586908680669, guid: 9d4e0112ca57fa440bc1664c397913d9, type: 3}
   gShootPosition: {fileID: 7486530164572111217}
   gHealthPack: {fileID: 0}
   gAmmoBox: {fileID: 0}
