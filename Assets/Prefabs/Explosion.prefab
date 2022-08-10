@@ -35,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5840865308621281000
 MonoBehaviour:
@@ -4943,8 +4943,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 6.1165795
+  m_Center: {x: 0, y: 5.6165795, z: 0}
 --- !u!54 &8549705287612664951
 Rigidbody:
   m_ObjectHideFlags: 0
