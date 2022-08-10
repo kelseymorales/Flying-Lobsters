@@ -177,7 +177,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(buildIndex);
+            SceneManager.LoadScene(4);
         }
     }
 
