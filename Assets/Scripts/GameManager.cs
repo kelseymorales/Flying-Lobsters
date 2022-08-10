@@ -114,6 +114,8 @@ public class GameManager : MonoBehaviour
     public bool isDefusingGrenade; //bool for defusing enemy grenades
     public bool isGrenadeDefused;
 
+    public bool didWin = false;
+
     void Awake()
     {
         _instance = this;                                               // stores reference this for use in other scripts
@@ -183,7 +185,14 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(4);
+            if (didWin == true)
+            {
+                SceneManager.LoadScene(5);
+            }
+            else
+            {
+                SceneManager.LoadScene(4);
+            }
         }
     }
 
@@ -397,6 +406,7 @@ public class GameManager : MonoBehaviour
 
     public void WinGame()   // helper function for win game scenario
     {
+        didWin = true;
         _menuCurrentlyOpen = _winGameMenu;
         _menuCurrentlyOpen.SetActive(true);
         gameOver = true;
