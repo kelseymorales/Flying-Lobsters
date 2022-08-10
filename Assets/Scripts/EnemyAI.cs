@@ -45,7 +45,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     Vector3 vPlayerDirection;                           // vector storing the direction the player is in from the perspective of the enemy
 
     float fStoppingDistanceOrig;                        // float value for how close enemy can get to other enemies, player, and etc
-    [SerializedField] public GameObject gDefusion;      //game object for defusion grenades
+    //[SerializedField] public GameObject gDefusion;      //game object for defusion grenades
 
     // Called at Start
     void Start()
