@@ -66,6 +66,12 @@ public class GameManager : MonoBehaviour
     public TMP_Text shotsInClip;
     public TMP_Text grenadeAmmo;
 
+    //Boss UI
+    [SerializeField] public string sBossName;
+    public TMP_Text _bossName;
+    public Image _bossHealth;
+    public GameObject _bossHealthBar;
+
     [Header("Audio\n------------------------------")]
     [SerializeField] AudioMixer _mixer; //Audio mixer Main
     public Dictionary<string, string> options = new Dictionary<string, string>(); //Dictinary of Names and Values

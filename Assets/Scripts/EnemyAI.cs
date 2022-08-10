@@ -8,19 +8,22 @@ public class EnemyAI : MonoBehaviour, IDamageable
 {
     [Header("Components")]
     [SerializeField] NavMeshAgent nAgent;               // enemy nav mesh
-    [SerializeField] Renderer rRend;                    // enemy renderer
+    [SerializeField] protected Renderer rRend;                    // enemy renderer
     [SerializeField] Animator aAnim;                    // enemy animator
 
     [Header("------------------------------")]
     [Header("Enemy Attributes")]
-    [SerializeField] int iHP;                           // enemy health
-    [SerializeField] int iViewAngle;                    // enemy field of view
-    [SerializeField] int iPlayerFaceSpeed;              // speed at which enemy rotates to face player while tracking them
-    [SerializeField] int iRoamingRadius;                // radius the enemy pathfinding is allowed to roam in
+    [SerializeField] protected int iHP;                           // enemy health
+    [SerializeField] protected int iViewAngle;                    // enemy field of view
+    [SerializeField] protected int iPlayerFaceSpeed;              // speed at which enemy rotates to face player while tracking them
+    [SerializeField] protected int iRoamingRadius;                // radius the enemy pathfinding is allowed to roam in
+
+    protected Color _currentColor;                                  //Color for normal state of enemy
+    protected Color _currentDamageColor;                            //Color for damage state of enemy
 
     [Header("------------------------------")]
     [Header("Weapon Stats")]
-    [SerializeField] float fShootRate;                  // Rate at which enemy can fire their weapon
+    [SerializeField] protected float fShootRate;                  // Rate at which enemy can fire their weapon
     [SerializeField] public GameObject gBullet;                // stores enemy bullet object (can be used to store various object that will be used like the bullet is - example, grenades)
     [SerializeField] GameObject gShootPosition;         // stores position at which bullets are instantiated (in the case of guns, should be at the muzzle, for grenades it should be in an empty hand)
 
@@ -48,15 +51,20 @@ public class EnemyAI : MonoBehaviour, IDamageable
     //[SerializedField] public GameObject gDefusion;      //game object for defusion grenades
 
     // Called at Start
-    void Start()
+    protected virtual void Start()
     {
         vStartingPos = transform.position;                  // stores starting position
         fStoppingDistanceOrig = nAgent.stoppingDistance;    // stores stopping distance
+
+        //Sets color to white for normal, red for damage
+        _currentColor = Color.white;
+        _currentDamageColor = Color.red;
+
         GameManager._instance.updateEnemyCount();           // update UI to reflect enemies placed in scene
     }
 
     // Called every frame
-    void Update()
+    protected virtual void Update()
     {
         if (nAgent.isActiveAndEnabled) // if navmesh is enabled
         {
@@ -148,7 +156,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         }
     }
 
-    public void TakeDamage(int iDamage)
+    public virtual void TakeDamage(int iDamage)
     {
         //when enemy takes damage it flashes a color
         iHP -= iDamage;
