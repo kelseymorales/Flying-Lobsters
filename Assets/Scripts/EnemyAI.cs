@@ -194,11 +194,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         aud.PlayOneShot(aGunShot[Random.Range(0, aGunShot.Length)], aGunShotVol);
         Instantiate(gBullet, gShootPosition.transform.position, gBullet.transform.rotation);
         //setting up defusor when bullet is grenade
-        if(isGrenadier == true)
-        {
-            
-            gDefusion.SetActive(true);
-        }
+        
         yield return new WaitForSeconds(fShootRate);
         bCanShoot=true;
     }
