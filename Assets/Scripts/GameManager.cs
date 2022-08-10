@@ -305,7 +305,7 @@ public class GameManager : MonoBehaviour
         {
             levelWin = true;
 
-            WinGame();
+            //WinGame();
             // will need to be removed later, as the win game should be called at the end of level 3, and all we need here is the level win trigger for transitioning levels
         }
     }
