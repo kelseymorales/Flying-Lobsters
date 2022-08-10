@@ -7270,7 +7270,7 @@ MonoBehaviour:
   nAgent: {fileID: 152255868098739194}
   rRend: {fileID: 152255866997873544}
   aAnim: {fileID: 152255866993730888}
-  iHP: 75
+  iHP: 50
   iViewAngle: 25
   iPlayerFaceSpeed: 6
   iRoamingRadius: 18

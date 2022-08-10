@@ -176,6 +176,11 @@ public class EnemyAI : MonoBehaviour, IDamageable
         aAnim.SetTrigger("Damage");
         StartCoroutine(FlashColor());
 
+        if (isBoss)
+        {
+            GameManager._instance._bossHealth.fillAmount = (float)iHP / (float)iHPOriginal;
+        }
+
         //if enemy dies then enemy object is destroyed
         if (iHP <= 0)
         {
