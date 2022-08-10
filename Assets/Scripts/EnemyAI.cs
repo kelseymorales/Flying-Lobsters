@@ -43,6 +43,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     bool bCanShoot = true;                              // value for whether enemy can currently fire their weapon
     bool bPlayerInRange;                                // value tracking whether the player is in range of enemyAI
     public bool isGrenadier;
+    public bool isBoss;
 
     Vector3 vStartingPos;                               // vector storing enemy starting position
     Vector3 vPlayerDirection;                           // vector storing the direction the player is in from the perspective of the enemy
@@ -50,11 +51,15 @@ public class EnemyAI : MonoBehaviour, IDamageable
     float fStoppingDistanceOrig;                        // float value for how close enemy can get to other enemies, player, and etc
     //[SerializedField] public GameObject gDefusion;      //game object for defusion grenades
 
+    [HideInInspector] int iHPOriginal;
+
     // Called at Start
     protected virtual void Start()
     {
         vStartingPos = transform.position;                  // stores starting position
         fStoppingDistanceOrig = nAgent.stoppingDistance;    // stores stopping distance
+
+        iHPOriginal = iHP;
 
         //Sets color to white for normal, red for damage
         _currentColor = Color.white;
@@ -143,6 +148,12 @@ public class EnemyAI : MonoBehaviour, IDamageable
             bPlayerInRange = true;
             bCanShoot = true;
             nAgent.stoppingDistance = fStoppingDistanceOrig;
+
+            if (isBoss)
+            {
+                GameManager._instance._bossHealthBar.gameObject.SetActive(true);
+            }
+
         }
     }
 
@@ -179,6 +190,12 @@ public class EnemyAI : MonoBehaviour, IDamageable
             foreach(Collider col in GetComponents<Collider>())
             {
                 col.enabled = false;
+            }
+
+            if (isBoss)
+            {
+                GameManager._instance.iScore += 150;
+                GameManager._instance.WinGame();
             }
         }
     }

@@ -17,7 +17,7 @@ public class Boss : EnemyAI
      int iOriginalTimeUntilRage; //Will be used in beta
      int iTimeUntilRage; //Will be used in beta
     
-    private bool isFightingPlayer = false;
+    //private bool isFightingPlayer = false;
 
     private Color _originalColor;
     private Color _originalDamageColor;
@@ -85,7 +85,7 @@ public class Boss : EnemyAI
         canRage = true;
         _currentColor = _originalColor;
         _currentDamageColor = _originalDamageColor;
-        isFightingPlayer = false;
+        //isFightingPlayer = false;
     }
 
     private IEnumerator UntilRageCount() //Used in Beta
