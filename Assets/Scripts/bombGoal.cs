@@ -9,11 +9,6 @@ public class bombGoal : MonoBehaviour
     [SerializeField] MeshRenderer ren;
 
     
-    private void Start()
-    {
-        GameManager._instance.updateBombCount();
-    }
-    
     // Update is called once per frame
     public void Update()
     {

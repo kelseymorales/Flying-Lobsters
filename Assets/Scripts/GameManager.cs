@@ -134,6 +134,12 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        s = GameObject.FindGameObjectsWithTag("Bomb");
+
+        iBombsActive = s.Length;
+
+        tBombTotal.text = iBombsActive.ToString("F0");
+
         StartCoroutine(bombTick());  
     }
 
@@ -388,12 +394,6 @@ public class GameManager : MonoBehaviour
     {
         iEnemyKillGoal++;
         tEnemyTotal.text = iEnemyKillGoal.ToString("F0");
-    }
-
-    public void updateBombCount()   // helper function for updating UI with current bomb count
-    {
-        iBombsActive++;
-        tBombTotal.text = iBombsActive.ToString("F0");
     }
 
     public void updateAmmoCount()   // helper function for updating UI with current ammo count
