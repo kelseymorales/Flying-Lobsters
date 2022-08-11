@@ -74,8 +74,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Audio\n------------------------------")]
     [SerializeField] AudioMixer _mixer; //Audio mixer Main
-    public Dictionary<string, string> options = new Dictionary<string, string>(); //Dictinary of Names and Values
-    public List<string> sNames = new List<string>(); //List of names
 
     [Header("Effects\n------------------------------")]
     public GameObject _playerDamageFlash;                       // screenspace effect for player taking damage

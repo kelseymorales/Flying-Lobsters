@@ -20,8 +20,6 @@ public class VolumeManager : MonoBehaviour
     {
         _volumeSlider.onValueChanged.AddListener(HandleSliderValueChanged);
         _toggle.onValueChanged.AddListener(HandleToggleValueChanged);
-
-        
     }
 
     private void HandleSliderValueChanged(float value) //Will convert the change in the slider (value 1-0) to decibels
@@ -33,17 +31,6 @@ public class VolumeManager : MonoBehaviour
         isToggleEventDisable = true; 
         _toggle.isOn = _volumeSlider.value > _volumeSlider.minValue;
         isToggleEventDisable = false;
-
-        if (!GameManager._instance.options.ContainsKey(sVolumeParameter))
-        {
-            GameManager._instance.options.Add(sVolumeParameter, _volumeSlider.value.ToString());
-            GameManager._instance.sNames.Add(sVolumeParameter);
-        }
-        else
-        {
-            GameManager._instance.options[sVolumeParameter] = _volumeSlider.value.ToString();
-        }
-
 
         PlayerPrefs.SetFloat(sVolumeParameter, _volumeSlider.value);
         PlayerPrefs.Save();
@@ -63,7 +50,14 @@ public class VolumeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _volumeSlider.value = PlayerPrefs.GetFloat(sVolumeParameter, _volumeSlider.value); 
+        if (PlayerPrefs.HasKey(sVolumeParameter) == false)
+        {
+            PlayerPrefs.SetFloat(sVolumeParameter, _volumeSlider.value);
+        }
+        else
+        {
+            _volumeSlider.value = PlayerPrefs.GetFloat(sVolumeParameter); 
+        }
     }
 
     //public void SaveOptions()
