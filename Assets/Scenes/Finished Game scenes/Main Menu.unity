@@ -772,6 +772,18 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1333662657}
     m_Modifications:
+    - target: {fileID: 4723259518304450213, guid: ef372fac2818e754d86621aaf975772b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1869170985}
+    - target: {fileID: 4723259518304450213, guid: ef372fac2818e754d86621aaf975772b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToMainFromOptions
+      objectReference: {fileID: 0}
+    - target: {fileID: 4723259518304450213, guid: ef372fac2818e754d86621aaf975772b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 4935387792921841039, guid: ef372fac2818e754d86621aaf975772b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1

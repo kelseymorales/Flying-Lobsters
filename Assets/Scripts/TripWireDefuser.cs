@@ -7,10 +7,7 @@ public class TripWireDefuser : bombGoal
     //Added for the TripWireDefuser class
     [SerializedField] public GameObject trap;
 
-    public override void Start()
-    {
-        
-    }
+
     public override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
@@ -37,5 +34,6 @@ public class TripWireDefuser : bombGoal
     {
         Debug.Log("Destroy object called"); 
         Destroy(trap); 
+        GameManager._instance.defuseLabel.SetActive(false);
     }
 }
