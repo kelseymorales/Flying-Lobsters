@@ -1,12 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-using System.IO;
 
 
 public class GameManager : MonoBehaviour
@@ -135,6 +133,7 @@ public class GameManager : MonoBehaviour
                 _spawners[i] = s[i].GetComponent<Spawner>();
             }
         }
+
         StartCoroutine(bombTick());  
     }
 
@@ -350,7 +349,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator Detonate()
     {
         // explosion effect
-        _detonation.SetActive(true);
+        Instantiate(_detonation);
 
         yield return new WaitForSeconds(0.6f);
 
@@ -439,6 +438,7 @@ public class GameManager : MonoBehaviour
         _menuCurrentlyOpen.SetActive(true);
         LockCursorPause();
     }
+
     public void OpenControlWindow()
     {
         _menuCurrentlyOpen.SetActive(false);
@@ -446,6 +446,7 @@ public class GameManager : MonoBehaviour
         _menuCurrentlyOpen.SetActive(true);
         LockCursorPause();
     }
+
     public void CloseControlWindow()
     {
         _menuCurrentlyOpen.SetActive(false);

@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class playerController : MonoBehaviour, IDamageable
 {
@@ -463,6 +462,7 @@ public class playerController : MonoBehaviour, IDamageable
             GameManager._instance.PlayerDead(); 
         }
     }
+
     IEnumerator DamageFlash() // Helper function that creates flash upon taking damage
     {
         GameManager._instance._playerDamageFlash.SetActive(true);
@@ -494,8 +494,19 @@ public class playerController : MonoBehaviour, IDamageable
     // helper function for picking up healthpack
     public void HealthPack()
     {
-        iPlayerHealth += iHealthPickupHealNum;  // apply health pickup value to player healthbar
-        healthPickUp(); //play health pack sound
+        int dif = iPlayerHealthOrig - iPlayerHealth;
+
+        if (iPlayerHealth != iPlayerHealthOrig && dif < iHealthPickupHealNum)
+        {
+            iPlayerHealth = iPlayerHealthOrig;
+        }
+        else
+        {
+            iPlayerHealth += iHealthPickupHealNum;  // apply health pickup value to player healthbar
+        }
+
+        // Health pick up sound
+        aud.PlayOneShot(aHeal[Random.Range(0, aHeal.Length)], aHealVol); 
         UpdateHealthBar(); //update health change in bar
     }
 
@@ -504,7 +515,8 @@ public class playerController : MonoBehaviour, IDamageable
     {
         iTotalWeaponAmmo += iAmmoPickupAmmoNum; // apply ammo pickup value to player total ammo pool
         GameManager._instance.updateAmmoCount(); //play ammo pickup sound
-        AmmoPickUp(); //add ammo to player
+        // audio clip for ammo pickup
+        aud.PlayOneShot(aAmmo[Random.Range(0, aAmmo.Length)], aAmmoVol);
     }
 
     public void UpdateHealthBar() // update the healthbar in the UI to reflect player's current health
@@ -514,31 +526,17 @@ public class playerController : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("HealthPack") && (iPlayerHealth+iHealthPickupHealNum) < iPlayerHealthOrig) //Checks to see if health amount is less than original health and health pack amount
+        if(other.CompareTag("HealthPack")) //Checks to see if health amount is less than original health and health pack amount
         {
             HealthPack(); //calls health pack function
             Destroy(other.gameObject); //destroys health pack
-        }
-        else if (other.CompareTag("HealthPack") && iPlayerHealth<iPlayerHealthOrig && (iPlayerHealth + iHealthPickupHealNum) >= iPlayerHealthOrig) //Checks if health amount is less than original and greater than heal amount
-        {
-            iPlayerHealth=iPlayerHealthOrig; //calls health pack function
-            UpdateHealthBar();
-            Destroy(other.gameObject); //destroys health pack
-        }
-        else if (other.CompareTag("HealthPack") && iPlayerHealth == iPlayerHealthOrig) //if health is full, do nothing
-        {
-
         }
 
         if(other.CompareTag("AmmoBox") && iWeaponAmmo < iTotalWeaponAmmo) // Calls Ammo Amount
         {
             AmmoBox(); //calls ammo function
             Destroy(other.gameObject); //destroys ammo box
-        }
-        else if (other.CompareTag("AmmoBox")&& iWeaponAmmo==iTotalWeaponAmmo)
-        {
-
-        }        
+        }      
     }
 
     public void LockInPlace() // stop player movement for scripted events
@@ -564,18 +562,6 @@ public class playerController : MonoBehaviour, IDamageable
     public void defuseJingle() // jingle for succesful defusing of a bomb
     {
         aud.PlayOneShot(aDefuseNoise[Random.Range(0, aDefuseNoise.Length)], aDefuseNoiseVol);
-    }
-
-    public void healthPickUp()
-    {
-        // audio clip for health pickup
-        aud.PlayOneShot(aHeal[Random.Range(0, aHeal.Length)], aHealVol);
-    }
-
-    public void AmmoPickUp()
-    {
-        // audio clip for ammo pickup
-        aud.PlayOneShot(aAmmo[Random.Range(0, aAmmo.Length)], aAmmoVol);
     }
 
     public void gunPickup(float fireRate, int damage, GameObject model, int clipSize, float range, AudioClip[] soundFile, float audioVol, RuntimeAnimatorController anim) // function for picking up new gun

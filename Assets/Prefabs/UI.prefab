@@ -9907,7 +9907,7 @@ MonoBehaviour:
   _mixer: {fileID: 24100000, guid: 6f4b16b16ef35a44ba71e732f405b6b2, type: 2}
   _playerDamageFlash: {fileID: 2046789939}
   _AmmoBoxFlash: {fileID: 0}
-  _detonation: {fileID: 0}
+  _detonation: {fileID: 5919563822289782376, guid: 6932db2b6c86aae4d84dc53a2848ddbe, type: 3}
   iBombTimer: 210
   iDefuseCountdownTime: 6
   _defuseCountdownObject: {fileID: 203647280}

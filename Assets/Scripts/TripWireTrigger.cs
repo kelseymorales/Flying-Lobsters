@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TripWireTrigger : MonoBehaviour
@@ -17,6 +15,7 @@ public class TripWireTrigger : MonoBehaviour
                 Instantiate(_explosion, collider.transform.position, _explosion.transform.rotation); //Instantiate explosion on player
 
             Destroy(_trap); //Destroys the trap if activated
+            GameManager._instance.defuseLabel.SetActive(false);
         }
     }
 }

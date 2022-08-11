@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
-using System.IO;
-
 
 public class VolumeManager : MonoBehaviour
 {
@@ -15,7 +11,6 @@ public class VolumeManager : MonoBehaviour
     private bool isToggleEventDisable; //Boolean to check if the toggle is disabled. 
 
     
-
     private void Awake() 
     {
         _volumeSlider.onValueChanged.AddListener(HandleSliderValueChanged);
@@ -59,33 +54,4 @@ public class VolumeManager : MonoBehaviour
             _volumeSlider.value = PlayerPrefs.GetFloat(sVolumeParameter); 
         }
     }
-
-    //public void SaveOptions()
-    //{
-    //    string sStringSeparator = "|";
-        
-    //    //Creates writers to both values and names files
-    //    StreamWriter writerValues = new StreamWriter(File.OpenWrite(Application.dataPath + "/saveAudioValues.txt"));
-    //    StreamWriter writerNames = new StreamWriter(File.OpenWrite(Application.dataPath + "/saveAudioNames.txt")); 
-
-    //    for (int i = 0; i < GameManager._instance.options.Count; i++)
-    //    {
-    //        //In both cases we add a separator
-    //        writerNames.Write(GameManager._instance.sNames[i] + sStringSeparator); //Saves name to the  names file
-    //        writerValues.Write(GameManager._instance.options[GameManager._instance.sNames[i]] + sStringSeparator); //Saves value to the values file
-    //    }
-
-         
-    //    //string sSaveStringValues = string.Join(sStringSeparator, sContentsValues);
-    //    // string sSaveStringNames = string.Join(sStringSeparator, sContentsNames);
-
-    //    //Closes writers
-    //    writerValues.Close(); 
-    //    writerNames.Close(); 
-
-    //    //File.WriteAllText(Application.dataPath + "/saveAudioValues.txt", sSaveStringValues);
-    //   // File.WriteAllText(Application.dataPath + "/saveAudioNames.txt", sSaveStringNames);
-    //}
-
-    
 }

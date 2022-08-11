@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class grenadeDefuser : bombGoal
@@ -12,8 +10,7 @@ public class grenadeDefuser : bombGoal
             base.inRange = true;
             GameManager._instance.grenadeDefuseLabel.SetActive(true);
             GameManager._instance.isDefusingGrenade = true;
-        }
-              
+        }   
     }
 
     // helper function for when player moves out of range of a grenade

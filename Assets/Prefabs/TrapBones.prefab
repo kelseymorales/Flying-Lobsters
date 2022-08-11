@@ -35,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 5962362304258587809}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5962362303640334610
 MeshFilter:
@@ -119,8 +119,8 @@ MonoBehaviour:
   fHazardousTrapDamage: 2
   fTakeDamageRate: 1
   fHazardousTrapDuration: 20
-  _spikes: {fileID: 0}
-  _tripWire: {fileID: 0}
+  _spikes: {fileID: 3640181276739659940, guid: 9e34745d6f63ded468c64d42ee0c7dd7, type: 3}
+  _tripWire: {fileID: 3986127378477776783, guid: c6a35cf71e8e7dd4aa92a3634ccb0d7c, type: 3}
   isHazardousTrap: 0
   isSpikeTrap: 0
   isGranadeTrap: 1

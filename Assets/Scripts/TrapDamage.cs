@@ -1,6 +1,13 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+enum TrapType
+{
+    acid,
+    fire,
+    spike,
+    tripWire
+}
 
 public class TrapDamage : MonoBehaviour
 {
@@ -9,10 +16,6 @@ public class TrapDamage : MonoBehaviour
     [SerializeField] GameObject _acidParticles;
     [SerializeField] GameObject _fireParticles;
 
-    //Checks if the trap is fire or acid
-    [SerializeField] bool isFire;
-    [SerializeField] bool isAcid; 
-    
     //Controlls timer for damage
     private bool canTakeDamage = true;
     //Amount of damage (per timer assigned)
@@ -22,16 +25,13 @@ public class TrapDamage : MonoBehaviour
     [SerializeField] float fHazardousTrapDuration; //How long the trap is going to be active (if modified, also modify the particle system duration)
 
     [Header("Spike Trap\n------------------------------")]
-    [SerializeField] GameObject _spikes; 
+    [SerializeField] GameObject _spikes;
 
     [Header("Grenade Trap\n------------------------------")]
     [SerializeField] GameObject _tripWire; //Trip wire object
 
     [Header("Type Trap\n------------------------------")]
-    //Controls what trap is going to be activated
-    [SerializeField] bool isHazardousTrap;
-    [SerializeField] bool isSpikeTrap;
-    [SerializeField] bool isGranadeTrap;
+    [SerializeField] private TrapType _type;
 
     [Header("Audio\n------------------------------")]
     public AudioSource aud; //trap audio source
@@ -42,24 +42,22 @@ public class TrapDamage : MonoBehaviour
     [Range(0.0f, 1.0f)][SerializeField] float aAcidTrapVol;
 
     [Header("Components\n------------------------------")]
-    [SerializeField] float fStartTimeDelay; 
+    [SerializeField] float fStartTimeDelay;
     [SerializeField] GameObject _roof; //Roof of the trap
     private bool isTrapActive = true; //Checks if the trap is active or not
-
-    
 
 
     private void Start()
     {
-        if (isSpikeTrap)
+        if (_type == TrapType.spike)
         {
             _roof.SetActive(false);
             Instantiate(_spikes, transform.position - new Vector3(0, 1.8f, 0), _spikes.transform.rotation);
         }
-        if(isGranadeTrap)
+        else if (_type == TrapType.tripWire)
         {
-            _roof.SetActive(false); 
-            Instantiate(_tripWire, transform.position +  new Vector3(0,-1.8f, 0f), _tripWire.transform.rotation);
+            _roof.SetActive(false);
+            Instantiate(_tripWire, transform.position + new Vector3(0, -1.8f, 0f), _tripWire.transform.rotation);
         }
     }
 
@@ -67,82 +65,71 @@ public class TrapDamage : MonoBehaviour
     {
 
         //Waits for delay
-        yield return new WaitForSeconds(fStartTimeDelay); 
+        yield return new WaitForSeconds(fStartTimeDelay);
         //Checks if acid or fire trap
-        if(isHazardousTrap)
-        {
-            if (isAcid)
-            {
-                Instantiate(_acidParticles, _roof.transform.position, _acidParticles.transform.rotation); //Instantiate acid particle system
-                                                                                                          //Acid droping Audio here (loop) 
-            }
 
-            if (isFire)
+        if (_type == TrapType.acid)
+        {
+            Instantiate(_acidParticles, _roof.transform.position, _acidParticles.transform.rotation); //Instantiate acid particle system
+                                                                                                      //Acid droping Audio here (loop) 
+        }
+
+        if (_type == TrapType.fire)
+        {
+            for (int i = 0; i < (int)Random.Range(3, 5); i++)
             {
-                for (int i = 0; i < (int)Random.Range(3, 5); i++)
-                    InstantiateFIreRandom(); //Instantiate fire particle system, multiple times because its a small flame
-                                             //Fire burning Audio here (loop)
+                InstantiateFIreRandom(); //Instantiate fire particle system, multiple times because its a small flame
+                                         //Fire burning Audio here (loop)
             }
         }
-        
-            
+
         isTrapActive = true; //Sets trap back to active
     }
 
-
     public void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Player")
+        if (collider.tag == "Player" && (_type == TrapType.acid || _type == TrapType.fire))
         {
-            StartCoroutine(StopTrapTimer()); 
+            StartCoroutine(StopTrapTimer());
             StartCoroutine(ActivateTrap());
         }
     }
 
     public void OnTriggerStay(Collider collider)
     {
-        if (collider.tag == "Player" && isTrapActive)
+        if (collider.tag == "Player" && isTrapActive && (_type == TrapType.acid || _type == TrapType.fire))
         {
-            //Controls the trap damage or activation type
-            if (isHazardousTrap)
+            //Checks trap type and checks for IDamageable component
+            if (collider.GetComponent<IDamageable>() != null)
             {
-                //Checks trap type and checks for IDamageable component
-                if (collider.GetComponent<IDamageable>() != null)
+                IDamageable isDamagable = collider.GetComponent<IDamageable>();
+
+                if (canTakeDamage)
                 {
-                    IDamageable isDamagable = collider.GetComponent<IDamageable>();
+                    //Calls Ienumerator so the player can receive damage per time assigned 
+                    StartCoroutine(ConstantDamageTrap());
+                    isDamagable.TakeDamage(fHazardousTrapDamage);
 
-                    if(canTakeDamage)
+                    if (_type == TrapType.fire)
                     {
-                        //Calls Ienumerator so the player can receive damage per time assigned 
-                        StartCoroutine(ConstantDamageTrap());
-                        isDamagable.TakeDamage(fHazardousTrapDamage);
-
-                        if(isFire)
-                        {
-                            aud.PlayOneShot(aFireTrap[Random.Range(0, aFireTrap.Length)], aFireTrapVol);
-                        }
-                        if(isAcid)
-                        {
-                            aud.PlayOneShot(aAcidTrap[Random.Range(0, aAcidTrap.Length)], aAcidTrapVol);
-                        }
-
+                        aud.PlayOneShot(aFireTrap[Random.Range(0, aFireTrap.Length)], aFireTrapVol);
                     }
-                        
+                    else if (_type == TrapType.acid)
+                    {
+                        aud.PlayOneShot(aAcidTrap[Random.Range(0, aAcidTrap.Length)], aAcidTrapVol);
+                    }
                 }
             }
 
         }
     }
 
-
-
     private IEnumerator ConstantDamageTrap()
     {
         //Damage per timer 
         canTakeDamage = false;
         yield return new WaitForSeconds(fTakeDamageRate);
-        canTakeDamage = true; 
-        
+        canTakeDamage = true;
     }
 
     private IEnumerator StopTrapTimer()
@@ -158,7 +145,4 @@ public class TrapDamage : MonoBehaviour
         Vector3 ranPos = new Vector3(Random.Range(-transform.localScale.x / 2, transform.localScale.x / 2), -2f, Random.Range(-transform.localScale.z / 2, transform.localScale.z / 2)); //Sets random position 
         Instantiate(_fireParticles, transform.position + ranPos, _fireParticles.transform.rotation); //Using random position to instantiate particle system inside the collider
     }
-
-
-
 }
