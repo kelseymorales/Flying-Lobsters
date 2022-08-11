@@ -153,7 +153,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
             if (isBoss)
             {
-                GameManager._instance._bossHealthBar.gameObject.SetActive(true);
+                GameManager._instance.SetBossHealthBarActive(true);
             }
 
         }

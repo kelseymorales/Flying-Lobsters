@@ -26,11 +26,6 @@ public class buttonFunctions : MonoBehaviour
 
     #region Menus
 
-    public void OpenInfo() //Activates the Info tab
-    {
-        GameManager._instance._infoMenu.SetActive(true); 
-    }
-
     public void OpenOptions() //Activates the options tab
     {
         GameManager._instance._optionsMenu.SetActive(true);
@@ -39,10 +34,7 @@ public class buttonFunctions : MonoBehaviour
     public void CloseOptions()
     {
         if (!GameManager._instance.isPaused)
-        {
             GameManager._instance._optionsMenu.SetActive(false);
-        }
-
         else
             GameManager._instance.CloseOptionsInGame();
     }
@@ -50,9 +42,8 @@ public class buttonFunctions : MonoBehaviour
     public void OpenOptionsInGame() 
     {
         GameManager._instance.OpenOptionsInGame();
-         
-
     }
+    
     public void OpenControlWindow()
     {
         GameManager._instance.OpenControlWindow();
@@ -61,11 +52,6 @@ public class buttonFunctions : MonoBehaviour
     public void CloseControlWindow()
     {
         GameManager._instance.CloseControlWindow();
-    }
-
-    public void StartGame() //to implement.. 
-    {
-
     }
 
     public void ReturnToMainMenu()
