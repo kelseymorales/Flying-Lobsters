@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class grenadeDefuser : bombGoal
 {
-    [SerializedField] public GameObject _grenade;
-    
-
-    public override void Start()
-    {
-        
-    }
 
     public override void OnTriggerEnter(Collider other)
     {
@@ -32,11 +25,6 @@ public class grenadeDefuser : bombGoal
             GameManager._instance.grenadeDefuseLabel.SetActive(false);
         }
     }
-    public override void Update()
-    {
-
-        base.Update();
-    }
 
     public override void Defuse()
     {
@@ -54,5 +42,4 @@ public class grenadeDefuser : bombGoal
         GameManager._instance.updateGrenadeCount();
         Destroy(gameObject);
     }
-
 }

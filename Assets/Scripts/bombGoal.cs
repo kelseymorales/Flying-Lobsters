@@ -35,7 +35,7 @@ public class bombGoal : MonoBehaviour
     }
 
     // Helper function for when player moves in range of a bomb
-    public void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -45,7 +45,7 @@ public class bombGoal : MonoBehaviour
     }
 
     // helper function for when player moves out of range of a bomb
-    public void OnTriggerExit(Collider other)
+    public virtual void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -54,7 +54,7 @@ public class bombGoal : MonoBehaviour
         }
     }
 
-    public void Defuse()
+    public virtual void Defuse()
     {
         if (canDefuse == false)
         {

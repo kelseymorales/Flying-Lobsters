@@ -135,9 +135,7 @@ public class GameManager : MonoBehaviour
                 _spawners[i] = s[i].GetComponent<Spawner>();
             }
         }
-        StartCoroutine(bombTick());
-        
-       
+        StartCoroutine(bombTick());  
     }
 
     private void Start()
@@ -262,6 +260,7 @@ public class GameManager : MonoBehaviour
 
             yield return new WaitForSeconds(1);
         }
+        
         if (!isDefusingTrap && !isDefusingGrenade) //Checks whether we are defusing a bomb or a trap and grenade
         {
             // update game goals 
@@ -276,6 +275,7 @@ public class GameManager : MonoBehaviour
 
             StopSpawners();
         }
+
         if(isDefusingGrenade)
         {
             iGrenadesDefusedCounter++;
