@@ -38,4 +38,9 @@ public class TripWireDefuser : bombGoal
         Debug.Log("Destroy object called"); 
         Destroy(trap); 
     }
+
+    public void OnDestroy()
+    {
+        GameManager._instance.defuseLabel.SetActive(false);
+    }
 }

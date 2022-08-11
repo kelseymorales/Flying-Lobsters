@@ -8,6 +8,7 @@ public class Boss : EnemyAI
     [Header("Boss Changes")]
     [SerializeField] bool canRage = true;                                   //Checks if boss is able to activate rage
     [SerializeField] bool isEnraged;                                        //Checks if the boss has used rage
+    [SerializedField] public GameObject _grenadeBoss; 
 
     int iOriginalHp;                                       //Original HP for health bar functionality                                       
      float fRageTime; //Will be used in beta
@@ -25,6 +26,10 @@ public class Boss : EnemyAI
     private Color _rageDamageColor;
     private Color _rageColor;
 
+    
+    private bool canShootGrenade = false;
+    private int iHitUntilGrenade = 5; 
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -34,6 +39,7 @@ public class Boss : EnemyAI
         _originalDamageColor = Color.red;
 
         iOriginalHp = iHP;
+        
 
         _rageColor = Color.red;
         _rageDamageColor = new Color(0.7f, 0, 0.2f);
@@ -47,6 +53,17 @@ public class Boss : EnemyAI
     {
         base.Update();
         
+        if(canShootGrenade)
+        {
+            fOrginalShootRate = fShootRate; 
+            _currentBullet = _grenadeBoss;
+            StartCoroutine(ChangeBullet());
+        }
+        else
+        {
+            fShootRate = fOrginalShootRate;
+            _currentBullet = gBullet; 
+        }
 
         if(canRage && iHP < iOriginalHp / 2)
         {
@@ -57,9 +74,12 @@ public class Boss : EnemyAI
     public override void TakeDamage(int damage)
     {
         UpdateHpBarBoss();
+
+         
         if (isEnraged)
         {
             base.TakeDamage((damage / 2));
+            canShootGrenade = true;
         }
         else
         {
@@ -71,17 +91,21 @@ public class Boss : EnemyAI
     {
         //StopCoroutine(UntilRageCount());                    
         fShootRate = fShootRate / 2;                        //Changes shooting rate to half what it was
+        fOrginalShootRate = fShootRate; 
         canRage = false;                                    //Stops rage check
         _currentColor = _rageColor;                         //Changes color from original to rage(normal)
-        _currentDamageColor = _rageDamageColor;             //Changes color from original to rage (damage)
+        _currentDamageColor = _rageDamageColor;
+
+        rRend.material.color = _currentColor; 
+        //Changes color from original to rage (damage)
         //iTimeUntilRage = iOriginalTimeUntilRage;            
         isEnraged = true;                                   //Sets rage flag to true
     }
 
+
     private void NoRage()  //Used in Beta
     {
         fShootRate = fOrginalShootRate;
-        rRend.material.color = Color.white;
         canRage = true;
         _currentColor = _originalColor;
         _currentDamageColor = _originalDamageColor;
@@ -106,5 +130,14 @@ public class Boss : EnemyAI
     {
         //Updates the boss health bar
         GameManager._instance._bossHealth.fillAmount = (float)iHP / (float)iOriginalHp;
+    }
+
+    private IEnumerator ChangeBullet()
+    {
+        canShootGrenade = true;
+        fShootRate = 1; 
+        yield return new WaitForSeconds(fShootRate * 2);
+        canShootGrenade = false;
+        fShootRate = fOrginalShootRate; 
     }
 }

@@ -24,8 +24,9 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [Header("------------------------------")]
     [Header("Weapon Stats")]
     [SerializeField] protected float fShootRate;                  // Rate at which enemy can fire their weapon
-    [SerializeField] public GameObject gBullet;                // stores enemy bullet object (can be used to store various object that will be used like the bullet is - example, grenades)
+    [SerializeField] protected GameObject gBullet;                // stores enemy bullet object (can be used to store various object that will be used like the bullet is - example, grenades)
     [SerializeField] GameObject gShootPosition;         // stores position at which bullets are instantiated (in the case of guns, should be at the muzzle, for grenades it should be in an empty hand)
+    protected GameObject _currentBullet;
 
     [Header("------------------------------")]
     [Header("Drops")]
@@ -60,6 +61,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         fStoppingDistanceOrig = nAgent.stoppingDistance;    // stores stopping distance
 
         iHPOriginal = iHP;
+        _currentBullet = gBullet;
 
         //Sets color to white for normal, red for damage
         _currentColor = Color.white;
@@ -141,7 +143,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     }
 
     // Function for checking if player is in range of enemy
-    public void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -158,7 +160,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     }
 
     // Function for checking if player is leaving enemy's attack range
-    public void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -208,12 +210,12 @@ public class EnemyAI : MonoBehaviour, IDamageable
     IEnumerator FlashColor()
     {
         //flash color when hit
-        rRend.material.color = Color.red;
+        rRend.material.color = _currentDamageColor;
 
         yield return new WaitForSeconds(0.1f);
 
         //return back to original color
-        rRend.material.color = Color.white;
+        rRend.material.color = _currentColor;
     }
 
     IEnumerator Shoot()
@@ -222,7 +224,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         bCanShoot = false;
         aAnim.SetTrigger("Shoot");
         aud.PlayOneShot(aGunShot[Random.Range(0, aGunShot.Length)], aGunShotVol);
-        Instantiate(gBullet, gShootPosition.transform.position, gBullet.transform.rotation);
+        Instantiate(_currentBullet, gShootPosition.transform.position, _currentBullet.transform.rotation);
         //setting up defusor when bullet is grenade
         
         yield return new WaitForSeconds(fShootRate);
