@@ -108,7 +108,7 @@ NavMeshSettings:
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
-    agentSlope: 45
+    agentSlope: 50
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
@@ -935,6 +935,34 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 657234189}
     m_Modifications:
+    - target: {fileID: 3086309748231053134, guid: 2051934eb799e2d45a299687b0900a72, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438646317361730684, guid: 2051934eb799e2d45a299687b0900a72, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5523162135654544428, guid: 2051934eb799e2d45a299687b0900a72, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5523162135966484697, guid: 2051934eb799e2d45a299687b0900a72, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5523162136417862661, guid: 2051934eb799e2d45a299687b0900a72, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5523162136520095528, guid: 2051934eb799e2d45a299687b0900a72, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5523162136754054078, guid: 2051934eb799e2d45a299687b0900a72, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5793329680836245456, guid: 2051934eb799e2d45a299687b0900a72, type: 3}
       propertyPath: m_RootOrder
       value: -1
