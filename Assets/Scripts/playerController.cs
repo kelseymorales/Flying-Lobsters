@@ -108,6 +108,7 @@ public class playerController : MonoBehaviour, IDamageable
     // Called at Start
     void Start()
     {
+
         // Store starting values for important variables
         iPlayerHealthOrig = iPlayerHealth;
         fPlayerSpeedOrig = fPlayerSpeed;
@@ -158,6 +159,14 @@ public class playerController : MonoBehaviour, IDamageable
         if (_controller.isGrounded && _playerVelocity.y < 0)
         {
             iTimesJumped = 0;
+
+            if (_playerVelocity.y <= -15) //Checks for velocity while falling, if velocity reaches a certain nunber take fall damage
+            {
+                int iFallDamage = -1 * (int)(_playerVelocity.y / 2);  //Fall damage based on player's velocity
+                TakeDamage(iFallDamage);
+            }
+                
+
             _playerVelocity.y = 0f;
         }
 
