@@ -1,12 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-using System.IO; 
 
 
 public class GameManager : MonoBehaviour
@@ -26,7 +24,6 @@ public class GameManager : MonoBehaviour
 
     //Main menus
     public GameObject _optionsMenu;
-    public GameObject _infoMenu;
 
     // game menus
     public GameObject _pauseMenu;
@@ -34,8 +31,11 @@ public class GameManager : MonoBehaviour
     public GameObject _winGameMenu;
     public GameObject _loseGameMenu;
 
+    //control display screen
+    public GameObject _controlWindow;
+
     //game menu first options for implemented keyboard input
-    public EventSystem _eventSystem;    
+    public EventSystem _eventSystem;
     public GameObject _pauseMenuFirstOption;
     public GameObject _loseGameMenuFirstOption;
     public GameObject _playerDeadMenuFirstOption;
@@ -63,10 +63,14 @@ public class GameManager : MonoBehaviour
     public TMP_Text shotsInClip;
     public TMP_Text grenadeAmmo;
 
+    //Boss UI
+    [SerializeField] public string sBossName;
+    public TMP_Text _bossName;
+    public Image _bossHealth;
+    public GameObject _bossHealthBar;
+
     [Header("Audio\n------------------------------")]
     [SerializeField] AudioMixer _mixer; //Audio mixer Main
-    public Dictionary<string, string> options = new Dictionary<string, string>(); //Dictinary of Names and Values
-    public List<string> sNames = new List<string>(); //List of names
 
     [Header("Effects\n------------------------------")]
     public GameObject _playerDamageFlash;                       // screenspace effect for player taking damage
@@ -82,23 +86,30 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public int iScore;                        // stores player score - updated in checkEnemiesKilled, PlayerController shoot, and bombGoal defuse
     [SerializeField] TMP_Text displayWinScore;                  // UI component that displays score on win screen
     [SerializeField] TMP_Text displayLoseScore;                 // UI component that displays score on lose screen
-    [SerializeField] private bool bRestartCurrentLevel; 
+    [SerializeField] private bool bRestartCurrentLevel;
+    [SerializeField] private int buildIndex;
 
     [Header("Text Prompts\n------------------------------")]
     [SerializeField] public GameObject defuseLabel;             // reference to prompt shown to defuse bombs
+    [SerializeField] public GameObject grenadeDefuseLabel;      //reference to prompt show to defuse grenade
 
     // stores variables keeping track of enemies killed, enemies spawned, bombs defused, bombs active, and original bomb total
     [HideInInspector] public int iEnemyKillGoal;
-    [HideInInspector] int iEnemiesKilled;
+    [HideInInspector] public int iEnemiesKilled;
     [HideInInspector] public int iBombsActive;
     [HideInInspector] public int iBombsDefusedCounter;
+    [HideInInspector] public int iGrenadesDefusedCounter;              //helper int for grenades defused
     [HideInInspector] public int iBombTotalOrig;
 
-    [HideInInspector] GameObject _menuCurrentlyOpen; 
-    
+    [HideInInspector] GameObject _menuCurrentlyOpen;
+
     Coroutine _defuseFunction;          // stores reference to any game menu currently open/active
 
-    public bool isDefusingTrap; 
+    public bool isDefusingTrap;
+    public bool isDefusingGrenade; //bool for defusing enemy grenades
+    public bool isGrenadeDefused;
+
+    public bool didWin = false;
 
     void Awake()
     {
@@ -122,9 +133,22 @@ public class GameManager : MonoBehaviour
                 _spawners[i] = s[i].GetComponent<Spawner>();
             }
         }
-        StartCoroutine(bombTick());
 
-        LoadAudioSettings(); 
+        s = GameObject.FindGameObjectsWithTag("Bomb");
+
+        iBombsActive = s.Length;
+
+        tBombTotal.text = iBombsActive.ToString("F0");
+
+        StartCoroutine(bombTick());  
+    }
+
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("MasterVolume"))
+        {
+            LoadAudioSettings();
+        }
     }
 
     private void Update()
@@ -139,8 +163,8 @@ public class GameManager : MonoBehaviour
                 LockCursorPause();
                 //Setting up event system to show highlighted button
                 _eventSystem.SetSelectedGameObject(null);
-                _eventSystem.SetSelectedGameObject(_pauseMenuFirstOption);          
-                
+                _eventSystem.SetSelectedGameObject(_pauseMenuFirstOption);
+
             }
             else
             {
@@ -165,13 +189,18 @@ public class GameManager : MonoBehaviour
 
         if (bRestartCurrentLevel)
         {
-            Debug.Log("Current Scene loaded");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         else
         {
-            Debug.Log("Level 1 loaded");
-            SceneManager.LoadScene(1);
+            if (didWin == true)
+            {
+                SceneManager.LoadScene(5);
+            }
+            else
+            {
+                SceneManager.LoadScene(4);
+            }
         }
     }
 
@@ -233,10 +262,11 @@ public class GameManager : MonoBehaviour
             // UI updates for defuse countdown
             _defuseSliderImage.fillAmount = (float)i / (float)GameManager._instance.iDefuseCountdownTime;
             tDefuseCountdown.text = i.ToString("F0");
-         
+
             yield return new WaitForSeconds(1);
         }
-        if(!isDefusingTrap) //Checks whether we are defusing a bomb or a trap
+        
+        if (!isDefusingTrap && !isDefusingGrenade) //Checks whether we are defusing a bomb or a trap and grenade
         {
             // update game goals 
             iBombsActive--;
@@ -251,6 +281,13 @@ public class GameManager : MonoBehaviour
             StopSpawners();
         }
 
+        if(isDefusingGrenade)
+        {
+            iGrenadesDefusedCounter++;
+            Debug.Log(iGrenadesDefusedCounter.ToString());
+            
+        }
+
 
         //deactivate UI elements showing defusing in process
         _defuseCountdownObject.SetActive(false);
@@ -259,21 +296,27 @@ public class GameManager : MonoBehaviour
         _playerScript.UnlockInPlace(); // unlock player position
 
         defuseLabel.SetActive(false); // make sure the prompt to defuse bombs deactivates now that bomb is defused
+        grenadeDefuseLabel.SetActive(false);
 
-        
+
 
         _playerScript.defuseJingle(); // play defuse audio jingle
 
         bomb.SetDefusedState();       // tells the bomb it is defused
 
+        //resets trap and grenade bools after defusing
         if (isDefusingTrap)
-            isDefusingTrap = false; 
+            isDefusingTrap = false;
+        if (isDefusingGrenade)
+            isDefusingGrenade = false;
 
         // Level Win Condition
         if (iBombsActive == 0)
         {
             levelWin = true;
-            WinGame(); // will need to be removed later, as the win game should be called at the end of level 3, and all we need here is the level win trigger for transitioning levels
+
+            //WinGame();
+            // will need to be removed later, as the win game should be called at the end of level 3, and all we need here is the level win trigger for transitioning levels
         }
     }
 
@@ -290,7 +333,7 @@ public class GameManager : MonoBehaviour
         _defuseCountdownObject.SetActive(false);
         _defuseSlider.SetActive(false);
 
-        _playerScript.UnlockInPlace(); 
+        _playerScript.UnlockInPlace();
     }
 
     IEnumerator bombTick()
@@ -312,7 +355,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator Detonate()
     {
         // explosion effect
-        _detonation.SetActive(true);
+        Instantiate(_detonation);
 
         yield return new WaitForSeconds(0.6f);
 
@@ -353,12 +396,6 @@ public class GameManager : MonoBehaviour
         tEnemyTotal.text = iEnemyKillGoal.ToString("F0");
     }
 
-    public void updateBombCount()   // helper function for updating UI with current bomb count
-    {
-        iBombsActive++;
-        tBombTotal.text = iBombsActive.ToString("F0");
-    }
-
     public void updateAmmoCount()   // helper function for updating UI with current ammo count
     {
         ammoTotal.text = _playerScript.iTotalWeaponAmmo.ToString("F0"); // ammo pool total
@@ -373,6 +410,7 @@ public class GameManager : MonoBehaviour
 
     public void WinGame()   // helper function for win game scenario
     {
+        didWin = true;
         _menuCurrentlyOpen = _winGameMenu;
         _menuCurrentlyOpen.SetActive(true);
         gameOver = true;
@@ -395,11 +433,26 @@ public class GameManager : MonoBehaviour
 
     public void OpenOptionsInGame() //Created to open the menu inside the actual game and not in the main menu
     {
-        _menuCurrentlyOpen.SetActive(false); 
+        _menuCurrentlyOpen.SetActive(false);
         _menuCurrentlyOpen = _optionsMenu;
         _menuCurrentlyOpen.SetActive(true);
         LockCursorPause();
     }
+
+    public void OpenControlWindow()
+    {
+        _menuCurrentlyOpen.SetActive(false);
+        _menuCurrentlyOpen = _controlWindow;
+        _menuCurrentlyOpen.SetActive(true);
+        LockCursorPause();
+    }
+
+    public void CloseControlWindow()
+    {
+        _menuCurrentlyOpen.SetActive(false);
+        _menuCurrentlyOpen = _pauseMenu;
+        _menuCurrentlyOpen.SetActive(true);
+    } 
 
     public void CloseOptionsInGame() //Created to close the menu inside the actual game and not in the main menu
     {
@@ -410,36 +463,13 @@ public class GameManager : MonoBehaviour
 
     public void LoadAudioSettings()
     {
-        if(File.Exists(Application.dataPath + "/saveAudioValues.txt"))
-        {
-            //Complete logic for Loading through saved file.
+        _mixer.SetFloat("MasterVolume", Mathf.Log10(PlayerPrefs.GetFloat("MasterVolume")) * 20);
+        _mixer.SetFloat("MusicVolume", Mathf.Log10(PlayerPrefs.GetFloat("MusicVolume")) * 20);
+        _mixer.SetFloat("EffectsVolume", Mathf.Log10(PlayerPrefs.GetFloat("EffectsVolume")) * 20);
+    }
 
-            string sStringSeparator = "|";
-            string sLoadStringValues = File.ReadAllText(Application.dataPath + "/saveAudioValues.txt"); //Reads the values file
-            string sLoadStringNames = File.ReadAllText(Application.dataPath + "/saveAudioNames.txt"); //Reads the names file
-
-            string[] sLoadedContentValues = sLoadStringValues.Split(new[] { sStringSeparator }, System.StringSplitOptions.None); //String array that contains the Names for the mixer
-            string[] sLoadedContentNames = sLoadStringNames.Split(new[] { sStringSeparator }, System.StringSplitOptions.None); //String array that contains the Values for the mixer (float)
-
-            for (int i = 0; i < sLoadedContentNames.Length - 1; i++) //Makes sure the last empty elements is not read
-            {
-                if (i > 0) //Checks for the first elements to skip it
-                    sLoadedContentNames[i] = sLoadedContentNames[i].Substring(2);
-                if (float.Parse(sLoadedContentValues[i]) <= 0) 
-                    _mixer.SetFloat(sLoadedContentNames[i], -75.0f); //Sets the Value on the mixer to a "mute" state
-                else
-                {
-                    float f = Mathf.Log10(float.Parse(sLoadedContentValues[i])) * 20; // Converts float from 0 to 1 -> to decibels
-                    _mixer.SetFloat(sLoadedContentNames[i], f); //Sets the Value on the mixer equal to the decibels saved
-                }
-
-            }
-
-            //Logic to load through playerprefs
-            _mixer.SetFloat("MasterVolume", Mathf.Log10(PlayerPrefs.GetFloat("MasterVolume"))*20);
-            _mixer.SetFloat("MusicVolume", Mathf.Log10(PlayerPrefs.GetFloat("MusicVolume"))*20);
-            _mixer.SetFloat("EffectsVolume", Mathf.Log10(PlayerPrefs.GetFloat("EffectsVolume"))*20);
-        }
-        
+    public void SetBossHealthBarActive(bool state)
+    {
+        _bossHealthBar.SetActive(true);
     }
 }

@@ -9,9 +9,21 @@ EditorBuildSettings:
     path: Assets/Scenes/Finished Game scenes/Main Menu.unity
     guid: eee018737e7280947bfdc6de66513d28
   - enabled: 1
-    path: Assets/Scenes/Collin.unity
-    guid: d80bc1004d2eb014fa0e471d9bd032d9
+    path: Assets/Scenes/Showcase/Showcase.unity
+    guid: 1ff65087046d7f045910e72e44fb26fd
   - enabled: 1
-    path: Assets/Scenes/Raymond.unity
-    guid: 8c9058275b9e7c74093f0e85f68248b4
+    path: Assets/Scenes/Kelsey/Opening Scene.unity
+    guid: 4c307a84fb429d848983b29688d55d5e
+  - enabled: 1
+    path: Assets/Scenes/Kelsey/Temp Loading Scene.unity
+    guid: c3203ae21a3411640999ef326fe747af
+  - enabled: 1
+    path: Assets/Scenes/Kelsey/Losing Scene.unity
+    guid: 4ce936322540a6444a9fc08bbc36b257
+  - enabled: 1
+    path: Assets/Scenes/Kelsey/Winning Scene.unity
+    guid: 037f550def3b9cc4ea8eb38d04dd94ea
+  - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 6028139a8e5aaa9408ef3f9eefc731a4
   m_configObjects: {}

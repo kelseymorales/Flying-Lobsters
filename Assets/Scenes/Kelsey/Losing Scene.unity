@@ -444,9 +444,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1486648294}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1e74abc14cf95f47a8015e49b2f4063, type: 3}
+  m_Script: {fileID: 11500000, guid: b0aef4e253c348f4f9dffb39b1ed6f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  iSceneIndex: 3
 --- !u!4 &1486648296
 Transform:
   m_ObjectHideFlags: 0
@@ -500,7 +501,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: I guess the city won't be saved...
+  m_text: Maybe in another life, the hero can try again.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
   m_sharedMaterial: {fileID: -5058014768078378672, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
@@ -768,7 +769,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You Died....
+  m_text: The brave hero failed in their mission, and the terrorists won
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
   m_sharedMaterial: {fileID: -5058014768078378672, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}

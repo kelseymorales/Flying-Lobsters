@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class playerController : MonoBehaviour, IDamageable
 {
@@ -82,6 +81,8 @@ public class playerController : MonoBehaviour, IDamageable
     [Range(0.0f, 1.0f)][SerializeField] float aWeaponPickupVol;
     [SerializeField] AudioClip[] aPlayerDodge;
     [Range(0.0f, 1.0f)][SerializeField] float aPlayerDodgeVol;
+    [SerializeField] AudioClip[] aEnemyBodyshotDeath;
+    [Range(0.0f, 1.0f)][SerializeField] float aEnemyBodyshotDeathVol;
 
     // Bool variables for player character
     bool canShoot = true;           // indicates whether player is allowed to shoot at any given moment
@@ -115,6 +116,7 @@ public class playerController : MonoBehaviour, IDamageable
 
         GameManager._instance.updateAmmoCount(); // update ui with ammo count info
         GameManager._instance.defuseLabel.SetActive(false); // small fix to make sure defuse prompt is inactive when player spawns
+        GameManager._instance.grenadeDefuseLabel.SetActive(false); //make sure grenade defuse is inactive
         GameManager._instance.updateGrenadeCount(); // update UI with grenade count info
 
         // find all HUD objects and stores a reference to them
@@ -280,7 +282,7 @@ public class playerController : MonoBehaviour, IDamageable
         if (hasGun)
         {
             // if shoot button is pressed, but there is no ammo in clip, play sound file
-            if (Input.GetButton("Shoot") && iWeaponAmmo <= 0)
+            if (Input.GetButtonDown("Shoot") && iWeaponAmmo <= 0)
             {
                 // call to empty clip audio clip
                 aud.PlayOneShot(aPlayerEmptyClip[Random.Range(0, aPlayerEmptyClip.Length)], aPlayerEmptyClipVol);
@@ -289,6 +291,8 @@ public class playerController : MonoBehaviour, IDamageable
             // get input for shooting
             if (Input.GetButton("Shoot") && canShoot && iWeaponAmmo > 0)
             {
+                int currentEnemyKillCount = GameManager._instance.iEnemiesKilled; //get current enemy kill count before shooting
+
                 iWeaponAmmo--;
 
                 // turns shooting off so it cant be immediately executed again
@@ -330,6 +334,13 @@ public class playerController : MonoBehaviour, IDamageable
                                 else
                                 {
                                     isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+
+                                    int afterEnemyKillCount = GameManager._instance.iEnemiesKilled; //enemy kill count after shooting
+                                    if(afterEnemyKillCount > currentEnemyKillCount) //checking if enemy was killed
+                                    {
+                                        aud.PlayOneShot(aEnemyBodyshotDeath[Random.Range(0, aEnemyBodyshotDeath.Length)], aEnemyBodyshotDeathVol);
+                                    }
+
                                 }
                             }
                         }
@@ -355,6 +366,7 @@ public class playerController : MonoBehaviour, IDamageable
     private void ShotgunRay() // helper function for shotgun raycast
     {
         int iAmountOfProjectiles = 8;
+        int currentEnemyKillCount = GameManager._instance.iEnemiesKilled; //get current enemy kill count before shooting
 
         for (int i = 0; i < iAmountOfProjectiles; i++)
         {
@@ -390,6 +402,11 @@ public class playerController : MonoBehaviour, IDamageable
 
                         // apply damage (shotguns dont get headshots)
                         isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                        int afterEnemyKillCount = GameManager._instance.iEnemiesKilled; //enemy kill count after shooting
+                        if (afterEnemyKillCount > currentEnemyKillCount) //checking if enemy was killed
+                        {
+                            aud.PlayOneShot(aEnemyBodyshotDeath[Random.Range(0, aEnemyBodyshotDeath.Length)], aEnemyBodyshotDeathVol);
+                        }
                     }
                 }
             }
@@ -445,6 +462,7 @@ public class playerController : MonoBehaviour, IDamageable
             GameManager._instance.PlayerDead(); 
         }
     }
+
     IEnumerator DamageFlash() // Helper function that creates flash upon taking damage
     {
         GameManager._instance._playerDamageFlash.SetActive(true);
@@ -470,13 +488,25 @@ public class playerController : MonoBehaviour, IDamageable
         UpdateHealthBar();
 
         GameManager._instance.defuseLabel.SetActive(false);
+        GameManager._instance.grenadeDefuseLabel.SetActive(false);
     }
 
     // helper function for picking up healthpack
     public void HealthPack()
     {
-        iPlayerHealth += iHealthPickupHealNum;  // apply health pickup value to player healthbar
-        healthPickUp(); //play health pack sound
+        int dif = iPlayerHealthOrig - iPlayerHealth;
+
+        if (iPlayerHealth != iPlayerHealthOrig && dif < iHealthPickupHealNum)
+        {
+            iPlayerHealth = iPlayerHealthOrig;
+        }
+        else
+        {
+            iPlayerHealth += iHealthPickupHealNum;  // apply health pickup value to player healthbar
+        }
+
+        // Health pick up sound
+        aud.PlayOneShot(aHeal[Random.Range(0, aHeal.Length)], aHealVol); 
         UpdateHealthBar(); //update health change in bar
     }
 
@@ -485,7 +515,8 @@ public class playerController : MonoBehaviour, IDamageable
     {
         iTotalWeaponAmmo += iAmmoPickupAmmoNum; // apply ammo pickup value to player total ammo pool
         GameManager._instance.updateAmmoCount(); //play ammo pickup sound
-        AmmoPickUp(); //add ammo to player
+        // audio clip for ammo pickup
+        aud.PlayOneShot(aAmmo[Random.Range(0, aAmmo.Length)], aAmmoVol);
     }
 
     public void UpdateHealthBar() // update the healthbar in the UI to reflect player's current health
@@ -495,31 +526,17 @@ public class playerController : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("HealthPack") && (iPlayerHealth+iHealthPickupHealNum) < iPlayerHealthOrig) //Checks to see if health amount is less than original health and health pack amount
+        if(other.CompareTag("HealthPack")) //Checks to see if health amount is less than original health and health pack amount
         {
             HealthPack(); //calls health pack function
             Destroy(other.gameObject); //destroys health pack
-        }
-        else if (other.CompareTag("HealthPack") && iPlayerHealth<iPlayerHealthOrig && (iPlayerHealth + iHealthPickupHealNum) >= iPlayerHealthOrig) //Checks if health amount is less than original and greater than heal amount
-        {
-            iPlayerHealth=iPlayerHealthOrig; //calls health pack function
-            UpdateHealthBar();
-            Destroy(other.gameObject); //destroys health pack
-        }
-        else if (other.CompareTag("HealthPack") && iPlayerHealth == iPlayerHealthOrig) //if health is full, do nothing
-        {
-
         }
 
         if(other.CompareTag("AmmoBox") && iWeaponAmmo < iTotalWeaponAmmo) // Calls Ammo Amount
         {
             AmmoBox(); //calls ammo function
             Destroy(other.gameObject); //destroys ammo box
-        }
-        else if (other.CompareTag("AmmoBox")&& iWeaponAmmo==iTotalWeaponAmmo)
-        {
-
-        }        
+        }      
     }
 
     public void LockInPlace() // stop player movement for scripted events
@@ -545,18 +562,6 @@ public class playerController : MonoBehaviour, IDamageable
     public void defuseJingle() // jingle for succesful defusing of a bomb
     {
         aud.PlayOneShot(aDefuseNoise[Random.Range(0, aDefuseNoise.Length)], aDefuseNoiseVol);
-    }
-
-    public void healthPickUp()
-    {
-        // audio clip for health pickup
-        aud.PlayOneShot(aHeal[Random.Range(0, aHeal.Length)], aHealVol);
-    }
-
-    public void AmmoPickUp()
-    {
-        // audio clip for ammo pickup
-        aud.PlayOneShot(aAmmo[Random.Range(0, aAmmo.Length)], aAmmoVol);
     }
 
     public void gunPickup(float fireRate, int damage, GameObject model, int clipSize, float range, AudioClip[] soundFile, float audioVol, RuntimeAnimatorController anim) // function for picking up new gun

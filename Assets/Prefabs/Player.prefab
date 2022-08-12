@@ -490,14 +490,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8448960639718001737}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.951, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8448960638106335432}
   - {fileID: 1985681086}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8448960639718001733
 MonoBehaviour:
@@ -598,8 +598,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 59b5d870dcdbd8b4c922dab79f3b3e8d, type: 3}
   aWeaponPickupVol: 0.481
   aPlayerDodge:
-  - {fileID: 8300000, guid: 3888121a7d990564d8bcfb6dfecb8158, type: 3}
+  - {fileID: 8300000, guid: d0c27e296ec7c664c8b7c06a7844398c, type: 3}
   aPlayerDodgeVol: 0.3
+  aEnemyBodyshotDeath:
+  - {fileID: 8300000, guid: c68fa1025df46c34b8744b0bdd059013, type: 3}
+  aEnemyBodyshotDeathVol: 0.398
   sniperGun: 0
   ShotgunGun: 0
   iWeaponAmmoOrig: 0
@@ -616,7 +619,7 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
-  m_SlopeLimit: 45
+  m_SlopeLimit: 90
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001

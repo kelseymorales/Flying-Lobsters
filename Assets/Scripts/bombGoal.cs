@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class bombGoal : MonoBehaviour
@@ -10,15 +9,8 @@ public class bombGoal : MonoBehaviour
     [SerializeField] MeshRenderer ren;
 
     
-
-
-    public virtual void Start()
-    {
-        GameManager._instance.updateBombCount();
-    }
-    
     // Update is called once per frame
-    public virtual void Update()
+    public void Update()
     {
         if (inRange==true) // player in range
         {

@@ -6,7 +6,12 @@ public class Spikes : MonoBehaviour
 {
     [SerializeField] int iSpikeDamage;
     [SerializeField] float fDamageTime;
-    [SerializeField] bool canTakeDamage = true; 
+    [SerializeField] bool canTakeDamage = true;
+
+    // audio components
+    public AudioSource aud;
+    [SerializeField] AudioClip[] aSpikeTrap;
+    [Range(0.0f, 1.0f)][SerializeField] float aSpikeTrapVol;
 
     public void OnTriggerStay(Collider collider)
     {
@@ -21,6 +26,7 @@ public class Spikes : MonoBehaviour
                     StartCoroutine(DamagePlayer()); //Damage per time assigned 
                     isDamagable.TakeDamage(iSpikeDamage);
                     //Audio for player touching spikes here
+                    aud.PlayOneShot(aSpikeTrap[Random.Range(0, aSpikeTrap.Length)], aSpikeTrapVol);
                 }
 
             }
