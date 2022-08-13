@@ -105,6 +105,13 @@ public class playerController : MonoBehaviour, IDamageable
     Vector3 _playerSpawnPos;
     Vector3 _dodgeMove;
 
+    //Power ups
+    private bool isPowerUped;
+    [HideInInspector] public bool hasSpeedBoost;
+    [HideInInspector] public bool isShielded;
+    [HideInInspector] public bool hasDamageBoost;
+    [HideInInspector] public bool hasUnlimetedAmmo;
+
     // Called at Start
     void Start()
     {
@@ -216,17 +223,28 @@ public class playerController : MonoBehaviour, IDamageable
 
     void Sprint()
     {
+        float fCurrentSpeed = fPlayerSpeed; 
         // on down press of 'Sprint' key, increase player speed
         if (Input.GetButtonDown("Sprint"))
         {
             isSprinting = true;
             fPlayerSpeed = fPlayerSpeed * fSprintMulti;
+            if(hasSpeedBoost)
+                fCurrentSpeed = fPlayerSpeed;
         }
         // on release of 'sprint' key, return player speed to normal
         else if (Input.GetButtonUp("Sprint"))
         {
             isSprinting = false;
-            fPlayerSpeed = fPlayerSpeedOrig;
+            if (!hasSpeedBoost) //Checks if the player used the power
+            {
+                fPlayerSpeed = fPlayerSpeedOrig;
+            }
+            else
+            {
+                fPlayerSpeed = fCurrentSpeed / 2; 
+            }
+            
         }
     }
 
@@ -258,7 +276,7 @@ public class playerController : MonoBehaviour, IDamageable
         if (hasGun)
         {
             // if reload button is pressed, the current clip is not full, and player has ammo is their total ammo pool, start reload function
-            if (Input.GetButtonDown("Reload") && iTotalWeaponAmmo > 0 && iWeaponAmmo < iWeaponAmmoOrig)
+            if (Input.GetButtonDown("Reload") && iTotalWeaponAmmo > 0 && iWeaponAmmo < iWeaponAmmoOrig && !hasUnlimetedAmmo)
             {
                 int shotsFired = iWeaponAmmoOrig - iWeaponAmmo; // determine how many shots were fired from the clip
 
@@ -301,8 +319,8 @@ public class playerController : MonoBehaviour, IDamageable
             if (Input.GetButton("Shoot") && canShoot && iWeaponAmmo > 0)
             {
                 int currentEnemyKillCount = GameManager._instance.iEnemiesKilled; //get current enemy kill count before shooting
-
-                iWeaponAmmo--;
+                if(!hasUnlimetedAmmo)
+                    iWeaponAmmo--;
 
                 // turns shooting off so it cant be immediately executed again
                 canShoot = false;
@@ -342,7 +360,10 @@ public class playerController : MonoBehaviour, IDamageable
                                 }
                                 else
                                 {
-                                    isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                                    if(!hasDamageBoost)
+                                        isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                                    else
+                                        isDamageable.TakeDamage((iWeaponDamage * 2));
 
                                     int afterEnemyKillCount = GameManager._instance.iEnemiesKilled; //enemy kill count after shooting
                                     if(afterEnemyKillCount > currentEnemyKillCount) //checking if enemy was killed
@@ -457,7 +478,10 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void TakeDamage(int iDmg)
     {
-        iPlayerHealth -= iDmg; // apply damage to player health
+        if (!isShielded)
+            iPlayerHealth -= iDmg; // apply damage to player health
+        else
+            iPlayerHealth -= iDmg / 2; 
 
         // play player damage taken audio clip
         aud.PlayOneShot(aPlayerHurt[Random.Range(0, aPlayerHurt.Length)], aPlayerHurtVol);
@@ -600,6 +624,31 @@ public class playerController : MonoBehaviour, IDamageable
 
         _anim.runtimeAnimatorController = anim;
         _anim.speed = 1.0f / fireRate;
+    }
+
+    public void powerUpPickup()
+    {
+        //start timer for power ups
+        StartCoroutine(powerUpTimer());  
+
+    }
+
+    public void SetBackStats()
+    {
+        fPlayerSpeed = fPlayerSpeedOrig; 
+    }
+
+    IEnumerator powerUpTimer()
+    {
+        isPowerUped = true;
+        yield return new WaitForSeconds(5f);
+        SetBackStats(); 
+        isPowerUped = false;
+
+        hasSpeedBoost = false;
+        hasDamageBoost = false;
+        hasUnlimetedAmmo = false;
+        isShielded = false; 
     }
 
     public void SniperFunctionality()
