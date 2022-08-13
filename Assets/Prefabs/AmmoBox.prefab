@@ -113,7 +113,7 @@ Transform:
   m_Children:
   - {fileID: 2487923305867378176}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9088108554106931584
 GameObject:
@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 7423657210539569707}
   - component: {fileID: 7789246407994810527}
   - component: {fileID: 7954984446568937654}
+  - component: {fileID: 1686091972}
   m_Layer: 0
   m_Name: Object004
   m_TagString: AmmoBox
@@ -230,3 +231,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1282.2859, y: 719.42426, z: 406.82083}
   m_Center: {x: 0, y: -0.00048828125, z: -0.000045776374}
+--- !u!114 &1686091972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9088108554106931584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b1cf8712a8e29c4e97b6dd78557b5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  degreesPerSecond: 15
+  amplitude: 0.1
+  frequency: 1
