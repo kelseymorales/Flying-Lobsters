@@ -2325,7 +2325,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -204, y: -5.37}
+  m_AnchoredPosition: {x: -204, y: 78.62998}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &503669388
@@ -2868,7 +2868,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -178, y: 35}
+  m_AnchoredPosition: {x: -178, y: 119}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &698535134
@@ -6118,7 +6118,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 705383848e38ffe40849d6dccf1afc1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fwaitTime: 10
   _loadingBar: {fileID: 63214262}
 --- !u!1 &1618169114
 GameObject:
@@ -8720,7 +8719,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 263, y: -86}
+  m_AnchoredPosition: {x: 255.8, y: -86}
   m_SizeDelta: {x: 145, y: 145}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3647863658615537207
@@ -9900,6 +9899,10 @@ MonoBehaviour:
   clipSize: {fileID: 1929095644}
   shotsInClip: {fileID: 1022082669}
   grenadeAmmo: {fileID: 816179383}
+  _powerUpShield: {fileID: 0}
+  _powerUpDamage: {fileID: 0}
+  _powerUpSpeed: {fileID: 0}
+  _powerUpAmmo: {fileID: 0}
   sBossName: TerroristLeader
   _bossName: {fileID: 0}
   _bossHealth: {fileID: 2951437423700392196}
@@ -11046,7 +11049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3736756993808763662, guid: 3e778883fdb8ba84184a729f9102907a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 300
+      value: 384
       objectReference: {fileID: 0}
     - target: {fileID: 3736756993808763662, guid: 3e778883fdb8ba84184a729f9102907a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
