@@ -9,15 +9,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5840865308621281015}
-  - component: {fileID: 6855559662796607808}
+  - component: {fileID: 5840865308621281000}
   - component: {fileID: 5840865308621281001}
   - component: {fileID: 5840865308621281002}
   - component: {fileID: 227554805966093533}
   - component: {fileID: 7549719119354467308}
   - component: {fileID: 8549705287612664951}
   m_Layer: 0
-  m_Name: 'Player Grenade Explosion '
-  m_TagString: Untagged
+  m_Name: Player Explosion
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -37,7 +37,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6855559662796607808
+--- !u!114 &5840865308621281000
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5840865308621281003}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b09650035a6905d429ba7d45c31df81e, type: 3}
+  m_Script: {fileID: 11500000, guid: e6b5de36c10fefb4f83961de64fc5897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   iDamage: 8
@@ -4943,8 +4943,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 6.1165795
+  m_Center: {x: 0, y: 5.6165795, z: 0}
 --- !u!54 &8549705287612664951
 Rigidbody:
   m_ObjectHideFlags: 0

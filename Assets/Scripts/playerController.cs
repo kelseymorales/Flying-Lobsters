@@ -529,7 +529,7 @@ public class playerController : MonoBehaviour, IDamageable
     {
         int dif = iPlayerHealthOrig - iPlayerHealth;
 
-        if (iPlayerHealth != iPlayerHealthOrig && dif < iHealthPickupHealNum)
+        if (dif < iHealthPickupHealNum)
         {
             iPlayerHealth = iPlayerHealthOrig;
         }
@@ -559,7 +559,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("HealthPack")) //Checks to see if health amount is less than original health and health pack amount
+        if(other.CompareTag("HealthPack") && iPlayerHealth != iPlayerHealthOrig) //Checks to see if health amount is less than original health and health pack amount
         {
             HealthPack(); //calls health pack function
             Destroy(other.gameObject); //destroys health pack
@@ -652,7 +652,7 @@ public class playerController : MonoBehaviour, IDamageable
         hasUnlimetedAmmo = false;
         isShielded = false;
 
-        
+
     }
 
     public void SniperFunctionality()

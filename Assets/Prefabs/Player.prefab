@@ -441,7 +441,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 503
+    m_Bits: 1527
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -606,6 +606,10 @@ MonoBehaviour:
   sniperGun: 0
   ShotgunGun: 0
   iWeaponAmmoOrig: 0
+  hasSpeedBoost: 0
+  isShielded: 0
+  hasDamageBoost: 0
+  hasUnlimetedAmmo: 0
 --- !u!143 &8448960639718001734
 CharacterController:
   m_ObjectHideFlags: 0
