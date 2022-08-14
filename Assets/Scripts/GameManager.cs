@@ -63,6 +63,13 @@ public class GameManager : MonoBehaviour
     public TMP_Text shotsInClip;
     public TMP_Text grenadeAmmo;
 
+    //UI - Power-ups badge to show when a power-up is active
+
+    public Image _powerUpShield;
+    public Image _powerUpDamage;
+    public Image _powerUpSpeed;
+    public Image _powerUpAmmo;
+
     //Boss UI
     [SerializeField] public string sBossName;
     public TMP_Text _bossName;

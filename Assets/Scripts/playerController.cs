@@ -640,6 +640,8 @@ public class playerController : MonoBehaviour, IDamageable
 
     IEnumerator powerUpTimer()
     {
+
+
         isPowerUped = true;
         yield return new WaitForSeconds(5f);
         SetBackStats(); 
@@ -648,7 +650,9 @@ public class playerController : MonoBehaviour, IDamageable
         hasSpeedBoost = false;
         hasDamageBoost = false;
         hasUnlimetedAmmo = false;
-        isShielded = false; 
+        isShielded = false;
+
+        
     }
 
     public void SniperFunctionality()
