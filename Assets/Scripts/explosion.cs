@@ -27,10 +27,11 @@ public class explosion : MonoBehaviour
             GameManager._instance._playerScript.vPushBack =
                 (GameManager._instance._player.transform.position - transform.position) * iDamage;
 
-            // if the target is damageable, it takes damage
+
             Ray ray = new Ray(transform.position, other.transform.position - transform.position);
             RaycastHit hit;
-            Debug.DrawRay(transform.position, other.transform.position - transform.position, Color.red, 10);
+
+            // Cast a ray if teh ray his a brick wall nothing else happens
 
             if (Physics.Raycast(ray, out hit, GetComponent<SphereCollider>().radius))
             {
