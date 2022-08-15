@@ -644,7 +644,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void SniperFunctionality()
     {
-        if (Input.GetButtonDown("Zoom") && !isZoomed) // when pressing zoom button and not zoomed - zoom in
+        if (Input.GetButtonDown("Zoom")) // when pressing zoom button and not zoomed - zoom in
         {
             SniperZoomIn(); // call zoom in function
             isZoomed = true;
@@ -661,7 +661,7 @@ public class playerController : MonoBehaviour, IDamageable
             // unhide scope UI
             GameManager._instance.SniperScope.SetActive(true);
         }
-        else if (Input.GetButtonDown("Zoom") && isZoomed) // when pressing zoom button and already zoomed - unzoom in
+        else if (Input.GetButtonUp("Zoom")) // when pressing zoom button and already zoomed - unzoom in
         {
             SniperZoomOut(); // call zoom out function
             isZoomed = false;
