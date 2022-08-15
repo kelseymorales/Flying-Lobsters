@@ -21,6 +21,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider _collider)
     {
+        if (_collider.gameObject.layer == LayerMask.NameToLayer("ChainFence"))
+        {
+            return;
+        }
+
         if( _collider.GetComponent<IDamageable>() != null)
         {
             IDamageable isDamageable = _collider.GetComponent<IDamageable>();
