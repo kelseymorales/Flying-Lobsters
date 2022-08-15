@@ -114,6 +114,9 @@ public class playerController : MonoBehaviour, IDamageable
     [HideInInspector] public bool hasDamageBoost;
     [HideInInspector] public bool hasUnlimetedAmmo;
 
+    //Drops
+    public bool isReadyForDrop = false; //Power-up drop flag
+
 
     // Called at Start
     void Start()

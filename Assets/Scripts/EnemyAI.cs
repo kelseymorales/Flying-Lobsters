@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -30,6 +31,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [Header("Drops")]
     [SerializeField] GameObject gHealthPack;            // slot for drops - healthpack (not currently implemented)
     [SerializeField] GameObject gAmmoBox;               // slot for drops - ammo pack (not currently implemented)
+
+    [SerializedField] public List<GameObject> listPowerUpDrops = new List<GameObject>();  //Power up list to drop
 
     [Header("------------------------------")]
     [Header("Audio")]
@@ -187,6 +190,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
             
             GameManager._instance.CheckEnemyKills();
 
+            DropPowerUp(); //Calls drop power-up function
+
             nAgent.enabled = false;
             bCanShoot = false;
             aAnim.SetBool("Dead", true);
@@ -227,6 +232,15 @@ public class EnemyAI : MonoBehaviour, IDamageable
         
         yield return new WaitForSeconds(fShootRate);
         bCanShoot=true;
+    }
+
+    private void DropPowerUp()
+    {
+        if(GameManager._instance._playerScript.isReadyForDrop) //Checks if the power-up drop flag is true
+        {
+            Instantiate(listPowerUpDrops[Random.Range(0, 3)], transform.position + new Vector3(0,1f,0), listPowerUpDrops[Random.Range(0,3)].transform.rotation); //Drops random power-up
+            GameManager._instance._playerScript.isReadyForDrop = false;  //Sets power-up drop flag back to false
+        }
     }
    
 }

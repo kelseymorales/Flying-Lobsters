@@ -265,12 +265,17 @@ MonoBehaviour:
   gShootPosition: {fileID: 7844407504085691519}
   gHealthPack: {fileID: 0}
   gAmmoBox: {fileID: 0}
+  listPowerUpDrops:
+  - {fileID: 436014890129041374, guid: 7eb33052d3efb554aaf7e88dcb06581d, type: 3}
+  - {fileID: 8688016822095496412, guid: 37c2447c695f60c4e88a946feea6d645, type: 3}
+  - {fileID: 9007769242695541918, guid: 6394e566031b8c644a81abd2ea14e3f3, type: 3}
+  - {fileID: 1615158997036569268, guid: a26b11dd5c8de4649b5f42b98964f4d2, type: 3}
   aud: {fileID: 2669595188624129445}
   aGunShot:
   - {fileID: 8300000, guid: f479719563b375e428f5a0aac2df9211, type: 3}
   aGunShotVol: 0.5
   isGrenadier: 1
-  gDefusion: {fileID: 2429891258340401631, guid: 9966258277031ec499150a9dd56fda8b, type: 3}
+  isBoss: 0
 --- !u!95 &8521048783810007611
 Animator:
   serializedVersion: 4

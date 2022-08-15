@@ -242,6 +242,12 @@ public class GameManager : MonoBehaviour
     public void CheckEnemyKills()
     {
         iEnemiesKilled++;
+
+        if(iEnemiesKilled % 5 == 0) //Checks kill number and set power-up drop flag to true
+        {
+            _playerScript.isReadyForDrop = true; 
+        }
+
         tEnemiesDead.text = iEnemiesKilled.ToString("F0");
         iScore += iEnemiesKilled * 10; // score tracking for enemy kills - also bonus points are allocated for headshot kills in playerController shoot function
         UpdatePlayerScore(); // call to helper function to update score on win/lose screens
