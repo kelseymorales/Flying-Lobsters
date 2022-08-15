@@ -681,6 +681,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc6fc3d97a05ab4482e41e0200813db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layers:
+    serializedVersion: 2
+    m_Bits: 2007
   nAgent: {fileID: 6534289120644129996}
   rRend: {fileID: 6534289119444436158}
   aAnim: {fileID: 6534289119448562302}
@@ -693,6 +696,7 @@ MonoBehaviour:
   gShootPosition: {fileID: 4625833422508835898}
   gHealthPack: {fileID: 0}
   gAmmoBox: {fileID: 0}
+  listPowerUpDrops: []
   aud: {fileID: 712381569601574368}
   aGunShot:
   - {fileID: 8300000, guid: f91f0596c717b2744ba7889ead827dae, type: 3}

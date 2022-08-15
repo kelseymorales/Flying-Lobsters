@@ -5,6 +5,7 @@ using UnityEngine;
 public class playerController : MonoBehaviour, IDamageable
 {
     [Header("Components")]
+    [SerializeField] private LayerMask layers;
     [SerializeField] CharacterController _controller;
     [SerializeField] private Animator _anim;
     [HideInInspector] GameObject[] HUD;
@@ -344,7 +345,7 @@ public class playerController : MonoBehaviour, IDamageable
                     RaycastHit hit;
 
                     // Casts a ray from the player camera and performs an action where the ray hits
-                    if (Physics.Raycast(UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit))
+                    if (Physics.Raycast(UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit, Mathf.Infinity, layers))
                     {
                         if (hit.distance <= fGunRange) // if raycast is within the player's gun's range stat, continue
                         {
