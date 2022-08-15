@@ -580,7 +580,7 @@ Transform:
   - {fileID: 6002337428387384212}
   - {fileID: 6002337428387384230}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6002337428396385396
 Animator:
@@ -675,10 +675,17 @@ MonoBehaviour:
   gShootPosition: {fileID: 5318928998736304688}
   gHealthPack: {fileID: 0}
   gAmmoBox: {fileID: 0}
+  listPowerUpDrops:
+  - {fileID: 8688016822095496412, guid: 37c2447c695f60c4e88a946feea6d645, type: 3}
+  - {fileID: 8688016822095496412, guid: 37c2447c695f60c4e88a946feea6d645, type: 3}
+  - {fileID: 436014890129041374, guid: 7eb33052d3efb554aaf7e88dcb06581d, type: 3}
+  - {fileID: 9007769242695541918, guid: 6394e566031b8c644a81abd2ea14e3f3, type: 3}
   aud: {fileID: 22301674}
   aGunShot:
   - {fileID: 8300000, guid: f91f0596c717b2744ba7889ead827dae, type: 3}
   aGunShotVol: 0.5
+  isGrenadier: 0
+  isBoss: 0
 --- !u!135 &1066052423676925438
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class playerController : MonoBehaviour, IDamageable
@@ -106,11 +107,16 @@ public class playerController : MonoBehaviour, IDamageable
     Vector3 _dodgeMove;
 
     //Power ups
-    private bool isPowerUped;
+
+    //Bools that checks what power-ups are active. Important for functionality
     [HideInInspector] public bool hasSpeedBoost;
     [HideInInspector] public bool isShielded;
     [HideInInspector] public bool hasDamageBoost;
     [HideInInspector] public bool hasUnlimetedAmmo;
+
+    //Drops
+    public bool isReadyForDrop = false; //Power-up drop flag
+
 
     // Called at Start
     void Start()
@@ -223,20 +229,21 @@ public class playerController : MonoBehaviour, IDamageable
 
     void Sprint()
     {
+         
         float fCurrentSpeed = fPlayerSpeed; 
         // on down press of 'Sprint' key, increase player speed
         if (Input.GetButtonDown("Sprint"))
         {
             isSprinting = true;
             fPlayerSpeed = fPlayerSpeed * fSprintMulti;
-            if(hasSpeedBoost)
+            if(hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
                 fCurrentSpeed = fPlayerSpeed;
         }
         // on release of 'sprint' key, return player speed to normal
         else if (Input.GetButtonUp("Sprint"))
         {
             isSprinting = false;
-            if (!hasSpeedBoost) //Checks if the player used the power
+            if (!hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
             {
                 fPlayerSpeed = fPlayerSpeedOrig;
             }
@@ -319,7 +326,7 @@ public class playerController : MonoBehaviour, IDamageable
             if (Input.GetButton("Shoot") && canShoot && iWeaponAmmo > 0)
             {
                 int currentEnemyKillCount = GameManager._instance.iEnemiesKilled; //get current enemy kill count before shooting
-                if(!hasUnlimetedAmmo)
+                if(!hasUnlimetedAmmo) //Checks if ammo power-up is active if so do not subtract ammo
                     iWeaponAmmo--;
 
                 // turns shooting off so it cant be immediately executed again
@@ -360,7 +367,7 @@ public class playerController : MonoBehaviour, IDamageable
                                 }
                                 else
                                 {
-                                    if(!hasDamageBoost)
+                                    if(!hasDamageBoost) //Checks for damage boost and applies twice the amount of damage if active
                                         isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
                                     else
                                         isDamageable.TakeDamage((iWeaponDamage * 2));
@@ -478,7 +485,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void TakeDamage(int iDmg)
     {
-        if (!isShielded)
+        if (!isShielded) //Checks if shield power up is active, if so takes half the damage
             iPlayerHealth -= iDmg; // apply damage to player health
         else
             iPlayerHealth -= iDmg / 2; 
@@ -626,33 +633,13 @@ public class playerController : MonoBehaviour, IDamageable
         _anim.speed = 1.0f / fireRate;
     }
 
-    public void powerUpPickup()
+    public void SetSpeedStat(int BoostSpeedValue) //Changes stats for playerSpeed
     {
-        //start timer for power ups
-        StartCoroutine(powerUpTimer());  
-
+        fPlayerSpeed = fPlayerSpeed * BoostSpeedValue;
     }
-
-    public void SetBackStats()
+    public void SetBackSpeedStats() //Sets back stats for playerSpeed
     {
         fPlayerSpeed = fPlayerSpeedOrig; 
-    }
-
-    IEnumerator powerUpTimer()
-    {
-
-
-        isPowerUped = true;
-        yield return new WaitForSeconds(5f);
-        SetBackStats(); 
-        isPowerUped = false;
-
-        hasSpeedBoost = false;
-        hasDamageBoost = false;
-        hasUnlimetedAmmo = false;
-        isShielded = false;
-
-
     }
 
     public void SniperFunctionality()
