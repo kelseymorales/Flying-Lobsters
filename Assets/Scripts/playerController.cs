@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class playerController : MonoBehaviour, IDamageable
@@ -106,11 +107,21 @@ public class playerController : MonoBehaviour, IDamageable
     Vector3 _dodgeMove;
 
     //Power ups
-    private bool isPowerUped;
+
     [HideInInspector] public bool hasSpeedBoost;
     [HideInInspector] public bool isShielded;
     [HideInInspector] public bool hasDamageBoost;
     [HideInInspector] public bool hasUnlimetedAmmo;
+
+    [HideInInspector]
+    public List<bool> listPowerUpActives = new List<bool>()
+    { 
+        false, //Speed
+        false, //Damage
+        false, //Shield
+        false //Ammo
+    };
+
 
     // Called at Start
     void Start()
@@ -223,6 +234,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     void Sprint()
     {
+         
         float fCurrentSpeed = fPlayerSpeed; 
         // on down press of 'Sprint' key, increase player speed
         if (Input.GetButtonDown("Sprint"))
@@ -626,33 +638,13 @@ public class playerController : MonoBehaviour, IDamageable
         _anim.speed = 1.0f / fireRate;
     }
 
-    public void powerUpPickup()
+    public void SetSpeedStat(int BoostSpeedValue) //Changes stats for playerSpeed
     {
-        //start timer for power ups
-        StartCoroutine(powerUpTimer());  
-
+        fPlayerSpeed = fPlayerSpeed * BoostSpeedValue;
     }
-
-    public void SetBackStats()
+    public void SetBackSpeedStats() //Sets back stats for playerSpeed
     {
         fPlayerSpeed = fPlayerSpeedOrig; 
-    }
-
-    IEnumerator powerUpTimer()
-    {
-
-
-        isPowerUped = true;
-        yield return new WaitForSeconds(5f);
-        SetBackStats(); 
-        isPowerUped = false;
-
-        hasSpeedBoost = false;
-        hasDamageBoost = false;
-        hasUnlimetedAmmo = false;
-        isShielded = false;
-
-
     }
 
     public void SniperFunctionality()

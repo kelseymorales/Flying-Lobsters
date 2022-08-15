@@ -131,10 +131,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49e0ac22be96b6b48b0fcff1244b88d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fPowerUpDuration: 5
   isSpeedPowerUp: 0
   isDamagePowerUp: 0
   isShieldPowerUp: 0
   isAmmoPowerUp: 1
+  speedBoostValue: 0
   _currentPowerUpImage: {fileID: 0}
 --- !u!1 &1615158997036569268
 GameObject:
