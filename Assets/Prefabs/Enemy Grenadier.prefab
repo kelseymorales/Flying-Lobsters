@@ -253,6 +253,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc6fc3d97a05ab4482e41e0200813db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layers:
+    serializedVersion: 2
+    m_Bits: 2003
   nAgent: {fileID: 8521048782842498185}
   rRend: {fileID: 8521048783805803771}
   aAnim: {fileID: 8521048783810007611}

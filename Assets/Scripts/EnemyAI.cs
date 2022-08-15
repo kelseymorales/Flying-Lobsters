@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour, IDamageable
 {
     [Header("Components")]
+    [SerializeField] private LayerMask layers;
     [SerializeField] NavMeshAgent nAgent;               // enemy nav mesh
     [SerializeField] protected Renderer rRend;                    // enemy renderer
     [SerializeField] Animator aAnim;                    // enemy animator
@@ -134,7 +135,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         RaycastHit hit;
 
         // determine if something is inbetween enemy and player
-        if (Physics.Raycast(transform.position, vPlayerDirection, out hit))
+        if (Physics.Raycast(transform.position, vPlayerDirection, out hit, Mathf.Infinity, layers))
         {
             if (hit.collider.CompareTag("Player") && bCanShoot && angle <= iViewAngle)
             {

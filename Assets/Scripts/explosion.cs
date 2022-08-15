@@ -35,7 +35,7 @@ public class explosion : MonoBehaviour
 
             if (Physics.Raycast(ray, out hit, GetComponent<SphereCollider>().radius))
             {
-                if (hit.collider.CompareTag("wall"))
+                if (hit.collider.CompareTag("wall") || other.GetComponent<IDamageable>() == null)
                 {
                     return;
                 }
