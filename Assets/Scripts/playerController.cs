@@ -108,19 +108,11 @@ public class playerController : MonoBehaviour, IDamageable
 
     //Power ups
 
+    //Bools that checks what power-ups are active. Important for functionality
     [HideInInspector] public bool hasSpeedBoost;
     [HideInInspector] public bool isShielded;
     [HideInInspector] public bool hasDamageBoost;
     [HideInInspector] public bool hasUnlimetedAmmo;
-
-    [HideInInspector]
-    public List<bool> listPowerUpActives = new List<bool>()
-    { 
-        false, //Speed
-        false, //Damage
-        false, //Shield
-        false //Ammo
-    };
 
 
     // Called at Start
@@ -241,14 +233,14 @@ public class playerController : MonoBehaviour, IDamageable
         {
             isSprinting = true;
             fPlayerSpeed = fPlayerSpeed * fSprintMulti;
-            if(hasSpeedBoost)
+            if(hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
                 fCurrentSpeed = fPlayerSpeed;
         }
         // on release of 'sprint' key, return player speed to normal
         else if (Input.GetButtonUp("Sprint"))
         {
             isSprinting = false;
-            if (!hasSpeedBoost) //Checks if the player used the power
+            if (!hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
             {
                 fPlayerSpeed = fPlayerSpeedOrig;
             }
@@ -331,7 +323,7 @@ public class playerController : MonoBehaviour, IDamageable
             if (Input.GetButton("Shoot") && canShoot && iWeaponAmmo > 0)
             {
                 int currentEnemyKillCount = GameManager._instance.iEnemiesKilled; //get current enemy kill count before shooting
-                if(!hasUnlimetedAmmo)
+                if(!hasUnlimetedAmmo) //Checks if ammo power-up is active if so do not subtract ammo
                     iWeaponAmmo--;
 
                 // turns shooting off so it cant be immediately executed again
@@ -372,7 +364,7 @@ public class playerController : MonoBehaviour, IDamageable
                                 }
                                 else
                                 {
-                                    if(!hasDamageBoost)
+                                    if(!hasDamageBoost) //Checks for damage boost and applies twice the amount of damage if active
                                         isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
                                     else
                                         isDamageable.TakeDamage((iWeaponDamage * 2));
@@ -490,7 +482,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void TakeDamage(int iDmg)
     {
-        if (!isShielded)
+        if (!isShielded) //Checks if shield power up is active, if so takes half the damage
             iPlayerHealth -= iDmg; // apply damage to player health
         else
             iPlayerHealth -= iDmg / 2; 

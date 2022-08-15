@@ -7,18 +7,17 @@ public class PowerUps : MonoBehaviour
 {
     [SerializedField] public float fPowerUpDuration; 
 
+    //Booleans to check power-up type
     [SerializedField] public bool isSpeedPowerUp;
     [SerializedField] public bool isDamagePowerUp;
     [SerializedField] public bool isShieldPowerUp;
     [SerializedField] public bool isAmmoPowerUp;
 
-    private string currentTrap; 
+    private string currentPowerUp; //String to check power-up type
 
-    private bool isActive; 
+    [SerializedField] public int speedBoostValue; //Value to increase speed
 
-    [SerializedField] public int speedBoostValue;
-
-    public Image _currentPowerUpImage; 
+    public Image _currentPowerUpImage; //Current icon for each power-up
 
     
     private void OnTriggerEnter(Collider other)
@@ -31,33 +30,32 @@ public class PowerUps : MonoBehaviour
 
     private void PickUp()
     {
-        //Each if statement takes care of setting a boolean to true representing if the power up is active or not. These booleans are located in the playerController. And also sets the current icon to the specific icon for each power up
+        //Each if statement takes care of setting a boolean to true representing if the power up is
+        //active or not. These booleans are located in the playerController. And also sets the current
+        //icon to the specific icon for each power up
+        //Sets the current powerUp text 
         if (isSpeedPowerUp)
         {
             GameManager._instance._playerScript.hasSpeedBoost = true;
             _currentPowerUpImage = GameManager._instance._powerUpSpeed;
             GameManager._instance._playerScript.SetSpeedStat(speedBoostValue); //Calls a method to change the speed of the player
-            currentTrap = "speed";
+            currentPowerUp = "speed";
 
-            GameManager._instance._playerScript.listPowerUpActives[0] = true;
         }
             
         if (isDamagePowerUp)
         {
             GameManager._instance._playerScript.hasDamageBoost = true;
             _currentPowerUpImage = GameManager._instance._powerUpDamage;
-            currentTrap = "damage";
-
-            GameManager._instance._playerScript.listPowerUpActives[1] = true;
+            currentPowerUp = "damage";
         }
             
         if (isShieldPowerUp)
         {
             GameManager._instance._playerScript.isShielded = true;
             _currentPowerUpImage = GameManager._instance._powerUpShield;
-            currentTrap = "shield"; 
+            currentPowerUp = "shield"; 
 
-            GameManager._instance._playerScript.listPowerUpActives[2] = true;
         }
             
         if (isAmmoPowerUp)
@@ -65,9 +63,8 @@ public class PowerUps : MonoBehaviour
             GameManager._instance._playerScript.hasUnlimetedAmmo = true;
             _currentPowerUpImage = GameManager._instance._powerUpAmmo;
 
-            currentTrap = "ammo"; 
+            currentPowerUp = "ammo"; 
 
-            GameManager._instance._playerScript.listPowerUpActives[3] = true;
         }
             
 
@@ -101,21 +98,22 @@ public class PowerUps : MonoBehaviour
 
     private void SetActivesFalse()
     {
+        //Checks for power-up type and deactivetes bools
         
-        if(currentTrap == "speed")
+        if(currentPowerUp == "speed")
         {
             GameManager._instance._playerScript.hasSpeedBoost = false;
             GameManager._instance._playerScript.SetBackSpeedStats(); //Calls for PowerUpDeactive in playerController
         }
-        else if(currentTrap == "damage")
+        else if(currentPowerUp == "damage")
         {
             GameManager._instance._playerScript.hasDamageBoost = false;
         }
-        else if(currentTrap == "shield")
+        else if(currentPowerUp == "shield")
         {
             GameManager._instance._playerScript.isShielded = false;
         }
-        else if(currentTrap == "ammo")
+        else if(currentPowerUp == "ammo")
         {
             GameManager._instance._playerScript.hasUnlimetedAmmo = false;
         }
