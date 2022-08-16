@@ -7924,7 +7924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8422757553098240711
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8002,7 +8002,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8da214fa2604c746a2aacc9370e6b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gFirstSelected: {fileID: 6276342205782701708}
+  gFirstSelected: {fileID: 825986938366818411}
 --- !u!1 &182197828725832218
 GameObject:
   m_ObjectHideFlags: 0
@@ -9413,6 +9413,7 @@ GameObject:
   - component: {fileID: 1658850238126403943}
   - component: {fileID: 7262434588835182467}
   - component: {fileID: 7810050343774967818}
+  - component: {fileID: 1492528880}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -9522,6 +9523,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!64 &1492528880
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038174423532079486}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &2073405640944519672
 GameObject:
   m_ObjectHideFlags: 0
@@ -11725,6 +11740,7 @@ MonoBehaviour:
   _pauseMenu: {fileID: 2043136205}
   _playerDeadMenu: {fileID: 2073405640944519672}
   _winGameMenu: {fileID: 234484969}
+  _winLevelMenu: {fileID: 170432017936801423}
   _loseGameMenu: {fileID: 1313398621}
   _controlWindow: {fileID: 464545027}
   _eventSystem: {fileID: 6699718115081910524}

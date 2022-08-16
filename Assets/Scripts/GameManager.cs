@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject _pauseMenu;
     public GameObject _playerDeadMenu;
     public GameObject _winGameMenu;
+    public GameObject _winLevelMenu;
     public GameObject _loseGameMenu;
 
     //control display screen
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     public GameObject _loseGameMenuFirstOption;
     public GameObject _playerDeadMenuFirstOption;
     public GameObject _winGameMenuFirstOption;
+    public GameObject _winLevelFirstOption;
 
     // UI - sniperZoom
     public GameObject SniperScope;
@@ -202,11 +204,35 @@ public class GameManager : MonoBehaviour
         {
             if (didWin == true)
             {
-                SceneManager.LoadScene(5);
+                
+                if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
+                {
+                    SceneManager.LoadScene(5);
+                }
+                else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3))
+                {
+                    SceneManager.LoadScene(6);
+                }
+                else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(4))
+                {
+                    SceneManager.LoadScene(7);
+                }
             }
             else
             {
-                SceneManager.LoadScene(4);
+                
+                if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
+                {
+                    SceneManager.LoadScene(10);
+                }
+                else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3))
+                {
+                    SceneManager.LoadScene(11);
+                }
+                else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(4))
+                {
+                    SceneManager.LoadScene(12);
+                }
             }
         }
     }
@@ -328,7 +354,7 @@ public class GameManager : MonoBehaviour
         {
             levelWin = true;
 
-            //WinGame();
+            WinLevel();
             // will need to be removed later, as the win game should be called at the end of level 3, and all we need here is the level win trigger for transitioning levels
         }
     }
@@ -421,6 +447,24 @@ public class GameManager : MonoBehaviour
         grenadeAmmo.text = _playerScript.iGrenadeCount.ToString("F0");
     }
 
+    public void WinLevel()   // helper function for win game scenario
+    {
+        didWin = true;
+        _menuCurrentlyOpen = _winLevelMenu;
+        _menuCurrentlyOpen.SetActive(true);
+        gameOver = true;
+        LockCursorPause();
+
+        //Setting up event system to show highlighted button
+        _eventSystem.SetSelectedGameObject(null);
+        _eventSystem.SetSelectedGameObject(_winLevelFirstOption);
+
+        // play 'You Win' audio clip
+        _playerScript.winJingle();
+
+    }
+
+
     public void WinGame()   // helper function for win game scenario
     {
         didWin = true;
@@ -484,5 +528,22 @@ public class GameManager : MonoBehaviour
     public void SetBossHealthBarActive(bool state)
     {
         _bossHealthBar.SetActive(true);
+    }
+
+    public void NextLevel()
+    {
+        Time.timeScale = 1;
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
+        {
+            SceneManager.LoadScene(8);
+        }
+        else if(SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3))
+        {           
+            
+            SceneManager.LoadScene(9);
+            
+        }
+        
+        
     }
 }

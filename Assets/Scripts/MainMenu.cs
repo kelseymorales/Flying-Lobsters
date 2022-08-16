@@ -15,7 +15,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayTurtorial()
     {
-        SceneManager.LoadScene(8);
+        SceneManager.LoadScene(12);
     }
 
     public void OptionsMenu()

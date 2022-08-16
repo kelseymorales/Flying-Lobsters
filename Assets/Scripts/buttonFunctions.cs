@@ -23,6 +23,10 @@ public class buttonFunctions : MonoBehaviour
     {
         GameManager._instance.Restart();
     }
+    public void NextLevel()
+    {
+        GameManager._instance.NextLevel();
+    }
 
     #region Menus
 
