@@ -45,8 +45,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Kelsey/Restart Lose Lv 3.unity
     guid: 11b263507712b6546a10e68e78e67220
   - enabled: 1
-    path: Assets/Scenes/Kelsey/Winning Scene.unity
+    path: Assets/Scenes/Kelsey/Quit Winning Scene.unity
     guid: 037f550def3b9cc4ea8eb38d04dd94ea
+  - enabled: 1
+    path: Assets/Scenes/Kelsey/Quit Loose.unity
+    guid: fd2d8e7a9345eab498b20545c80d6a47
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 6028139a8e5aaa9408ef3f9eefc731a4

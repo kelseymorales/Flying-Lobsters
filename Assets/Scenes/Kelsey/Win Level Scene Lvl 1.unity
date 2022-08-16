@@ -123,6 +123,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &130398299
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 130398300}
+  - component: {fileID: 130398301}
+  m_Layer: 0
+  m_Name: Next Scene Loader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &130398300
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130398299}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 456.8591, y: 205.02534, z: 2.8179018}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &130398301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130398299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0aef4e253c348f4f9dffb39b1ed6f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iSceneIndex: 6
 --- !u!1 &435636316
 GameObject:
   m_ObjectHideFlags: 0
@@ -161,7 +206,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Oh no!
+  m_text: 'Congrats! '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
   m_sharedMaterial: {fileID: -5058014768078378672, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
@@ -451,7 +496,7 @@ PlayableDirector:
   - key: {fileID: 1858410811768045752, guid: 80877b905b6209545baeb3013a6324e9, type: 2}
     value: {fileID: 1640330551}
   - key: {fileID: -595448607434298852, guid: 80877b905b6209545baeb3013a6324e9, type: 2}
-    value: {fileID: 0}
+    value: {fileID: 130398299}
   - key: {fileID: -2818187079328707591, guid: 80877b905b6209545baeb3013a6324e9, type: 2}
     value: {fileID: 0}
   m_ExposedReferences:
@@ -580,7 +625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You Died.....
+  m_text: You've completed this level!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
   m_sharedMaterial: {fileID: -5058014768078378672, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
@@ -715,7 +760,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: I guess our city isn't going to be saved...
+  m_text: But you're not done yet...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
   m_sharedMaterial: {fileID: -5058014768078378672, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}

@@ -10,6 +10,16 @@ public class buttonFunctions : MonoBehaviour
 
     public void Quit() //calling quit from game manager for menu UI
     {
+        Time.timeScale = 1;
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(4) && GameManager._instance.didWin == true)
+        {
+            SceneManager.LoadScene(13);
+        }
+        else
+        {
+            SceneManager.LoadScene(14);
+        }
+        
         Application.Quit();
     }
 

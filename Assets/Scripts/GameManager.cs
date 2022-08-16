@@ -119,6 +119,7 @@ public class GameManager : MonoBehaviour
     public bool isGrenadeDefused;
 
     public bool didWin = false;
+    public bool didWinLevel = false;
 
     void Awake()
     {
@@ -202,7 +203,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (didWin == true)
+            if (didWinLevel == true)
             {
                 
                 if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
@@ -449,7 +450,7 @@ public class GameManager : MonoBehaviour
 
     public void WinLevel()   // helper function for win game scenario
     {
-        didWin = true;
+        didWinLevel = true;
         _menuCurrentlyOpen = _winLevelMenu;
         _menuCurrentlyOpen.SetActive(true);
         gameOver = true;
