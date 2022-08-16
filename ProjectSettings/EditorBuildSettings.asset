@@ -9,11 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Finished Game scenes/Main Menu.unity
     guid: eee018737e7280947bfdc6de66513d28
   - enabled: 1
-    path: Assets/Scenes/Showcase/Showcase.unity
-    guid: 1ff65087046d7f045910e72e44fb26fd
-  - enabled: 1
     path: Assets/Scenes/Kelsey/Opening Scene.unity
     guid: 4c307a84fb429d848983b29688d55d5e
+  - enabled: 1
+    path: Assets/Scenes/Level 1 - Rough Draft/Level 1 - Rough Draft.unity
+    guid: 8c9058275b9e7c74093f0e85f68248b4
+  - enabled: 1
+    path: Assets/Scenes/Level 2/Level 2.unity
+    guid: 719f4d1c4f664044fb003dcc7820338e
+  - enabled: 1
+    path: Assets/Scenes/Level 3/Level 3.unity
+    guid: 94396bd4b643a564a88a8acbec92c3ca
   - enabled: 1
     path: Assets/Scenes/Kelsey/Temp Loading Scene.unity
     guid: c3203ae21a3411640999ef326fe747af

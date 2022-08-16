@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class LoadingScreen : MonoBehaviour
 {
     public Image _loadingBar;
+    [SerializedField] public int iSceneIndex;
 
     void Start()
     {
@@ -15,9 +16,8 @@ public class LoadingScreen : MonoBehaviour
 
     IEnumerator LoadAsyncOperation()
     {
-        //temp loading showcase level until all levels are done
-        //while implement new code for when loading different scenes
-        AsyncOperation gameLevel = SceneManager.LoadSceneAsync(1);
+        
+        AsyncOperation gameLevel = SceneManager.LoadSceneAsync(iSceneIndex);
 
         while(gameLevel.progress < 1)
         {

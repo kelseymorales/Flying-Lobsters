@@ -289,6 +289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loadingBar: {fileID: 761019205}
+  iSceneIndex: 2
 --- !u!222 &468995277
 CanvasRenderer:
   m_ObjectHideFlags: 0
