@@ -71,7 +71,15 @@ public class buttonFunctions : MonoBehaviour
     public void ReturnToMainMenu()
     {
         Time.timeScale = 1;
-        SceneManager.LoadScene(0);
+        if (SceneManager.GetActiveScene().buildIndex == 4 && GameManager._instance.didWin == true)
+        {
+            SceneManager.LoadScene(16);
+        }
+        else
+        {
+            SceneManager.LoadScene(1);
+        }
+            
     }
 
     #endregion
