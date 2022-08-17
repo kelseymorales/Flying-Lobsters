@@ -93,6 +93,7 @@ public class playerController : MonoBehaviour, IDamageable
     bool hasGun = false;            // Indicates whether the player has picked up a gun
     public bool sniperGun = false;  // Indicates whether the gun being used is a sniper
     public bool ShotgunGun = false; // Indicates whether the gun being used is a shotgun
+    public bool AssaultRifleGun = false;
     bool isZoomed = false;          // Indicates whether the zoom function is currently in use (only for sniper weapon)
     bool isDodging = false;         // indicates if the player is currently dodging
 
@@ -361,7 +362,7 @@ public class playerController : MonoBehaviour, IDamageable
                                 IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
 
                                 // check for body shot or head shot
-                                if (hit.collider is SphereCollider) // apply damage for head shot, and play headshot audio clip
+                                if (hit.collider is SphereCollider && !AssaultRifleGun) // apply damage for head shot, and play headshot audio clip
                                 {
                                     isDamageable.TakeDamage(10000);
                                     aud.PlayOneShot(aHeadShot[Random.Range(0, aHeadShot.Length)], aHeadShotVol);

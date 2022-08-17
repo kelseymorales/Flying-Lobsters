@@ -15,6 +15,7 @@ public class gunStats : ScriptableObject
 
     public bool isSniper = false;
     public bool isShotgun = false;
+    public bool isAssaultRifle = false;
 
     [SerializeField] public AudioClip[] aGunShot;
     [Range(0.0f, 1.0f)][SerializeField] public float aGunShotVol;

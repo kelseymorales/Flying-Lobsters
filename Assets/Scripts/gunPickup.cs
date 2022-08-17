@@ -18,16 +18,25 @@ public class gunPickup : MonoBehaviour
             {
                 GameManager._instance._playerScript.sniperGun = true;
                 GameManager._instance._playerScript.ShotgunGun = false;
+                GameManager._instance._playerScript.AssaultRifleGun = false;
             }
             else if (gunStat.isShotgun == true)
             {
                 GameManager._instance._playerScript.ShotgunGun = true;
                 GameManager._instance._playerScript.sniperGun = false;
+                GameManager._instance._playerScript.AssaultRifleGun = false;
+            }
+            else if (gunStat.isAssaultRifle == true)
+            {
+                GameManager._instance._playerScript.AssaultRifleGun = true;
+                GameManager._instance._playerScript.sniperGun = false;
+                GameManager._instance._playerScript.ShotgunGun = false;
             }
             else
             {
                 GameManager._instance._playerScript.sniperGun = false;
                 GameManager._instance._playerScript.ShotgunGun = false;
+                GameManager._instance._playerScript.AssaultRifleGun = false;
             }
 
         }
