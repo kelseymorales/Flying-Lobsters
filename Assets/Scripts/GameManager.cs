@@ -212,7 +212,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (didWinLevel == true)
+            if (didWinLevel == true || didWin == true)
             {
                 
                 if (SceneManager.GetActiveScene().buildIndex == 2)
@@ -482,6 +482,7 @@ public class GameManager : MonoBehaviour
 
         // play 'You Win' audio clip
         _playerScript.winJingle();
+        didWin = true;
 
     }
 
