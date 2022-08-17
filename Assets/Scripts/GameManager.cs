@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
     public GameObject _playerDeadMenuFirstOption;
     public GameObject _winGameMenuFirstOption;
     public GameObject _winLevelFirstOption;
+    public GameObject _bombUi;
 
     // UI - sniperZoom
     public GameObject SniperScope;
@@ -147,10 +148,18 @@ public class GameManager : MonoBehaviour
         s = GameObject.FindGameObjectsWithTag("Bomb");
 
         iBombsActive = s.Length;
+        
+        if (iBombsActive == 0)
+        {
+            _bombUi.gameObject.SetActive(false);
+        }
+        else
+        {
 
-        tBombTotal.text = iBombsActive.ToString("F0");
+            tBombTotal.text = iBombsActive.ToString("F0");
 
-        StartCoroutine(bombTick());  
+            StartCoroutine(bombTick());  
+        }
     }
 
     private void Start()
