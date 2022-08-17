@@ -1250,7 +1250,7 @@ GameObject:
   - component: {fileID: 3355306759238198590}
   - component: {fileID: 3134280212493108650}
   - component: {fileID: 7566224558034554094}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: MiniMapIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1414,7 +1414,7 @@ GameObject:
   - component: {fileID: 1906269338750126465}
   - component: {fileID: 7619175003015730611}
   - component: {fileID: 3020306639557229535}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3054,7 +3054,7 @@ Transform:
   - {fileID: 1404361948045859975}
   - {fileID: 1679919863920100396}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8521048782842498184
 MonoBehaviour:
@@ -3094,6 +3094,7 @@ MonoBehaviour:
   aGunShotVol: 0.5
   isGrenadier: 1
   isBoss: 0
+  isGunner: 0
 --- !u!95 &8521048783810007611
 Animator:
   serializedVersion: 4

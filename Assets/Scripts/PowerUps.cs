@@ -89,9 +89,7 @@ public class PowerUps : MonoBehaviour
 
         SetActivesFalse(); 
 
-        Destroy(gameObject); //Destroys powerUp
         Destroy(transform.parent.gameObject); //Destroys powerUp parent
-
     }
 
 

@@ -110,10 +110,10 @@ public class playerController : MonoBehaviour, IDamageable
     //Power ups
 
     //Bools that checks what power-ups are active. Important for functionality
-    [HideInInspector] public bool hasSpeedBoost;
-    [HideInInspector] public bool isShielded;
-    [HideInInspector] public bool hasDamageBoost;
-    [HideInInspector] public bool hasUnlimetedAmmo;
+    public bool hasSpeedBoost;
+    public bool isShielded;
+    public bool hasDamageBoost;
+    public bool hasUnlimetedAmmo;
 
     //Drops
     public bool isReadyForDrop = false; //Power-up drop flag
@@ -443,7 +443,9 @@ public class playerController : MonoBehaviour, IDamageable
                             isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
                         else
                             isDamageable.TakeDamage((iWeaponDamage * 3)); 
+
                         int afterEnemyKillCount = GameManager._instance.iEnemiesKilled; //enemy kill count after shooting
+                        
                         if (afterEnemyKillCount > currentEnemyKillCount) //checking if enemy was killed
                         {
                             aud.PlayOneShot(aEnemyBodyshotDeath[Random.Range(0, aEnemyBodyshotDeath.Length)], aEnemyBodyshotDeathVol);
