@@ -476,10 +476,10 @@ public class playerController : MonoBehaviour, IDamageable
                     GameManager._instance.grenadeDefuseLabel.SetActive(false);
                 }
             }
-        }
-        else
-        {
-            GameManager._instance.grenadeDefuseLabel.SetActive(false);
+            else
+            {
+                GameManager._instance.grenadeDefuseLabel.SetActive(false);
+            }
         }
     }
 
