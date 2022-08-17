@@ -914,7 +914,6 @@ GameObject:
   m_Component:
   - component: {fileID: 617237414}
   - component: {fileID: 617237413}
-  - component: {fileID: 617237412}
   m_Layer: 0
   m_Name: BackGroundMusic
   m_TagString: Untagged
@@ -922,18 +921,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &617237412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 617237411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5a8a050ab620414dafa69a866e896c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!82 &617237413
 AudioSource:
   m_ObjectHideFlags: 0
@@ -944,7 +931,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -6601259352143072074, guid: 6f4b16b16ef35a44ba71e732f405b6b2, type: 2}
-  m_audioClip: {fileID: 8300000, guid: 003153c6188672a4780c9f01be9898cb, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 9ef6336102b969c4a8e8015720df5304, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
