@@ -627,7 +627,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1605812619}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 80877b905b6209545baeb3013a6324e9, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: e5e54896c6957b549ac79ea61357d363, type: 2}
   m_InitialState: 1
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -642,6 +642,16 @@ PlayableDirector:
   - key: {fileID: -595448607434298852, guid: 80877b905b6209545baeb3013a6324e9, type: 2}
     value: {fileID: 1486648294}
   - key: {fileID: -2818187079328707591, guid: 80877b905b6209545baeb3013a6324e9, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 5542474082951801280, guid: e5e54896c6957b549ac79ea61357d363, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -4376981880706770896, guid: e5e54896c6957b549ac79ea61357d363, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: 1858410811768045752, guid: e5e54896c6957b549ac79ea61357d363, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -595448607434298852, guid: e5e54896c6957b549ac79ea61357d363, type: 2}
+    value: {fileID: 0}
+  - key: {fileID: -2818187079328707591, guid: e5e54896c6957b549ac79ea61357d363, type: 2}
     value: {fileID: 0}
   m_ExposedReferences:
     m_References: []
