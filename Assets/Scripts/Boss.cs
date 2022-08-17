@@ -45,7 +45,7 @@ public class Boss : EnemyAI
         _rageDamageColor = new Color(0.7f, 0, 0.2f);
 
         GameManager._instance._bossName.text = GameManager._instance.sBossName;
-        GameManager._instance._bossHealthBar.gameObject.SetActive(true);
+        
     }
 
     // Update is called once per frame
@@ -55,7 +55,6 @@ public class Boss : EnemyAI
         
         if(canShootGrenade)
         {
-            fOrginalShootRate = fShootRate; 
             _currentBullet = _grenadeBoss;
             StartCoroutine(ChangeBullet());
         }
@@ -78,8 +77,18 @@ public class Boss : EnemyAI
          
         if (isEnraged)
         {
-            base.TakeDamage((damage / 2));
-            canShootGrenade = true;
+            if(damage == 1)
+            {
+                base.TakeDamage(damage);
+                
+            }
+            else
+            {
+                base.TakeDamage((damage / 2));
+                
+            }
+            canShootGrenade = true; 
+            
         }
         else
         {

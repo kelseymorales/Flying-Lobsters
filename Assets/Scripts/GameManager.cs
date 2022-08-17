@@ -528,7 +528,7 @@ public class GameManager : MonoBehaviour
 
     public void SetBossHealthBarActive(bool state)
     {
-        _bossHealthBar.SetActive(true);
+        _bossHealthBar.SetActive(state);
     }
 
     public void NextLevel()

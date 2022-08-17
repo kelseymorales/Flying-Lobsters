@@ -168,11 +168,20 @@ public class EnemyAI : MonoBehaviour, IDamageable
         {
             bPlayerInRange = false;
             nAgent.stoppingDistance = 0;
+
+            if (isBoss)
+            {
+                GameManager._instance.SetBossHealthBarActive(false);
+            }
         }
     }
 
     public virtual void TakeDamage(int iDamage)
     {
+        if (isBoss && iDamage > 10)
+        {
+            iDamage = 4; 
+        }
         //when enemy takes damage it flashes a color
         iHP -= iDamage;
         bPlayerInRange = true;
@@ -180,10 +189,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         aAnim.SetTrigger("Damage");
         StartCoroutine(FlashColor());
 
-        if (isBoss)
-        {
-            GameManager._instance._bossHealth.fillAmount = (float)iHP / (float)iHPOriginal;
-        }
+            
 
         //if enemy dies then enemy object is destroyed
         if (iHP <= 0)
