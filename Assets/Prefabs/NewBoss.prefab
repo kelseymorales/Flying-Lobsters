@@ -1371,11 +1371,11 @@ MonoBehaviour:
   rRend: {fileID: 137490588296387760}
   aAnim: {fileID: 95066189756960888}
   miniMapIcon: {fileID: 5512989636008128380}
-  iHP: 100
+  iHP: 65
   iViewAngle: 180
   iPlayerFaceSpeed: 1
   iRoamingRadius: 5
-  fShootRate: 0.5
+  fShootRate: 1
   gBullet: {fileID: 765824586908680669, guid: 9d4e0112ca57fa440bc1664c397913d9, type: 3}
   gShootPosition: {fileID: 1077152}
   gHealthPack: {fileID: 0}
