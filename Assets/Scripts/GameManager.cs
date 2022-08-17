@@ -227,6 +227,10 @@ public class GameManager : MonoBehaviour
                 {
                     SceneManager.LoadScene(7);
                 }
+                else if (SceneManager.GetActiveScene().buildIndex == 15)
+                {
+                    SceneManager.LoadScene(15);
+                }
             }
             else
             {
@@ -242,6 +246,10 @@ public class GameManager : MonoBehaviour
                 else if (SceneManager.GetActiveScene().buildIndex == 4)
                 {
                     SceneManager.LoadScene(12);
+                }
+                else if (SceneManager.GetActiveScene().buildIndex == 15)
+                {
+                    SceneManager.LoadScene(15);
                 }
             }
         }
@@ -542,10 +550,12 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(8);
         }
         else if(SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3))
-        {           
-            
-            SceneManager.LoadScene(9);
-            
+        {  
+            SceneManager.LoadScene(9);            
+        }
+        else if(SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(15))
+        {            
+            SceneManager.LoadScene(1);
         }
         
         
