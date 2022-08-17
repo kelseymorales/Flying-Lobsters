@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: gunStats - Assault Rifle
   m_EditorClassIdentifier: 
   fFireRate: 0.2
-  iDamage: 2
+  iDamage: 3
   gGunModel: {fileID: 8257945635518313060, guid: 435cbae6fa49329439f23ba765d4d6e7, type: 3}
   iClipSize: 15
   fGunRange: 25
