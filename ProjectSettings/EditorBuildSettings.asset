@@ -53,4 +53,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 6028139a8e5aaa9408ef3f9eefc731a4
+  - enabled: 1
+    path: Assets/Scenes/Kelsey/Win to Main Scene 1.unity
+    guid: 40618932e0be25743b2e4f7778d6442b
   m_configObjects: {}
