@@ -27,7 +27,7 @@ public class playerController : MonoBehaviour, IDamageable
     [Header("-------------------------")]
     [Range(0.1f, 3.0f)][SerializeField] float fShootRate;           // Player value for how fast they can shoot
     [Range(1, 10)][SerializeField] int iWeaponDamage;               // Player Weapon Damage
-    [Range(1, 50)] [SerializeField] float fGunRange;                // Range of player's weapon
+    [Range(1, 50)][SerializeField] float fGunRange;                // Range of player's weapon
     [Range(1, 25)][SerializeField] public int iWeaponAmmo;          // Player weapon ammo clip size
     [SerializeField] public int iTotalWeaponAmmo;                   // Player weapon ammo pool total
     [SerializeField] GameObject gPlayerGrenade;                     // stores prefab for player grenade
@@ -51,7 +51,7 @@ public class playerController : MonoBehaviour, IDamageable
     public AudioSource aud; // Player Audio Source
 
     // Audio clips and Audio Clips volume
-    [SerializeField] AudioClip[] aGunShot;                         
+    [SerializeField] AudioClip[] aGunShot;
     [Range(0.0f, 1.0f)][SerializeField] float aGunShotVol;
     [SerializeField] AudioClip[] aPlayerHurt;
     [Range(0.0f, 1.0f)][SerializeField] float aPlayerHurtVol;
@@ -100,7 +100,7 @@ public class playerController : MonoBehaviour, IDamageable
     int iPlayerHealthOrig;      // stores the starting player health
     [HideInInspector] public int iWeaponAmmoOrig; // stores the default weapon ammo
     int iTimesJumped;           // How many times the player is allowed to jump in a row
-    
+
     // Vector values for managing player physics and movement
     Vector3 _playerVelocity;
     Vector3 _move;
@@ -152,6 +152,8 @@ public class playerController : MonoBehaviour, IDamageable
             StartCoroutine(Shoot());
             StartCoroutine(reload());
             StartCoroutine(playFootsteps());
+            PickUpGrenade();
+
             ThrowGrenade();
             StartCoroutine(dodge());
 
@@ -179,7 +181,7 @@ public class playerController : MonoBehaviour, IDamageable
                 int iFallDamage = -1 * (int)(_playerVelocity.y / 2);  //Fall damage based on player's velocity
                 TakeDamage(iFallDamage);
             }
-                
+
 
             _playerVelocity.y = 0f;
         }
@@ -230,14 +232,14 @@ public class playerController : MonoBehaviour, IDamageable
 
     void Sprint()
     {
-         
-        float fCurrentSpeed = fPlayerSpeed; 
+
+        float fCurrentSpeed = fPlayerSpeed;
         // on down press of 'Sprint' key, increase player speed
         if (Input.GetButtonDown("Sprint"))
         {
             isSprinting = true;
             fPlayerSpeed = fPlayerSpeed * fSprintMulti;
-            if(hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
+            if (hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
                 fCurrentSpeed = fPlayerSpeed;
         }
         // on release of 'sprint' key, return player speed to normal
@@ -250,9 +252,9 @@ public class playerController : MonoBehaviour, IDamageable
             }
             else
             {
-                fPlayerSpeed = fCurrentSpeed / 2; 
+                fPlayerSpeed = fCurrentSpeed / 2;
             }
-            
+
         }
     }
 
@@ -327,7 +329,7 @@ public class playerController : MonoBehaviour, IDamageable
             if (Input.GetButton("Shoot") && canShoot && iWeaponAmmo > 0)
             {
                 int currentEnemyKillCount = GameManager._instance.iEnemiesKilled; //get current enemy kill count before shooting
-                if(!hasUnlimetedAmmo) //Checks if ammo power-up is active if so do not subtract ammo
+                if (!hasUnlimetedAmmo) //Checks if ammo power-up is active if so do not subtract ammo
                     iWeaponAmmo--;
 
                 // turns shooting off so it cant be immediately executed again
@@ -368,13 +370,13 @@ public class playerController : MonoBehaviour, IDamageable
                                 }
                                 else
                                 {
-                                    if(!hasDamageBoost) //Checks for damage boost and applies twice the amount of damage if active
+                                    if (!hasDamageBoost) //Checks for damage boost and applies twice the amount of damage if active
                                         isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
                                     else
                                         isDamageable.TakeDamage((iWeaponDamage * 2));
 
                                     int afterEnemyKillCount = GameManager._instance.iEnemiesKilled; //enemy kill count after shooting
-                                    if(afterEnemyKillCount > currentEnemyKillCount) //checking if enemy was killed
+                                    if (afterEnemyKillCount > currentEnemyKillCount) //checking if enemy was killed
                                     {
                                         aud.PlayOneShot(aEnemyBodyshotDeath[Random.Range(0, aEnemyBodyshotDeath.Length)], aEnemyBodyshotDeathVol);
                                     }
@@ -384,7 +386,7 @@ public class playerController : MonoBehaviour, IDamageable
                         }
                     }
                 }
-                
+
                 // muzzle flash effect
                 _muzzleFlash.transform.localRotation = Quaternion.Euler(0, 0, Random.Range(0, 360)); // rotate effect along Z-axis randomly for every shot
                 _muzzleFlash.SetActive(true);
@@ -442,10 +444,10 @@ public class playerController : MonoBehaviour, IDamageable
                         if (!hasDamageBoost) //Checks for damage boost and applies twice the amount of damage if active
                             isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
                         else
-                            isDamageable.TakeDamage((iWeaponDamage * 3)); 
+                            isDamageable.TakeDamage((iWeaponDamage * 3));
 
                         int afterEnemyKillCount = GameManager._instance.iEnemiesKilled; //enemy kill count after shooting
-                        
+
                         if (afterEnemyKillCount > currentEnemyKillCount) //checking if enemy was killed
                         {
                             aud.PlayOneShot(aEnemyBodyshotDeath[Random.Range(0, aEnemyBodyshotDeath.Length)], aEnemyBodyshotDeathVol);
@@ -453,6 +455,31 @@ public class playerController : MonoBehaviour, IDamageable
                     }
                 }
             }
+        }
+    }
+
+    public void PickUpGrenade()
+    {
+        RaycastHit hit;
+
+        if (Physics.Raycast(UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit, 20))
+        {
+            if (hit.collider.CompareTag("Grenade"))
+            {
+                GameManager._instance.grenadeDefuseLabel.SetActive(true);
+
+                if (Input.GetButtonDown("Activate"))
+                {
+                    iGrenadeCount++;
+                    Destroy(hit.collider.gameObject);
+                    GameManager._instance.updateGrenadeCount();
+                    GameManager._instance.grenadeDefuseLabel.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            GameManager._instance.grenadeDefuseLabel.SetActive(false);
         }
     }
 
@@ -494,18 +521,18 @@ public class playerController : MonoBehaviour, IDamageable
         if (!isShielded) //Checks if shield power up is active, if so takes half the damage
             iPlayerHealth -= iDmg; // apply damage to player health
         else
-            iPlayerHealth -= iDmg / 2; 
+            iPlayerHealth -= iDmg / 2;
 
         // play player damage taken audio clip
         aud.PlayOneShot(aPlayerHurt[Random.Range(0, aPlayerHurt.Length)], aPlayerHurtVol);
 
-        UpdateHealthBar(); 
+        UpdateHealthBar();
         StartCoroutine(DamageFlash()); // flash screen red when damage is taken
 
         // if playern health is 0 or lower, kill player
-        if (iPlayerHealth <= 0) 
+        if (iPlayerHealth <= 0)
         {
-            GameManager._instance.PlayerDead(); 
+            GameManager._instance.PlayerDead();
         }
     }
 
@@ -552,7 +579,7 @@ public class playerController : MonoBehaviour, IDamageable
         }
 
         // Health pick up sound
-        aud.PlayOneShot(aHeal[Random.Range(0, aHeal.Length)], aHealVol); 
+        aud.PlayOneShot(aHeal[Random.Range(0, aHeal.Length)], aHealVol);
         UpdateHealthBar(); //update health change in bar
     }
 
@@ -572,17 +599,17 @@ public class playerController : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("HealthPack") && iPlayerHealth != iPlayerHealthOrig) //Checks to see if health amount is less than original health and health pack amount
+        if (other.CompareTag("HealthPack") && iPlayerHealth != iPlayerHealthOrig) //Checks to see if health amount is less than original health and health pack amount
         {
             HealthPack(); //calls health pack function
             Destroy(other.gameObject); //destroys health pack
         }
 
-        if(other.CompareTag("AmmoBox") && iWeaponAmmo < iTotalWeaponAmmo) // Calls Ammo Amount
+        if (other.CompareTag("AmmoBox") && iWeaponAmmo < iTotalWeaponAmmo) // Calls Ammo Amount
         {
             AmmoBox(); //calls ammo function
             Destroy(other.gameObject); //destroys ammo box
-        }      
+        }
     }
 
     public void LockInPlace() // stop player movement for scripted events
@@ -645,7 +672,7 @@ public class playerController : MonoBehaviour, IDamageable
     }
     public void SetBackSpeedStats() //Sets back stats for playerSpeed
     {
-        fPlayerSpeed = fPlayerSpeedOrig; 
+        fPlayerSpeed = fPlayerSpeedOrig;
     }
 
     public void SniperFunctionality()

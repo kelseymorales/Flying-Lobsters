@@ -1191,7 +1191,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hold "E" to defuse grenade
+  m_text: Press "E" to pick up grenade
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -11748,6 +11748,7 @@ MonoBehaviour:
   _loseGameMenuFirstOption: {fileID: 66311596}
   _playerDeadMenuFirstOption: {fileID: 4631363933188881052}
   _winGameMenuFirstOption: {fileID: 1618169114}
+  _winLevelFirstOption: {fileID: 0}
   SniperScope: {fileID: 582929048}
   _HpBar: {fileID: 2942538141083396348}
   tEnemiesDead: {fileID: 503669390}
@@ -11794,6 +11795,7 @@ MonoBehaviour:
   isDefusingGrenade: 0
   isGrenadeDefused: 0
   didWin: 0
+  didWinLevel: 0
 --- !u!1 &7563145758116857747
 GameObject:
   m_ObjectHideFlags: 0

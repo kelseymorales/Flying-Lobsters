@@ -3074,6 +3074,7 @@ MonoBehaviour:
   nAgent: {fileID: 8521048782842498185}
   rRend: {fileID: 7520383424268703133}
   aAnim: {fileID: 8521048783810007611}
+  miniMapIcon: {fileID: 3536835003941270431}
   iHP: 5
   iViewAngle: 25
   iPlayerFaceSpeed: 6

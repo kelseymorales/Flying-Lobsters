@@ -9,7 +9,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] private LayerMask layers;
     [SerializeField] NavMeshAgent nAgent;               // enemy nav mesh
     [SerializeField] protected Renderer rRend;                    // enemy renderer
-    [SerializeField] Animator aAnim;                    // enemy animator
+    [SerializeField] Animator aAnim;                        // enemy animator
+    [SerializeField] private GameObject miniMapIcon;               
 
     [Header("------------------------------")]
     [Header("Enemy Attributes")]
@@ -203,6 +204,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
             nAgent.enabled = false;
             bCanShoot = false;
             aAnim.SetBool("Dead", true);
+            miniMapIcon.SetActive(false);
 
             // disable colliders
             foreach(Collider col in GetComponents<Collider>())

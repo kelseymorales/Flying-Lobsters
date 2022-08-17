@@ -790,6 +790,7 @@ MonoBehaviour:
   nAgent: {fileID: 6534289120644129996}
   rRend: {fileID: 6534289119444436158}
   aAnim: {fileID: 6534289119448562302}
+  miniMapIcon: {fileID: 438117007424876975}
   iHP: 50
   iViewAngle: 25
   iPlayerFaceSpeed: 6
@@ -806,6 +807,7 @@ MonoBehaviour:
   aGunShotVol: 0.5
   isGrenadier: 0
   isBoss: 1
+  isGunner: 0
 --- !u!135 &516086863442889716
 SphereCollider:
   m_ObjectHideFlags: 0
