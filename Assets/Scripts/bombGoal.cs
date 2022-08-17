@@ -3,7 +3,7 @@ using UnityEngine;
 public class bombGoal : MonoBehaviour
 {
     public bool inRange = false;    // tracks if player is in range of a bomb
-    bool canDefuse = true;          // tracks if a bomb is defusable
+    protected bool canDefuse = true;          // tracks if a bomb is defusable
 
     public Color _defusedShade;
     [SerializeField] MeshRenderer ren;

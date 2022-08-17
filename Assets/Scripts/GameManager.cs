@@ -330,13 +330,6 @@ public class GameManager : MonoBehaviour
             StopSpawners();
         }
 
-        if(isDefusingGrenade)
-        {
-            iGrenadesDefusedCounter++;
-            Debug.Log(iGrenadesDefusedCounter.ToString());
-            
-        }
-
 
         //deactivate UI elements showing defusing in process
         _defuseCountdownObject.SetActive(false);
