@@ -217,15 +217,15 @@ public class GameManager : MonoBehaviour
                 
                 if (SceneManager.GetActiveScene().buildIndex == 2)
                 {
-                    SceneManager.LoadScene(6);
+                    SceneManager.LoadScene(5);
                 }
                 else if (SceneManager.GetActiveScene().buildIndex == 3)
                 {
-                    SceneManager.LoadScene(7);
+                    SceneManager.LoadScene(6);
                 }
                 else if (SceneManager.GetActiveScene().buildIndex == 4)
                 {
-                    SceneManager.LoadScene(14);
+                    SceneManager.LoadScene(7);
                 }
             }
             else
