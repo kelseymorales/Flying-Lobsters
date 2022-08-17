@@ -94,7 +94,7 @@ public class playerController : MonoBehaviour, IDamageable
     public bool sniperGun = false;  // Indicates whether the gun being used is a sniper
     public bool ShotgunGun = false; // Indicates whether the gun being used is a shotgun
     public bool AssaultRifleGun = false;
-    bool isZoomed = false;          // Indicates whether the zoom function is currently in use (only for sniper weapon)
+   /* bool isZoomed = false;   */       // Indicates whether the zoom function is currently in use (only for sniper weapon)
     bool isDodging = false;         // indicates if the player is currently dodging
 
     float fPlayerSpeedOrig;     // stores the starting player speed
@@ -681,7 +681,7 @@ public class playerController : MonoBehaviour, IDamageable
         if (Input.GetButtonDown("Zoom")) // when pressing zoom button and not zoomed - zoom in
         {
             SniperZoomIn(); // call zoom in function
-            isZoomed = true;
+            //isZoomed = true;
 
             // Hide normal HUD UI
             foreach (GameObject VARIABLE in HUD)
@@ -698,7 +698,7 @@ public class playerController : MonoBehaviour, IDamageable
         else if (Input.GetButtonUp("Zoom")) // when pressing zoom button and already zoomed - unzoom in
         {
             SniperZoomOut(); // call zoom out function
-            isZoomed = false;
+            //isZoomed = false;
 
             // hide scope UI
             GameManager._instance.SniperScope.SetActive(false);
