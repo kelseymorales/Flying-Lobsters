@@ -43,6 +43,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     bool bPlayerInRange;                                // value tracking whether the player is in range of enemyAI
     public bool isGrenadier;
     public bool isBoss;
+    public bool isGunner;
 
     Vector3 vStartingPos;                               // vector storing enemy starting position
     Vector3 vPlayerDirection;                           // vector storing the direction the player is in from the perspective of the enemy
