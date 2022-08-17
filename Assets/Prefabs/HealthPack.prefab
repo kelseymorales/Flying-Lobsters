@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7783201786474198357}
   - component: {fileID: 3529356177413793741}
   - component: {fileID: 1203863822894664610}
+  - component: {fileID: 356764090}
   m_Layer: 0
   m_Name: HealthPack
   m_TagString: HealthPack
@@ -33,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &4557631428035152300
 MeshFilter:
@@ -114,3 +115,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.9540799, y: 2.5032945, z: 2}
   m_Center: {x: -2.9486413e-15, y: 1.2310424, z: 0.98}
+--- !u!114 &356764090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8376601595360100745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b1cf8712a8e29c4e97b6dd78557b5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  degreesPerSecond: 15
+  amplitude: 0.1
+  frequency: 1

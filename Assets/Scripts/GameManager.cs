@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject _pauseMenu;
     public GameObject _playerDeadMenu;
     public GameObject _winGameMenu;
+    public GameObject _winLevelMenu;
     public GameObject _loseGameMenu;
 
     //control display screen
@@ -40,6 +41,7 @@ public class GameManager : MonoBehaviour
     public GameObject _loseGameMenuFirstOption;
     public GameObject _playerDeadMenuFirstOption;
     public GameObject _winGameMenuFirstOption;
+    public GameObject _winLevelFirstOption;
 
     // UI - sniperZoom
     public GameObject SniperScope;
@@ -62,6 +64,13 @@ public class GameManager : MonoBehaviour
     public TMP_Text clipSize;
     public TMP_Text shotsInClip;
     public TMP_Text grenadeAmmo;
+
+    //UI - Power-ups badge to show when a power-up is active
+
+    public Image _powerUpShield;
+    public Image _powerUpDamage;
+    public Image _powerUpSpeed;
+    public Image _powerUpAmmo;
 
     //Boss UI
     [SerializeField] public string sBossName;
@@ -110,6 +119,7 @@ public class GameManager : MonoBehaviour
     public bool isGrenadeDefused;
 
     public bool didWin = false;
+    public bool didWinLevel = false;
 
     void Awake()
     {
@@ -193,13 +203,37 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            if (didWin == true)
+            if (didWinLevel == true)
             {
-                SceneManager.LoadScene(5);
+                
+                if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
+                {
+                    SceneManager.LoadScene(5);
+                }
+                else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3))
+                {
+                    SceneManager.LoadScene(6);
+                }
+                else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(4))
+                {
+                    SceneManager.LoadScene(7);
+                }
             }
             else
             {
-                SceneManager.LoadScene(4);
+                
+                if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
+                {
+                    SceneManager.LoadScene(10);
+                }
+                else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3))
+                {
+                    SceneManager.LoadScene(11);
+                }
+                else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(4))
+                {
+                    SceneManager.LoadScene(12);
+                }
             }
         }
     }
@@ -235,6 +269,12 @@ public class GameManager : MonoBehaviour
     public void CheckEnemyKills()
     {
         iEnemiesKilled++;
+
+        if(iEnemiesKilled % 5 == 0) //Checks kill number and set power-up drop flag to true
+        {
+            _playerScript.isReadyForDrop = true; 
+        }
+
         tEnemiesDead.text = iEnemiesKilled.ToString("F0");
         iScore += iEnemiesKilled * 10; // score tracking for enemy kills - also bonus points are allocated for headshot kills in playerController shoot function
         UpdatePlayerScore(); // call to helper function to update score on win/lose screens
@@ -315,7 +355,7 @@ public class GameManager : MonoBehaviour
         {
             levelWin = true;
 
-            //WinGame();
+            WinLevel();
             // will need to be removed later, as the win game should be called at the end of level 3, and all we need here is the level win trigger for transitioning levels
         }
     }
@@ -408,6 +448,24 @@ public class GameManager : MonoBehaviour
         grenadeAmmo.text = _playerScript.iGrenadeCount.ToString("F0");
     }
 
+    public void WinLevel()   // helper function for win game scenario
+    {
+        didWinLevel = true;
+        _menuCurrentlyOpen = _winLevelMenu;
+        _menuCurrentlyOpen.SetActive(true);
+        gameOver = true;
+        LockCursorPause();
+
+        //Setting up event system to show highlighted button
+        _eventSystem.SetSelectedGameObject(null);
+        _eventSystem.SetSelectedGameObject(_winLevelFirstOption);
+
+        // play 'You Win' audio clip
+        _playerScript.winJingle();
+
+    }
+
+
     public void WinGame()   // helper function for win game scenario
     {
         didWin = true;
@@ -470,6 +528,23 @@ public class GameManager : MonoBehaviour
 
     public void SetBossHealthBarActive(bool state)
     {
-        _bossHealthBar.SetActive(true);
+        _bossHealthBar.SetActive(state);
+    }
+
+    public void NextLevel()
+    {
+        Time.timeScale = 1;
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
+        {
+            SceneManager.LoadScene(8);
+        }
+        else if(SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3))
+        {           
+            
+            SceneManager.LoadScene(9);
+            
+        }
+        
+        
     }
 }

@@ -5,32 +5,27 @@ using UnityEngine.SceneManagement;
 
 public class LoadingScreen : MonoBehaviour
 {
-    public float fwaitTime;
-
     public Image _loadingBar;
+    [SerializedField] public int iSceneIndex;
 
     void Start()
     {
-        Time.timeScale = 0;
-        //GameManager._instance.gameOver = true;
-        //GameManager._instance.isPaused = true;
-        StartCoroutine(StartCountDown());
+        
+        StartCoroutine(LoadAsyncOperation());
     }
 
-    IEnumerator StartCountDown()
+    IEnumerator LoadAsyncOperation()
     {
-        for (float i = 0; i <= fwaitTime; i += 0.25f)
+        
+        AsyncOperation gameLevel = SceneManager.LoadSceneAsync(iSceneIndex);
+
+        while(gameLevel.progress < 1)
         {
-            yield return new WaitForSecondsRealtime(0.25f);
-
-            _loadingBar.fillAmount = i / fwaitTime;
+            _loadingBar.fillAmount = gameLevel.progress;
+            yield return new WaitForEndOfFrame();
         }
-
-        SceneManager.LoadScene(1);
-
-        Time.timeScale = 1;
-        //GameManager._instance.gameOver = false;
-        //GameManager._instance.isPaused = false;
-        Destroy(gameObject);
+        
     }
+
+    
 }

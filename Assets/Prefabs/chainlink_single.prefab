@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4000011065470460}
   - component: {fileID: 33000013787139626}
   - component: {fileID: 23000012348044720}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: chainlink_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 4000012015980754}
   - component: {fileID: 33000013037877684}
   - component: {fileID: 23000010531826636}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: chainlink_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 4000012378391202}
   - component: {fileID: 205000010092046266}
   - component: {fileID: -7859816334054600249}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: chainlink_single
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,7 +199,7 @@ Transform:
   - {fileID: 4000012015980754}
   - {fileID: 4000011065470460}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!205 &205000010092046266
 LODGroup:
@@ -235,5 +235,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 2.5, z: 1}
-  m_Center: {x: 0, y: 1.25, z: 0}
+  m_Size: {x: 3, y: 2.0033154, z: 0.11689618}
+  m_Center: {x: -6.598139e-16, y: 1.0016577, z: -0.08650904}

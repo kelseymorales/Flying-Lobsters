@@ -1,9 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class playerController : MonoBehaviour, IDamageable
 {
     [Header("Components")]
+    [SerializeField] private LayerMask layers;
     [SerializeField] CharacterController _controller;
     [SerializeField] private Animator _anim;
     [HideInInspector] GameObject[] HUD;
@@ -105,9 +107,22 @@ public class playerController : MonoBehaviour, IDamageable
     Vector3 _playerSpawnPos;
     Vector3 _dodgeMove;
 
+    //Power ups
+
+    //Bools that checks what power-ups are active. Important for functionality
+    [HideInInspector] public bool hasSpeedBoost;
+    [HideInInspector] public bool isShielded;
+    [HideInInspector] public bool hasDamageBoost;
+    [HideInInspector] public bool hasUnlimetedAmmo;
+
+    //Drops
+    public bool isReadyForDrop = false; //Power-up drop flag
+
+
     // Called at Start
     void Start()
     {
+
         // Store starting values for important variables
         iPlayerHealthOrig = iPlayerHealth;
         fPlayerSpeedOrig = fPlayerSpeed;
@@ -158,6 +173,14 @@ public class playerController : MonoBehaviour, IDamageable
         if (_controller.isGrounded && _playerVelocity.y < 0)
         {
             iTimesJumped = 0;
+
+            if (_playerVelocity.y <= -15) //Checks for velocity while falling, if velocity reaches a certain nunber take fall damage
+            {
+                int iFallDamage = -1 * (int)(_playerVelocity.y / 2);  //Fall damage based on player's velocity
+                TakeDamage(iFallDamage);
+            }
+                
+
             _playerVelocity.y = 0f;
         }
 
@@ -207,17 +230,29 @@ public class playerController : MonoBehaviour, IDamageable
 
     void Sprint()
     {
+         
+        float fCurrentSpeed = fPlayerSpeed; 
         // on down press of 'Sprint' key, increase player speed
         if (Input.GetButtonDown("Sprint"))
         {
             isSprinting = true;
             fPlayerSpeed = fPlayerSpeed * fSprintMulti;
+            if(hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
+                fCurrentSpeed = fPlayerSpeed;
         }
         // on release of 'sprint' key, return player speed to normal
         else if (Input.GetButtonUp("Sprint"))
         {
             isSprinting = false;
-            fPlayerSpeed = fPlayerSpeedOrig;
+            if (!hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
+            {
+                fPlayerSpeed = fPlayerSpeedOrig;
+            }
+            else
+            {
+                fPlayerSpeed = fCurrentSpeed / 2; 
+            }
+            
         }
     }
 
@@ -249,7 +284,7 @@ public class playerController : MonoBehaviour, IDamageable
         if (hasGun)
         {
             // if reload button is pressed, the current clip is not full, and player has ammo is their total ammo pool, start reload function
-            if (Input.GetButtonDown("Reload") && iTotalWeaponAmmo > 0 && iWeaponAmmo < iWeaponAmmoOrig)
+            if (Input.GetButtonDown("Reload") && iTotalWeaponAmmo > 0 && iWeaponAmmo < iWeaponAmmoOrig && !hasUnlimetedAmmo)
             {
                 int shotsFired = iWeaponAmmoOrig - iWeaponAmmo; // determine how many shots were fired from the clip
 
@@ -292,8 +327,8 @@ public class playerController : MonoBehaviour, IDamageable
             if (Input.GetButton("Shoot") && canShoot && iWeaponAmmo > 0)
             {
                 int currentEnemyKillCount = GameManager._instance.iEnemiesKilled; //get current enemy kill count before shooting
-
-                iWeaponAmmo--;
+                if(!hasUnlimetedAmmo) //Checks if ammo power-up is active if so do not subtract ammo
+                    iWeaponAmmo--;
 
                 // turns shooting off so it cant be immediately executed again
                 canShoot = false;
@@ -310,7 +345,7 @@ public class playerController : MonoBehaviour, IDamageable
                     RaycastHit hit;
 
                     // Casts a ray from the player camera and performs an action where the ray hits
-                    if (Physics.Raycast(UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit))
+                    if (Physics.Raycast(UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit, Mathf.Infinity, layers))
                     {
                         if (hit.distance <= fGunRange) // if raycast is within the player's gun's range stat, continue
                         {
@@ -333,7 +368,10 @@ public class playerController : MonoBehaviour, IDamageable
                                 }
                                 else
                                 {
-                                    isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                                    if(!hasDamageBoost) //Checks for damage boost and applies twice the amount of damage if active
+                                        isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                                    else
+                                        isDamageable.TakeDamage((iWeaponDamage * 2));
 
                                     int afterEnemyKillCount = GameManager._instance.iEnemiesKilled; //enemy kill count after shooting
                                     if(afterEnemyKillCount > currentEnemyKillCount) //checking if enemy was killed
@@ -401,7 +439,10 @@ public class playerController : MonoBehaviour, IDamageable
                         IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
 
                         // apply damage (shotguns dont get headshots)
-                        isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                        if (!hasDamageBoost) //Checks for damage boost and applies twice the amount of damage if active
+                            isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                        else
+                            isDamageable.TakeDamage((iWeaponDamage * 3)); 
                         int afterEnemyKillCount = GameManager._instance.iEnemiesKilled; //enemy kill count after shooting
                         if (afterEnemyKillCount > currentEnemyKillCount) //checking if enemy was killed
                         {
@@ -448,7 +489,10 @@ public class playerController : MonoBehaviour, IDamageable
 
     public void TakeDamage(int iDmg)
     {
-        iPlayerHealth -= iDmg; // apply damage to player health
+        if (!isShielded) //Checks if shield power up is active, if so takes half the damage
+            iPlayerHealth -= iDmg; // apply damage to player health
+        else
+            iPlayerHealth -= iDmg / 2; 
 
         // play player damage taken audio clip
         aud.PlayOneShot(aPlayerHurt[Random.Range(0, aPlayerHurt.Length)], aPlayerHurtVol);
@@ -496,7 +540,7 @@ public class playerController : MonoBehaviour, IDamageable
     {
         int dif = iPlayerHealthOrig - iPlayerHealth;
 
-        if (iPlayerHealth != iPlayerHealthOrig && dif < iHealthPickupHealNum)
+        if (dif < iHealthPickupHealNum)
         {
             iPlayerHealth = iPlayerHealthOrig;
         }
@@ -526,7 +570,7 @@ public class playerController : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("HealthPack")) //Checks to see if health amount is less than original health and health pack amount
+        if(other.CompareTag("HealthPack") && iPlayerHealth != iPlayerHealthOrig) //Checks to see if health amount is less than original health and health pack amount
         {
             HealthPack(); //calls health pack function
             Destroy(other.gameObject); //destroys health pack
@@ -593,9 +637,18 @@ public class playerController : MonoBehaviour, IDamageable
         _anim.speed = 1.0f / fireRate;
     }
 
+    public void SetSpeedStat(int BoostSpeedValue) //Changes stats for playerSpeed
+    {
+        fPlayerSpeed = fPlayerSpeed * BoostSpeedValue;
+    }
+    public void SetBackSpeedStats() //Sets back stats for playerSpeed
+    {
+        fPlayerSpeed = fPlayerSpeedOrig; 
+    }
+
     public void SniperFunctionality()
     {
-        if (Input.GetButtonDown("Zoom") && !isZoomed) // when pressing zoom button and not zoomed - zoom in
+        if (Input.GetButtonDown("Zoom")) // when pressing zoom button and not zoomed - zoom in
         {
             SniperZoomIn(); // call zoom in function
             isZoomed = true;
@@ -612,7 +665,7 @@ public class playerController : MonoBehaviour, IDamageable
             // unhide scope UI
             GameManager._instance.SniperScope.SetActive(true);
         }
-        else if (Input.GetButtonDown("Zoom") && isZoomed) // when pressing zoom button and already zoomed - unzoom in
+        else if (Input.GetButtonUp("Zoom")) // when pressing zoom button and already zoomed - unzoom in
         {
             SniperZoomOut(); // call zoom out function
             isZoomed = false;

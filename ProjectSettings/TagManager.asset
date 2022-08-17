@@ -10,6 +10,8 @@ TagManager:
   - Spawner
   - Enemy
   - Bomb
+  - Boss
+  - wall
   layers:
   - Default
   - TransparentFX
@@ -21,9 +23,9 @@ TagManager:
   - Enemies
   - EnemyBullet
   - playerVisible
-  - 
-  - 
-  - 
+  - brickWall
+  - ChainFence
+  - MiniMap
   - 
   - 
   - 

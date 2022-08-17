@@ -51,7 +51,7 @@ MonoBehaviour:
   _rigidBody: {fileID: 2601803184443665178}
   iSpeed: 12
   iTimer: 3
-  gExplosion: {fileID: 5840865308621281003, guid: 40a40f5d663267244b2086e35afa2d98, type: 3}
+  gExplosion: {fileID: 5840865308621281003, guid: 2da257b894e1ff04cb0262ba1ad7eb8a, type: 3}
 --- !u!33 &6115199107883933208
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -14,11 +14,6 @@ public class Boss : EnemyAI
      float fRageTime; //Will be used in beta
      float fOrginalShootRate;                               //Original shooting rate for rage funtionality
     //Add particle system
-    
-     int iOriginalTimeUntilRage; //Will be used in beta
-     int iTimeUntilRage; //Will be used in beta
-    
-    //private bool isFightingPlayer = false;
 
     private Color _originalColor;
     private Color _originalDamageColor;
@@ -28,7 +23,6 @@ public class Boss : EnemyAI
 
     
     private bool canShootGrenade = false;
-    private int iHitUntilGrenade = 5; 
 
     // Start is called before the first frame update
     protected override void Start()
@@ -45,7 +39,7 @@ public class Boss : EnemyAI
         _rageDamageColor = new Color(0.7f, 0, 0.2f);
 
         GameManager._instance._bossName.text = GameManager._instance.sBossName;
-        GameManager._instance._bossHealthBar.gameObject.SetActive(true);
+        
     }
 
     // Update is called once per frame
@@ -55,7 +49,6 @@ public class Boss : EnemyAI
         
         if(canShootGrenade)
         {
-            fOrginalShootRate = fShootRate; 
             _currentBullet = _grenadeBoss;
             StartCoroutine(ChangeBullet());
         }
@@ -78,8 +71,18 @@ public class Boss : EnemyAI
          
         if (isEnraged)
         {
-            base.TakeDamage((damage / 2));
-            canShootGrenade = true;
+            if(damage == 1)
+            {
+                base.TakeDamage(damage);
+                
+            }
+            else
+            {
+                base.TakeDamage((damage / 2));
+                
+            }
+            canShootGrenade = true; 
+            
         }
         else
         {
@@ -100,30 +103,6 @@ public class Boss : EnemyAI
         //Changes color from original to rage (damage)
         //iTimeUntilRage = iOriginalTimeUntilRage;            
         isEnraged = true;                                   //Sets rage flag to true
-    }
-
-
-    private void NoRage()  //Used in Beta
-    {
-        fShootRate = fOrginalShootRate;
-        canRage = true;
-        _currentColor = _originalColor;
-        _currentDamageColor = _originalDamageColor;
-        //isFightingPlayer = false;
-    }
-
-    private IEnumerator UntilRageCount() //Used in Beta
-    {
-        canRage = false;
-        yield return new WaitForSeconds(iTimeUntilRage);
-        Enraged();
-    }
-
-    private IEnumerator Enraged() //Used in Beta
-    {
-        isEnraged = true;
-        yield return new WaitForSeconds(fRageTime);
-        isEnraged = false;
     }
 
     private void UpdateHpBarBoss()

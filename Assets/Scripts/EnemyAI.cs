@@ -1,10 +1,12 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour, IDamageable
 {
     [Header("Components")]
+    [SerializeField] private LayerMask layers;
     [SerializeField] NavMeshAgent nAgent;               // enemy nav mesh
     [SerializeField] protected Renderer rRend;                    // enemy renderer
     [SerializeField] Animator aAnim;                    // enemy animator
@@ -30,6 +32,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [Header("Drops")]
     [SerializeField] GameObject gHealthPack;            // slot for drops - healthpack (not currently implemented)
     [SerializeField] GameObject gAmmoBox;               // slot for drops - ammo pack (not currently implemented)
+
+    [SerializedField] public List<GameObject> listPowerUpDrops = new List<GameObject>();  //Power up list to drop
 
     [Header("------------------------------")]
     [Header("Audio")]
@@ -132,7 +136,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         RaycastHit hit;
 
         // determine if something is inbetween enemy and player
-        if (Physics.Raycast(transform.position, vPlayerDirection, out hit))
+        if (Physics.Raycast(transform.position, vPlayerDirection, out hit, Mathf.Infinity, layers))
         {
             if (hit.collider.CompareTag("Player") && bCanShoot && angle <= iViewAngle)
             {
@@ -165,11 +169,20 @@ public class EnemyAI : MonoBehaviour, IDamageable
         {
             bPlayerInRange = false;
             nAgent.stoppingDistance = 0;
+
+            if (isBoss)
+            {
+                GameManager._instance.SetBossHealthBarActive(false);
+            }
         }
     }
 
     public virtual void TakeDamage(int iDamage)
     {
+        if (isBoss && iDamage > 10)
+        {
+            iDamage = 4; 
+        }
         //when enemy takes damage it flashes a color
         iHP -= iDamage;
         bPlayerInRange = true;
@@ -177,16 +190,15 @@ public class EnemyAI : MonoBehaviour, IDamageable
         aAnim.SetTrigger("Damage");
         StartCoroutine(FlashColor());
 
-        if (isBoss)
-        {
-            GameManager._instance._bossHealth.fillAmount = (float)iHP / (float)iHPOriginal;
-        }
+            
 
         //if enemy dies then enemy object is destroyed
         if (iHP <= 0)
         {
             
             GameManager._instance.CheckEnemyKills();
+
+            DropPowerUp(); //Calls drop power-up function
 
             nAgent.enabled = false;
             bCanShoot = false;
@@ -228,6 +240,15 @@ public class EnemyAI : MonoBehaviour, IDamageable
         
         yield return new WaitForSeconds(fShootRate);
         bCanShoot=true;
+    }
+
+    private void DropPowerUp()
+    {
+        if(GameManager._instance._playerScript.isReadyForDrop) //Checks if the power-up drop flag is true
+        {
+            Instantiate(listPowerUpDrops[Random.Range(0, 3)], transform.position + new Vector3(0,1f,0), listPowerUpDrops[Random.Range(0,3)].transform.rotation); //Drops random power-up
+            GameManager._instance._playerScript.isReadyForDrop = false;  //Sets power-up drop flag back to false
+        }
     }
    
 }
