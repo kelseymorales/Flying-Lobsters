@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde0d25a170598d46a0b9dc16b4527a5, type: 3}
   m_Name: ActivationPlayableAsset
   m_EditorClassIdentifier: 
---- !u!114 &-8843097587222285644
+--- !u!114 &-8033788590752508222
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -24,7 +24,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f10dd60657c6004587f237a7e90f8e4, type: 3}
   m_Name: AudioPlayableAsset
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: 6fd4c6e5fb7d5984bad66134f49bbf23, type: 3}
+  m_Clip: {fileID: 8300000, guid: cc549b35ef8b30d46b889b84615da5b1, type: 3}
   m_Loop: 0
   m_bufferingTime: 0.1
   m_ClipProperties:
@@ -170,7 +170,7 @@ MonoBehaviour:
   - m_Version: 1
     m_Start: 0
     m_ClipIn: 0
-    m_Asset: {fileID: -8843097587222285644}
+    m_Asset: {fileID: -8033788590752508222}
     m_Duration: 10.433333333333334
     m_TimeScale: 1
     m_ParentTrack: {fileID: -2818187079328707591}
@@ -235,7 +235,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: action-teaser-112764
+    m_DisplayName: lifeway-108784
   m_Markers:
     m_Objects: []
   m_TrackProperties:
@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bfda56da833e2384a9677cd3c976a436, type: 3}
-  m_Name: OpeningCanvasTimeline
+  m_Name: QuitWinCanvasTimeline 2
   m_EditorClassIdentifier: 
   m_Version: 0
   m_Tracks:
