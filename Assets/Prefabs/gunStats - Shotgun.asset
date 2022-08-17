@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb7d476c3073b742a837a15c42223d5, type: 3}
   m_Name: gunStats - Shotgun
   m_EditorClassIdentifier: 
-  fFireRate: 2
-  iDamage: 1
+  fFireRate: 1.4
+  iDamage: 2
   gGunModel: {fileID: 3425765576364545788, guid: 9c9fa1cc62a62a7439f1b91dc94210d0, type: 3}
   iClipSize: 2
   fGunRange: 10
