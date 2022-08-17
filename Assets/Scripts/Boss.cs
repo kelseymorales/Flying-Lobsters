@@ -78,11 +78,11 @@ public class Boss : EnemyAI
             }
             else
             {
-                base.TakeDamage((damage / 2));
+                base.TakeDamage((int)((float)damage / 2f));
                 
             }
+
             canShootGrenade = true; 
-            
         }
         else
         {

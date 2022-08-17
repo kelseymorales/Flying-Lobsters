@@ -605,7 +605,7 @@ public class playerController : MonoBehaviour, IDamageable
             Destroy(other.gameObject); //destroys health pack
         }
 
-        if (other.CompareTag("AmmoBox") && iWeaponAmmo < iTotalWeaponAmmo) // Calls Ammo Amount
+        if (other.CompareTag("AmmoBox")) // Calls Ammo Amount
         {
             AmmoBox(); //calls ammo function
             Destroy(other.gameObject); //destroys ammo box
