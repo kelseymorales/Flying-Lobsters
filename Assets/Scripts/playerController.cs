@@ -439,7 +439,10 @@ public class playerController : MonoBehaviour, IDamageable
                         IDamageable isDamageable = hit.collider.GetComponent<IDamageable>();
 
                         // apply damage (shotguns dont get headshots)
-                        isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                        if (!hasDamageBoost) //Checks for damage boost and applies twice the amount of damage if active
+                            isDamageable.TakeDamage(iWeaponDamage); // apply damage for body shot
+                        else
+                            isDamageable.TakeDamage((iWeaponDamage * 3)); 
                         int afterEnemyKillCount = GameManager._instance.iEnemiesKilled; //enemy kill count after shooting
                         if (afterEnemyKillCount > currentEnemyKillCount) //checking if enemy was killed
                         {
