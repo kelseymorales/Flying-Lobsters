@@ -206,31 +206,31 @@ public class GameManager : MonoBehaviour
             if (didWinLevel == true)
             {
                 
-                if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
-                {
-                    SceneManager.LoadScene(5);
-                }
-                else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3))
+                if (SceneManager.GetActiveScene().buildIndex == 2)
                 {
                     SceneManager.LoadScene(6);
                 }
-                else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(4))
+                else if (SceneManager.GetActiveScene().buildIndex == 3)
                 {
                     SceneManager.LoadScene(7);
+                }
+                else if (SceneManager.GetActiveScene().buildIndex == 4)
+                {
+                    SceneManager.LoadScene(14);
                 }
             }
             else
             {
                 
-                if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
+                if (SceneManager.GetActiveScene().buildIndex == 2)
                 {
                     SceneManager.LoadScene(10);
                 }
-                else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(3))
+                else if (SceneManager.GetActiveScene().buildIndex == 3)
                 {
                     SceneManager.LoadScene(11);
                 }
-                else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(4))
+                else if (SceneManager.GetActiveScene().buildIndex == 4)
                 {
                     SceneManager.LoadScene(12);
                 }
