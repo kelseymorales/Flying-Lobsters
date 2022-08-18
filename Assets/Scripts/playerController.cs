@@ -156,7 +156,6 @@ public class playerController : MonoBehaviour, IDamageable
             PickUpGrenade();
 
             ThrowGrenade();
-            StartCoroutine(dodge());
 
             if (sniperGun)
             {
@@ -207,28 +206,6 @@ public class playerController : MonoBehaviour, IDamageable
 
         // add gravity back into the character controller move
         _controller.Move(_playerVelocity * Time.deltaTime);
-    }
-
-    IEnumerator dodge()
-    {
-        if (Input.GetButtonDown("Dodge") && !isDodging)
-        {
-            isDodging = true;
-
-            // play dodge audio
-            aud.PlayOneShot(aPlayerDodge[Random.Range(0, aPlayerDodge.Length)], aPlayerDodgeVol);
-
-            // recieve input
-            _dodgeMove = ((transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"))) * fDodgeDistance;
-
-            // execute dodge
-            _controller.Move(_dodgeMove * Time.deltaTime * fPlayerSpeedOrig);
-
-            // wait before allowing another dodge to be executed
-            yield return new WaitForSeconds(fDodgeWaitInterval);
-
-            isDodging = false;
-        }
     }
 
     void Sprint()

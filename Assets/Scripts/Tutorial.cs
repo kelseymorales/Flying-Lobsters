@@ -5,7 +5,6 @@ using UnityEngine;
 public class Tutorial : MonoBehaviour
 {
     [SerializeField] private GameObject moveUi;
-    [SerializeField] private GameObject dogeUi;
     [SerializeField] private GameObject sprintUi;
     [SerializeField] private GameObject jumpUi;
     [SerializeField] private GameObject AttackUi;
@@ -46,18 +45,7 @@ public class Tutorial : MonoBehaviour
             }
 
             moveUi.SetActive(false);
-            dogeUi.SetActive(true);
-        }
-        
-        if (dogeUi.activeSelf)
-        {
-            if (Input.GetButtonDown("Dodge"))
-            {
-                dogeUi.SetActive(false);
-                sprintUi.SetActive(true);
-
-                checks = new bool[2];
-            }
+            sprintUi.SetActive(true);
         }
 
         if (sprintUi.activeSelf)
