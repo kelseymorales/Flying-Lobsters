@@ -23,7 +23,6 @@ public class Tutorial : MonoBehaviour
             if (Input.GetButtonDown("W"))
             {
                 checks[0] = true;
-                Debug.Log("Holding w");
             }
             else if (Input.GetButtonDown("S"))
             {

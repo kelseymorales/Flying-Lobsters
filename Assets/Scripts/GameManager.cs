@@ -166,7 +166,7 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("MasterVolume"))
         {
-            LoadAudioSettings();
+            //LoadAudioSettings();
         }
     }
 
@@ -528,13 +528,6 @@ public class GameManager : MonoBehaviour
         _menuCurrentlyOpen.SetActive(false);
         _menuCurrentlyOpen = _pauseMenu;
         _menuCurrentlyOpen.SetActive(true);
-    }
-
-    public void LoadAudioSettings()
-    {
-        _mixer.SetFloat("MasterVolume", Mathf.Log10(PlayerPrefs.GetFloat("MasterVolume")) * 20);
-        _mixer.SetFloat("MusicVolume", Mathf.Log10(PlayerPrefs.GetFloat("MusicVolume")) * 20);
-        _mixer.SetFloat("EffectsVolume", Mathf.Log10(PlayerPrefs.GetFloat("EffectsVolume")) * 20);
     }
 
     public void SetBossHealthBarActive(bool state)

@@ -7,6 +7,13 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject _optionsMenu;
     [SerializeField] private GameObject _credits;
 
+    [SerializeField] private OptionsMenu optionsRef;
+
+
+    private void Start() 
+    {
+        optionsRef.Start();    
+    }
 
     public void PlayGame()
     {
