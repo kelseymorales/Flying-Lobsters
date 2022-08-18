@@ -4080,6 +4080,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8448960639718001733, guid: 0f8b759cb32aed54d86396cde0a3834f, type: 3}
+      propertyPath: iGrenadeCount
+      value: 54000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448960639718001733, guid: 0f8b759cb32aed54d86396cde0a3834f, type: 3}
       propertyPath: layers.m_Bits
       value: 2003
       objectReference: {fileID: 0}

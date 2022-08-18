@@ -28,15 +28,17 @@ public class Spawner : MonoBehaviour
     // Spawn points do not need to be set in the inspector
     [SerializeField] private Transform[] _spawnPoints;
 
-    private BoxCollider _trigger;
+    [SerializeField] private BoxCollider _trigger;
     private int iEnemiesSpawned;
 
     private Coroutine spawnFunction;
 
-    private void Start() 
+    private bool isTriggered;
+
+    private void Start()
     {
         _trigger = GetComponent<BoxCollider>();
-        _trigger.size = new Vector3(iTriggerSize, 1, iTriggerSize);
+        _trigger.size = new Vector3(iTriggerSize, _trigger.size.y, iTriggerSize);
 
         // gets all the spawn points 
         _spawnPoints = new Transform[transform.childCount];
@@ -55,19 +57,12 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && isTriggered == false)
         {
             StartSpawing();
-        }    
-    }
-
-    private void OnTriggerExit(Collider other) 
-    {
-        if (other.CompareTag("Player"))
-        {
-            StopSpawning();
+            isTriggered = true;
         }
     }
 
@@ -78,22 +73,22 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator Spawning()
     {
-        while(true)
+        while (true)
         {
-            yield return new WaitForSeconds(fSpawnInterval);
-
-            GameObject enemy = _enemies[Random.Range(0, _enemies.Length)];
-            Transform place = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
-
-            Instantiate(enemy, place.position, place.rotation);
-
-            iEnemiesSpawned++;
-
-            if (iEnemiesSpawned == iNumOfEnemies)
+            for (int i = 0; i < iNumOfEnemies; i++)
             {
-                yield return new WaitForSeconds(fTimeBetweenWaves);
-                iEnemiesSpawned = 0;
+                yield return new WaitForSeconds(fSpawnInterval);
+                Debug.Log("Spawning Enemy");
+
+                GameObject enemy = _enemies[Random.Range(0, _enemies.Length)];
+                Transform place = _spawnPoints[Random.Range(0, _spawnPoints.Length)];
+
+                Instantiate(enemy, place.position, place.rotation);
             }
+
+            Debug.Log("Waiting for wave");
+
+            yield return new WaitForSeconds(fTimeBetweenWaves);
         }
     }
 
@@ -107,9 +102,9 @@ public class Spawner : MonoBehaviour
         StopCoroutine(spawnFunction);
     }
 
-    public void OnDrawGizmos() 
+    public void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(transform.position, new Vector3(iTriggerSize, 1, iTriggerSize));    
+        Gizmos.DrawWireCube(transform.position, new Vector3(iTriggerSize, _trigger.size.y, iTriggerSize));
     }
 }
