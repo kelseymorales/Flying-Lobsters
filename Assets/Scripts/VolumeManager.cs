@@ -22,7 +22,7 @@ public class VolumeManager : MonoBehaviour
         if (value <= 0)
             _mixer.SetFloat(sVolumeParameter, -75.0f); 
         else
-            _mixer.SetFloat(sVolumeParameter, Mathf.Log10(value) * 20);
+            _mixer.SetFloat(sVolumeParameter, Mathf.Log10(value) * 10);
         isToggleEventDisable = true; 
         _toggle.isOn = _volumeSlider.value > _volumeSlider.minValue;
         isToggleEventDisable = false;
