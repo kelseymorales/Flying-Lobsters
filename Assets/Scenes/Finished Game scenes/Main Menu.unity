@@ -2261,20 +2261,13 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Game Developers:
-
-    Collin Leavitt
-
-    Jose Davila
-
-    Kelsey Templar
-
-    Raymond
-    White
-
-    Tyler Clardy'
+  m_text: "Game Developers:\nCollin Leavitt\nJose Davila\nKelsey Templar\nRaymond
+    White\nTyler Clardy\n\nSongs\r:\nEpic dramatic action trailer- QubeSounds\r\nEnergetic
+    Rock Beat- Coma-Media\r\nMetal Dark Matter-AlexGrohl\r\nRock It-Coma-Media\r\n\nAudio\r:\nArtisticdude\r\nBadre-Eddie\r\nMikhog\r\nVinrax\r\nMichel
+    Baradi\r\nMicheal Klier\r\n\nAssets\r:\nGeekay\r\nBeatheart Creative Studio\r\nGlobotix\r\nPolygon
+    Blacksmith\r\nMeowingMammoth\r"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -2302,7 +2295,7 @@ MonoBehaviour:
   m_fontSize: 40
   m_fontSizeBase: 40
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 17
