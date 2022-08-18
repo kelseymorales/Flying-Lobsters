@@ -12,6 +12,7 @@ TagManager:
   - Bomb
   - Boss
   - wall
+  - Grenade
   layers:
   - Default
   - TransparentFX

@@ -31,21 +31,22 @@ public class OptionsMenu : MonoBehaviour
             for (int i = 0; i < _volumeElements.Length; i++)
             {
                 PlayerPrefs.SetFloat(_volumeElements[i]._volumeName, _volumeElements[i]._slider.value);
+                PlayerPrefs.Save();
             }
         }
 
         for (int i = 0; i < _volumeElements.Length; i++)
         {
-            if (_volumeElements[i]._slider.value == 0)
+            if (_volumeElements[i]._slider.value == 0.0f)
             {
                 _mixer.SetFloat(_volumeElements[i]._volumeName, -75.0f);
             }
             else
             {
-                _mixer.SetFloat(_volumeElements[i]._volumeName, Mathf.Log10(_volumeElements[i]._slider.value) * 10);
+                _mixer.SetFloat(_volumeElements[i]._volumeName, Mathf.Log10(_volumeElements[i]._slider.value) * 10.0f);
             }
 
-            if (_volumeElements[i]._slider.value > 0)
+            if (_volumeElements[i]._slider.value > 0.0f)
             {
                 _volumeElements[i]._toggle.isOn = true;
             }
@@ -56,7 +57,7 @@ public class OptionsMenu : MonoBehaviour
     {
         Volume current = _volumeElements[id];
 
-        if (current._slider.value == 0)
+        if (current._slider.value == 0.0f)
         {
             _mixer.SetFloat(current._volumeName, -75.0f);
             current._toggle.isOn = false;
@@ -77,12 +78,12 @@ public class OptionsMenu : MonoBehaviour
 
         if (current._toggle.isOn)
         {
-            current._slider.value = 1;
-            _mixer.SetFloat(current._volumeName, Mathf.Log10(1) * 10.0f);
+            current._slider.value = 1.0f;
+            _mixer.SetFloat(current._volumeName, Mathf.Log10(1.0f) * 10.0f);
         }
         else
         {
-            current._slider.value = 0;
+            current._slider.value = 0.0f;
             _mixer.SetFloat(current._volumeName, -75.0f);
         }
 

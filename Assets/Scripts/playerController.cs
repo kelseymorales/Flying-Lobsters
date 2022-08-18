@@ -94,8 +94,6 @@ public class playerController : MonoBehaviour, IDamageable
     public bool sniperGun = false;  // Indicates whether the gun being used is a sniper
     public bool ShotgunGun = false; // Indicates whether the gun being used is a shotgun
     public bool AssaultRifleGun = false;
-   /* bool isZoomed = false;   */       // Indicates whether the zoom function is currently in use (only for sniper weapon)
-    bool isDodging = false;         // indicates if the player is currently dodging
 
     float fPlayerSpeedOrig;     // stores the starting player speed
     int iPlayerHealthOrig;      // stores the starting player health

@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
@@ -78,9 +77,6 @@ public class GameManager : MonoBehaviour
     public TMP_Text _bossName;
     public Image _bossHealth;
     public GameObject _bossHealthBar;
-
-    [Header("Audio\n------------------------------")]
-    [SerializeField] AudioMixer _mixer; //Audio mixer Main
 
     [Header("Effects\n------------------------------")]
     public GameObject _playerDamageFlash;                       // screenspace effect for player taking damage
