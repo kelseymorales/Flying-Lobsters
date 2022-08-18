@@ -191,8 +191,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
         aAnim.SetTrigger("Damage");
         StartCoroutine(FlashColor());
 
-            
-
         //if enemy dies then enemy object is destroyed
         if (iHP <= 0)
         {
@@ -215,7 +213,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
             if (isBoss)
             {
                 GameManager._instance.iScore += 150;
-                GameManager._instance.WinGame();
+                GameManager._instance.CallWinGame();
             }
         }
     }

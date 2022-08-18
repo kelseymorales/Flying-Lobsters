@@ -475,9 +475,15 @@ public class GameManager : MonoBehaviour
 
     }
 
-
-    public void WinGame()   // helper function for win game scenario
+    public void CallWinGame()
     {
+        StartCoroutine(WinGame());
+    }
+
+    private IEnumerator WinGame()   // helper function for win game scenario
+    {
+        yield return new WaitForSeconds(1.0f);
+
         didWin = true;
         _menuCurrentlyOpen = _winGameMenu;
         _menuCurrentlyOpen.SetActive(true);
