@@ -5,6 +5,7 @@ using UnityEngine.Audio;
 public class OptionsMenu : MonoBehaviour
 {
     private float fVolumeOnToggle;
+    private bool isStart = true; 
 
     [System.Serializable]
 
@@ -88,8 +89,15 @@ public class OptionsMenu : MonoBehaviour
 
         if (current._toggle.isOn)
         {
-            
-            current._slider.value = fVolumeOnToggle;
+            if(isStart)
+            {
+                fVolumeOnToggle = current._slider.value;
+                isStart = false;
+            }
+            else
+            {
+                current._slider.value = fVolumeOnToggle;
+            }
             if (current._slider.value == 0.0f)
             {
                 _mixer.SetFloat(current._volumeName, -75.0f);
