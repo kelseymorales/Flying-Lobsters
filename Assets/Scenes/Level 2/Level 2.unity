@@ -400,6 +400,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: AtomicBomb (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8560369908930250186, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560369908930250186, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560375561051746304, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560375561051746304, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560512209488397462, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560512209488397462, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 955904580273bf9439fe98c32eb20745, type: 3}
@@ -15901,6 +15925,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: AtomicBomb
       objectReference: {fileID: 0}
+    - target: {fileID: 8560369908930250186, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560369908930250186, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560375561051746304, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560375561051746304, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560512209488397462, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560512209488397462, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 955904580273bf9439fe98c32eb20745, type: 3}
@@ -26701,6 +26749,30 @@ PrefabInstance:
     - target: {fileID: 8560247942151066030, guid: 955904580273bf9439fe98c32eb20745, type: 3}
       propertyPath: m_Name
       value: AtomicBomb (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560369908930250186, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560369908930250186, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560375561051746304, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560375561051746304, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560512209488397462, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8560512209488397462, guid: 955904580273bf9439fe98c32eb20745, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

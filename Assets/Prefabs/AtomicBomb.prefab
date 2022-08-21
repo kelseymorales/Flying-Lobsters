@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 2960962551958377644}
   - component: {fileID: 8516137233018456266}
   - component: {fileID: 4358292771738537182}
+  - component: {fileID: 7953467967952475744}
   m_Layer: 7
   m_Name: AtomicBomb
   m_TagString: Bomb
@@ -257,6 +258,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 3.8153372
   m_Center: {x: -0.0000000026529126, y: 2.4220238, z: -0.8933077}
+--- !u!64 &7953467967952475744
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8560247942151066030}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &8560369908930250186
 GameObject:
   m_ObjectHideFlags: 0
