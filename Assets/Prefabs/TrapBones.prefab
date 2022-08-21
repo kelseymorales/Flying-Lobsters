@@ -114,16 +114,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _acidParticles: {fileID: 4022653815796194545, guid: ee6e482165704814d890a0a926728396, type: 3}
   _fireParticles: {fileID: 1911623011711746684, guid: 61b024c6385aeb1419af88146159a07b, type: 3}
-  isFire: 0
-  isAcid: 0
   fHazardousTrapDamage: 2
   fTakeDamageRate: 1
   fHazardousTrapDuration: 20
   _spikes: {fileID: 3640181276739659940, guid: 9e34745d6f63ded468c64d42ee0c7dd7, type: 3}
   _tripWire: {fileID: 3986127378477776783, guid: c6a35cf71e8e7dd4aa92a3634ccb0d7c, type: 3}
-  isHazardousTrap: 0
-  isSpikeTrap: 0
-  isGranadeTrap: 1
+  _type: 0
   aud: {fileID: -708890425749265221}
   aFireTrap:
   - {fileID: 8300000, guid: 16017e9a7c73af848b6563fc68f8f870, type: 3}
@@ -142,7 +138,7 @@ AudioSource:
   m_GameObject: {fileID: 5962362303640334623}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 5992241618445561850, guid: 6f4b16b16ef35a44ba71e732f405b6b2, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1

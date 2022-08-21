@@ -11780,7 +11780,6 @@ MonoBehaviour:
   _bossName: {fileID: 7397003746172561223}
   _bossHealth: {fileID: 9157055383367404948}
   _bossHealthBar: {fileID: 6555193872114265896}
-  _mixer: {fileID: 24100000, guid: 6f4b16b16ef35a44ba71e732f405b6b2, type: 2}
   _playerDamageFlash: {fileID: 2046789939}
   _AmmoBoxFlash: {fileID: 0}
   _detonation: {fileID: 5919563822289782376, guid: 6932db2b6c86aae4d84dc53a2848ddbe, type: 3}
@@ -12971,6 +12970,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5411123609664018889, guid: ef372fac2818e754d86621aaf975772b, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 5992241618445561850, guid: 6f4b16b16ef35a44ba71e732f405b6b2, type: 2}
     - target: {fileID: 6732557742309959607, guid: ef372fac2818e754d86621aaf975772b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1

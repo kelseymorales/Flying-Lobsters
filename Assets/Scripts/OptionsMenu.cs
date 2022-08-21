@@ -90,7 +90,13 @@ public class OptionsMenu : MonoBehaviour
         {
             
             current._slider.value = fVolumeOnToggle;
-            _mixer.SetFloat(current._volumeName, Mathf.Log10(fVolumeOnToggle) * 10.0f);
+            if (current._slider.value == 0.0f)
+            {
+                _mixer.SetFloat(current._volumeName, -75.0f);
+               
+            }
+            else
+                _mixer.SetFloat(current._volumeName, Mathf.Log10(fVolumeOnToggle) * 10.0f);
         }
         else
         {
