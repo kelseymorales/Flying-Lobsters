@@ -13,7 +13,7 @@ public class Floater : MonoBehaviour
     Vector3 posOffset = new Vector3();
     Vector3 tempPos = new Vector3();
 
-    bool canFloat;
+    public bool canFloat;
 
     // Use this for initialization
     void Start()
@@ -25,7 +25,7 @@ public class Floater : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canFloat == false)
+        if (true)
         {
             return;
         }

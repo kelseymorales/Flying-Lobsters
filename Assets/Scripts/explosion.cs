@@ -21,8 +21,13 @@ public class explosion : MonoBehaviour
     public void OnTriggerEnter(Collider other)
     {
         // if player or enemy is caught in explosion range
-        if ((other.CompareTag("Player") || other.CompareTag("Enemy")) && other.tag != tag)
+        if ((other.CompareTag("Player") || other.CompareTag("Enemy") || other.CompareTag("Boss")) && other.tag != tag)
         {
+            if (CompareTag("Enemy") && other.CompareTag("Boss"))
+            {
+                return;
+            }
+            
             // apply physics pushback to player character
             GameManager._instance._playerScript.vPushBack =
                 (GameManager._instance._player.transform.position - transform.position) * iDamage;
