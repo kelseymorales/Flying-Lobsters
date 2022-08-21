@@ -785,8 +785,8 @@ MonoBehaviour:
 
     Left Mouse Click - Shoot
 
-    Right
-    Mouse Click - Grenade'
+    F
+    - Grenade'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
   m_sharedMaterial: {fileID: -5058014768078378672, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
@@ -11758,7 +11758,7 @@ MonoBehaviour:
   _loseGameMenuFirstOption: {fileID: 66311596}
   _playerDeadMenuFirstOption: {fileID: 4631363933188881052}
   _winGameMenuFirstOption: {fileID: 1618169114}
-  _winLevelFirstOption: {fileID: 0}
+  _winLevelFirstOption: {fileID: 825986938366818411}
   _bombUi: {fileID: 8427886696680925724}
   SniperScope: {fileID: 582929048}
   _HpBar: {fileID: 2942538141083396348}
@@ -11801,6 +11801,7 @@ MonoBehaviour:
   iBombsDefusedCounter: 0
   iGrenadesDefusedCounter: 0
   iBombTotalOrig: 0
+  isDefusingBomb: 0
   isDefusingTrap: 0
   isDefusingGrenade: 0
   isGrenadeDefused: 0
