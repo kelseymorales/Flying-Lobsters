@@ -170,3 +170,4 @@ MonoBehaviour:
   isAmmoPowerUp: 0
   speedBoostValue: 0
   _currentPowerUpImage: {fileID: 0}
+  anim: {fileID: 8688016822849034573}
