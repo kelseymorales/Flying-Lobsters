@@ -786,7 +786,9 @@ MonoBehaviour:
     Left Mouse Click - Shoot
 
     F
-    - Grenade'
+    - Grenade
+
+    Right Mouse Click - Zoom with Sniper'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
   m_sharedMaterial: {fileID: -5058014768078378672, guid: c2cb6f9c00384cd4b87297a952c7ac72, type: 2}
