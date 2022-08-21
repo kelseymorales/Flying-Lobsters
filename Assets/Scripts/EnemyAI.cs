@@ -80,7 +80,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (nAgent.isActiveAndEnabled) // if navmesh is enabled
         {
             // pass information to animator on how fast enemy is moving
-            aAnim.SetFloat("Speed", Mathf.Lerp(aAnim.GetFloat("Speed"), nAgent.velocity.normalized.magnitude, Time.deltaTime * 5));
 
             // gets player direction for tracking player
             vPlayerDirection = GameManager._instance._player.transform.position - transform.position;
