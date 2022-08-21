@@ -16,7 +16,7 @@ MonoBehaviour:
   iDamage: 3
   gGunModel: {fileID: 8257945635518313060, guid: 435cbae6fa49329439f23ba765d4d6e7, type: 3}
   iClipSize: 15
-  fGunRange: 25
+  fGunRange: 65
   isSniper: 0
   isShotgun: 0
   isAssaultRifle: 1
