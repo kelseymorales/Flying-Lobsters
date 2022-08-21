@@ -94,6 +94,7 @@ public class playerController : MonoBehaviour, IDamageable
     public bool sniperGun = false;  // Indicates whether the gun being used is a sniper
     public bool ShotgunGun = false; // Indicates whether the gun being used is a shotgun
     public bool AssaultRifleGun = false;
+    public bool isZoomedIn;
 
     float fPlayerSpeedOrig;     // stores the starting player speed
     int iPlayerHealthOrig;      // stores the starting player health
@@ -146,7 +147,7 @@ public class playerController : MonoBehaviour, IDamageable
             vPushBack = Vector3.Lerp(vPushBack, Vector3.zero, Time.deltaTime * iPushBackResolve);
 
             // Various functions and coroutines that run constantly for player
-            if (GameManager._instance.isDefusingBomb == false)
+            if (GameManager._instance.isDefusingBomb == false || isZoomedIn)
             {
                 MovePlayer();
                 Sprint();
@@ -660,7 +661,7 @@ public class playerController : MonoBehaviour, IDamageable
         if (Input.GetButtonDown("Zoom")) // when pressing zoom button and not zoomed - zoom in
         {
             SniperZoomIn(); // call zoom in function
-            //isZoomed = true;
+            isZoomedIn = true;
 
             // Hide normal HUD UI
             foreach (GameObject VARIABLE in HUD)
@@ -677,7 +678,7 @@ public class playerController : MonoBehaviour, IDamageable
         else if (Input.GetButtonUp("Zoom")) // when pressing zoom button and already zoomed - unzoom in
         {
             SniperZoomOut(); // call zoom out function
-            //isZoomed = false;
+            isZoomedIn = false;
 
             // hide scope UI
             GameManager._instance.SniperScope.SetActive(false);
