@@ -4,7 +4,10 @@ using UnityEngine.Audio;
 
 public class OptionsMenu : MonoBehaviour
 {
+    private float fVolumeOnToggle;
+
     [System.Serializable]
+
     struct Volume
     {
         public string _volumeName;
@@ -12,6 +15,8 @@ public class OptionsMenu : MonoBehaviour
         public Slider _slider;
 
         public Toggle _toggle;
+
+        
     }
 
     [SerializeField] private Volume[] _volumeElements;
@@ -65,7 +70,10 @@ public class OptionsMenu : MonoBehaviour
         else
         {
             _mixer.SetFloat(current._volumeName, Mathf.Log10(current._slider.value) * 10.0f);
+            
             current._toggle.isOn = true;
+            
+
         }
 
         PlayerPrefs.SetFloat(current._volumeName, current._slider.value);
@@ -76,18 +84,23 @@ public class OptionsMenu : MonoBehaviour
     {
         Volume current = _volumeElements[id];
 
+        
+
         if (current._toggle.isOn)
         {
-            current._slider.value = 1.0f;
-            _mixer.SetFloat(current._volumeName, Mathf.Log10(1.0f) * 10.0f);
+            
+            current._slider.value = fVolumeOnToggle;
+            _mixer.SetFloat(current._volumeName, Mathf.Log10(fVolumeOnToggle) * 10.0f);
         }
         else
         {
+            fVolumeOnToggle = current._slider.value;
             current._slider.value = 0.0f;
             _mixer.SetFloat(current._volumeName, -75.0f);
         }
 
         PlayerPrefs.SetFloat(current._volumeName, current._slider.value);
         PlayerPrefs.Save();
+
     }
 }
