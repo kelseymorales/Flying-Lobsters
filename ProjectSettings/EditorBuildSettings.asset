@@ -51,7 +51,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Kelsey/Quit Loose.unity
     guid: fd2d8e7a9345eab498b20545c80d6a47
   - enabled: 1
-    path: Assets/Scenes/Tutorial.unity
+    path: Assets/Scenes/Tutorial/Tutorial.unity
     guid: 6028139a8e5aaa9408ef3f9eefc731a4
   - enabled: 1
     path: Assets/Scenes/Kelsey/Win to Main Scene 1.unity
