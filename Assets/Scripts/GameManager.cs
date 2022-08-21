@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
 
     Coroutine _defuseFunction;          // stores reference to any game menu currently open/active
 
+    public bool isDefusingBomb;
     public bool isDefusingTrap;
     public bool isDefusingGrenade; //bool for defusing enemy grenades
     public bool isGrenadeDefused;
@@ -300,6 +301,8 @@ public class GameManager : MonoBehaviour
 
     IEnumerator Defuse(bombGoal bomb)
     {
+        isDefusingBomb = true;
+
         tDefuseCountdown.text = ""; // clear previous defuse text if needed
         _defuseSliderImage.fillAmount = GameManager._instance.iDefuseCountdownTime; // make sure slider bar is full before putting it onscreen
 
@@ -344,7 +347,7 @@ public class GameManager : MonoBehaviour
         defuseLabel.SetActive(false); // make sure the prompt to defuse bombs deactivates now that bomb is defused
         grenadeDefuseLabel.SetActive(false);
 
-
+        isDefusingBomb = false;
 
         _playerScript.defuseJingle(); // play defuse audio jingle
 
@@ -380,6 +383,8 @@ public class GameManager : MonoBehaviour
         _defuseSlider.SetActive(false);
 
         _playerScript.UnlockInPlace();
+
+        isDefusingBomb = false;
     }
 
     IEnumerator bombTick()

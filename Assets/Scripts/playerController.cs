@@ -146,8 +146,12 @@ public class playerController : MonoBehaviour, IDamageable
             vPushBack = Vector3.Lerp(vPushBack, Vector3.zero, Time.deltaTime * iPushBackResolve);
 
             // Various functions and coroutines that run constantly for player
-            MovePlayer();
-            Sprint();
+            if (GameManager._instance.isDefusingBomb == false)
+            {
+                MovePlayer();
+                Sprint();
+            }
+            
             StartCoroutine(Shoot());
             StartCoroutine(reload());
             StartCoroutine(playFootsteps());
