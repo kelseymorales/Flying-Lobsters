@@ -13,6 +13,8 @@ public class Floater : MonoBehaviour
     Vector3 posOffset = new Vector3();
     Vector3 tempPos = new Vector3();
 
+    bool canFloat;
+
     // Use this for initialization
     void Start()
     {
@@ -23,6 +25,11 @@ public class Floater : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (canFloat == false)
+        {
+            return;
+        }
+        
         // Spin object around Y-Axis
         transform.Rotate(new Vector3(0f, Time.deltaTime * fDegreesPerSecond, 0f), Space.World);
 
@@ -32,4 +39,15 @@ public class Floater : MonoBehaviour
 
         transform.position = tempPos;
     }
+
+    private void OnBecameVisible() 
+    {
+        canFloat = true;
+    }
+
+    private void OnBecameInvisible() 
+    {
+        canFloat = false;
+    }
+
 }

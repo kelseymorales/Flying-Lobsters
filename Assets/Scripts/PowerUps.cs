@@ -19,7 +19,18 @@ public class PowerUps : MonoBehaviour
 
     public Image _currentPowerUpImage; //Current icon for each power-up
 
-    
+    public Animator anim;
+
+    private void OnBecameVisible() 
+    {
+        anim.enabled = true;
+    }
+
+    private void OnBecameInvisible() 
+    {
+        anim.enabled = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player")) // check if player collided with powerup
@@ -66,13 +77,8 @@ public class PowerUps : MonoBehaviour
             currentPowerUp = "ammo"; 
 
         }
-            
-
-
         
         StartCoroutine(PickUpTimer()); //Starts individual timers for each power up
-
-        
     }
 
     private IEnumerator PickUpTimer()
@@ -91,8 +97,6 @@ public class PowerUps : MonoBehaviour
 
         Destroy(transform.parent.gameObject); //Destroys powerUp parent
     }
-
-
 
     private void SetActivesFalse()
     {

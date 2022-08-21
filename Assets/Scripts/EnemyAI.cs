@@ -49,6 +49,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     public bool isGrenadier;
     public bool isBoss;
     public bool isGunner;
+    bool onLevel3;
 
     Vector3 vStartingPos;                               // vector storing enemy starting position
     Vector3 vPlayerDirection;                           // vector storing the direction the player is in from the perspective of the enemy
@@ -71,7 +72,12 @@ public class EnemyAI : MonoBehaviour, IDamageable
         _currentColor = Color.white;
         _currentDamageColor = Color.red;
 
-        GameManager._instance.updateEnemyCount();           // update UI to reflect enemies placed in scene
+        GameManager._instance.updateEnemyCount();  
+        
+        if (onLevel3)
+        {
+            aAnim.enabled = false;
+        }         // update UI to reflect enemies placed in scene
     }
 
     // Called every frame
@@ -80,6 +86,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (nAgent.isActiveAndEnabled) // if navmesh is enabled
         {
             // pass information to animator on how fast enemy is moving
+
+            aAnim.SetFloat("Speed", Mathf.Lerp(aAnim.GetFloat("Speed"), nAgent.velocity.normalized.magnitude, Time.deltaTime * 5));
 
             // gets player direction for tracking player
             vPlayerDirection = GameManager._instance._player.transform.position - transform.position;
@@ -248,6 +256,5 @@ public class EnemyAI : MonoBehaviour, IDamageable
             Instantiate(listPowerUpDrops[Random.Range(0, 3)], transform.position + new Vector3(0,1f,0), listPowerUpDrops[Random.Range(0,3)].transform.rotation); //Drops random power-up
             GameManager._instance._playerScript.isReadyForDrop = false;  //Sets power-up drop flag back to false
         }
-    }
-   
+    } 
 }
