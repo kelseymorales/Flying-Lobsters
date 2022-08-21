@@ -30,7 +30,7 @@ Transform:
   m_Children:
   - {fileID: 436014891128573955}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &436014891128574012
 GameObject:
@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 6862979817450179461}
   m_Layer: 0
   m_Name: Shield
-  m_TagString: Untagged
+  m_TagString: PowerUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

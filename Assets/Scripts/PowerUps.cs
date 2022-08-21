@@ -24,7 +24,7 @@ public class PowerUps : MonoBehaviour
     {
         if (other.CompareTag("Player")) // check if player collided with powerup
         {
-             PickUp();
+            PickUp();
         }
     }
 

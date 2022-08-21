@@ -21,7 +21,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider _collider)
     {
-        if (_collider.gameObject.layer == LayerMask.NameToLayer("ChainFence"))
+        if (_collider.gameObject.layer == LayerMask.NameToLayer("ChainFence") || _collider.gameObject.CompareTag("PowerUp"))
         {
             return;
         }
