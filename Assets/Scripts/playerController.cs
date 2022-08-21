@@ -147,7 +147,7 @@ public class playerController : MonoBehaviour, IDamageable
             vPushBack = Vector3.Lerp(vPushBack, Vector3.zero, Time.deltaTime * iPushBackResolve);
 
             // Various functions and coroutines that run constantly for player
-            if (GameManager._instance.isDefusingBomb == false || isZoomedIn)
+            if (GameManager._instance.isDefusingBomb == false || !isZoomedIn)
             {
                 MovePlayer();
                 Sprint();
@@ -213,27 +213,29 @@ public class playerController : MonoBehaviour, IDamageable
 
     void Sprint()
     {
-
-        float fCurrentSpeed = fPlayerSpeed;
-        // on down press of 'Sprint' key, increase player speed
-        if (Input.GetButtonDown("Sprint"))
+        if (!isZoomedIn) // If sniper is the gun being used, and player is currently zoomed in, disallow sprinting
         {
-            isSprinting = true;
-            fPlayerSpeed = fPlayerSpeed * fSprintMulti;
-            if (hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
-                fCurrentSpeed = fPlayerSpeed;
-        }
-        // on release of 'sprint' key, return player speed to normal
-        else if (Input.GetButtonUp("Sprint"))
-        {
-            isSprinting = false;
-            if (!hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
+            float fCurrentSpeed = fPlayerSpeed;
+            // on down press of 'Sprint' key, increase player speed
+            if (Input.GetButtonDown("Sprint"))
             {
-                fPlayerSpeed = fPlayerSpeedOrig;
+                isSprinting = true;
+                fPlayerSpeed = fPlayerSpeed * fSprintMulti;
+                if (hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
+                    fCurrentSpeed = fPlayerSpeed;
             }
-            else
+            // on release of 'sprint' key, return player speed to normal
+            else if (Input.GetButtonUp("Sprint"))
             {
-                fPlayerSpeed = fCurrentSpeed / 2;
+                isSprinting = false;
+                if (!hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
+                {
+                    fPlayerSpeed = fPlayerSpeedOrig;
+                }
+                else
+                {
+                    fPlayerSpeed = fCurrentSpeed / 2;
+                }
             }
 
         }
@@ -674,6 +676,8 @@ public class playerController : MonoBehaviour, IDamageable
 
             // unhide scope UI
             GameManager._instance.SniperScope.SetActive(true);
+
+            fPlayerSpeed = fPlayerSpeed / 2; // half player speed while zoomed
         }
         else if (Input.GetButtonUp("Zoom")) // when pressing zoom button and already zoomed - unzoom in
         {
@@ -691,6 +695,8 @@ public class playerController : MonoBehaviour, IDamageable
             {
                 VARIABLE.SetActive(true);
             }
+
+            fPlayerSpeed = fPlayerSpeedOrig; // reset player speed when no longer zoomed
         }
     }
 
