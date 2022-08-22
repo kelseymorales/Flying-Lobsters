@@ -25,7 +25,7 @@ public class Floater : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (true)
+        if (canFloat == false)
         {
             return;
         }
