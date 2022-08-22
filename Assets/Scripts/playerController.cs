@@ -141,7 +141,7 @@ public class playerController : MonoBehaviour, IDamageable
     // Called every frame
     void Update()
     {
-        if (!GameManager._instance.isPaused) // if paused - disable player actions
+        if (GameManager._instance.isPaused == false) // if paused - disable player actions
         {
             // handles pushback physics
             vPushBack = Vector3.Lerp(vPushBack, Vector3.zero, Time.deltaTime * iPushBackResolve);
@@ -152,7 +152,7 @@ public class playerController : MonoBehaviour, IDamageable
                 MovePlayer();
                 Sprint();
             }
-            
+
             StartCoroutine(Shoot());
             StartCoroutine(reload());
             StartCoroutine(playFootsteps());

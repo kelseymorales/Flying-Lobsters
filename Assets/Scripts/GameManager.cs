@@ -203,6 +203,8 @@ public class GameManager : MonoBehaviour
     {
         UnlockCursorUnpause();
 
+        isPaused = false;
+
         if (bRestartCurrentLevel)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
@@ -485,6 +487,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.0f);
 
+        isPaused = true;
         didWin = true;
         _menuCurrentlyOpen = _winGameMenu;
         _menuCurrentlyOpen.SetActive(true);
@@ -544,6 +547,8 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
+        isPaused = false;
+
         Time.timeScale = 1;
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
         {
