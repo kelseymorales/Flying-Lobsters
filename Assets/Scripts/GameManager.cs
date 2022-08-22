@@ -262,6 +262,8 @@ public class GameManager : MonoBehaviour
         _menuCurrentlyOpen.SetActive(true);
         LockCursorPause();
 
+        defuseLabel.SetActive(false);
+
         //Setting up event system to show highlighted button
         _eventSystem.SetSelectedGameObject(null);
         _eventSystem.SetSelectedGameObject(_playerDeadMenuFirstOption);
