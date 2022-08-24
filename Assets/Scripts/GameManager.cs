@@ -466,6 +466,7 @@ public class GameManager : MonoBehaviour
     public void WinLevel()   // helper function for win game scenario
     {
         didWinLevel = true;
+        isPaused = true;
         _menuCurrentlyOpen = _winLevelMenu;
         _menuCurrentlyOpen.SetActive(true);
         gameOver = true;
@@ -549,8 +550,6 @@ public class GameManager : MonoBehaviour
 
     public void NextLevel()
     {
-        isPaused = false;
-
         Time.timeScale = 1;
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(2))
         {
@@ -564,8 +563,8 @@ public class GameManager : MonoBehaviour
         {            
             SceneManager.LoadScene(1);
         }
-        
-        
+
+        isPaused = false;
     }
 
     

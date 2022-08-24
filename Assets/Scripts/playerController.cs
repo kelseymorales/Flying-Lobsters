@@ -711,4 +711,14 @@ public class playerController : MonoBehaviour, IDamageable
     {
         UnityEngine.Camera.main.fieldOfView += iSniperZoomAmount;
     }
+
+    public void DisableShooting()
+    {
+        canShoot = false;
+    }
+
+    public void ReEnableShooting()
+    {
+        canShoot = true;
+    }
 }
