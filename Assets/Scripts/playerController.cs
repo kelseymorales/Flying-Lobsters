@@ -156,7 +156,6 @@ public class playerController : MonoBehaviour, IDamageable
             StartCoroutine(Shoot());
             StartCoroutine(reload());
             StartCoroutine(playFootsteps());
-            PickUpGrenade();
 
             ThrowGrenade();
 
@@ -441,30 +440,30 @@ public class playerController : MonoBehaviour, IDamageable
         }
     }
 
-    public void PickUpGrenade()
-    {
-        RaycastHit hit;
+    //public void PickUpGrenade()
+    //{
+    //    RaycastHit hit;
 
-        if (Physics.Raycast(UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit, 20))
-        {
-            if (hit.collider.CompareTag("Grenade"))
-            {
-                GameManager._instance.grenadeDefuseLabel.SetActive(true);
+    //    if (Physics.Raycast(UnityEngine.Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)), out hit, 20))
+    //    {
+    //        if (hit.collider.CompareTag("Grenade"))
+    //        {
+    //            GameManager._instance.grenadeDefuseLabel.SetActive(true);
 
-                if (Input.GetButtonDown("Activate"))
-                {
-                    iGrenadeCount++;
-                    Destroy(hit.collider.gameObject);
-                    GameManager._instance.updateGrenadeCount();
-                    GameManager._instance.grenadeDefuseLabel.SetActive(false);
-                }
-            }
-            else
-            {
-                GameManager._instance.grenadeDefuseLabel.SetActive(false);
-            }
-        }
-    }
+    //            if (Input.GetButtonDown("Activate"))
+    //            {
+    //                iGrenadeCount++;
+    //                Destroy(hit.collider.gameObject);
+    //                GameManager._instance.updateGrenadeCount();
+    //                GameManager._instance.grenadeDefuseLabel.SetActive(false);
+    //            }
+    //        }
+    //        else
+    //        {
+    //            GameManager._instance.grenadeDefuseLabel.SetActive(false);
+    //        }
+    //    }
+    //}
 
     public void ThrowGrenade()
     {
@@ -570,7 +569,10 @@ public class playerController : MonoBehaviour, IDamageable
     public void AmmoBox()
     {
         iTotalWeaponAmmo += iAmmoPickupAmmoNum; // apply ammo pickup value to player total ammo pool
-        GameManager._instance.updateAmmoCount(); //play ammo pickup sound
+        GameManager._instance.updateAmmoCount(); // update ammo count UI object
+        iGrenadeCount++;                         // add 1 grenade to grenade count
+        GameManager._instance.updateGrenadeCount(); // update grenade count UI object
+
         // audio clip for ammo pickup
         aud.PlayOneShot(aAmmo[Random.Range(0, aAmmo.Length)], aAmmoVol);
     }
