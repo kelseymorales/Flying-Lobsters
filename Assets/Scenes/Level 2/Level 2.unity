@@ -1016,6 +1016,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 234484969, guid: c9ac183780f11e246b81ab9448e54f7e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2038174423532079486, guid: c9ac183780f11e246b81ab9448e54f7e, type: 3}
       propertyPath: m_Name
       value: UI
@@ -1024,6 +1028,10 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1660799048}
+    - target: {fileID: 3851521462602797558, guid: c9ac183780f11e246b81ab9448e54f7e, type: 3}
+      propertyPath: displayLevelScore
+      value: 
+      objectReference: {fileID: 1270302876}
     - target: {fileID: 6089820663269220501, guid: c9ac183780f11e246b81ab9448e54f7e, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1376,6 +1384,14 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 1742496283}
     m_Modifications:
+    - target: {fileID: 100008, guid: 12dd350c4c7e7754b807b38a22b4d078, type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 12dd350c4c7e7754b807b38a22b4d078, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 100010, guid: 12dd350c4c7e7754b807b38a22b4d078, type: 3}
       propertyPath: m_Name
       value: Vehicle_Car_color02_separate
@@ -18826,6 +18842,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 5cbeafc6ffcd5394990a3545424d0193, type: 3}
+--- !u!114 &1270302876 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1963565326363278270, guid: c9ac183780f11e246b81ab9448e54f7e, type: 3}
+  m_PrefabInstance: {fileID: 28803495}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1277386461
 PrefabInstance:
   m_ObjectHideFlags: 0
