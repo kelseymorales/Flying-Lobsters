@@ -203,8 +203,14 @@ public class EnemyAI : MonoBehaviour, IDamageable
         {
 
             GameManager._instance.CheckEnemyKills();
-            if (!isBoss)
+            if (isBoss)
+            {
+                GameManager._instance.CallWinGame();
+            }
+            else
+            {
                 DropPowerUp(); //Calls drop power-up function
+            }
 
             isDead = true;
             aAnim.SetBool("Dead", true);

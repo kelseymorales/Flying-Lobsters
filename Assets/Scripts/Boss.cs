@@ -66,6 +66,7 @@ public class Boss : EnemyAI
 
     public override void TakeDamage(int damage)
     {
+        Debug.Log("Boss Take Damage function");
         UpdateHpBarBoss();
 
          
@@ -74,12 +75,10 @@ public class Boss : EnemyAI
             if(damage == 1)
             {
                 base.TakeDamage(damage);
-                
             }
             else
             {
-                base.TakeDamage((int)((float)damage / 2f));
-                
+                base.TakeDamage((int)((float)damage / 2f));  
             }
 
             canShootGrenade = true; 
