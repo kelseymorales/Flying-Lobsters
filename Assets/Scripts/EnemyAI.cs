@@ -143,7 +143,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
         RaycastHit hit;
 
-        // determine if something is inbetween enemy and player
+        // determine if something is inbetween enemy and player 
         if (Physics.Raycast(transform.position, vPlayerDirection, out hit, Mathf.Infinity, layers))
         {
             if (hit.collider.CompareTag("Player") && bCanShoot && angle <= iViewAngle)
@@ -203,8 +203,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
         {
             
             GameManager._instance.CheckEnemyKills();
-
-            DropPowerUp(); //Calls drop power-up function
+            if(!isBoss)
+                DropPowerUp(); //Calls drop power-up function
 
             nAgent.enabled = false;
             bCanShoot = false;

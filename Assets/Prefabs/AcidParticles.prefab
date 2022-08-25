@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4022653815796194548}
   - component: {fileID: 4022653815796194551}
   - component: {fileID: 4022653815796194550}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AcidParticles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3622,7 +3622,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 4
     type: 0
     collisionMode: 0
