@@ -208,7 +208,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
             isDead = true;
             aAnim.SetBool("Dead", true);
-            miniMapIcon.SetActive(false);
 
             // disable colliders
             DeathState();
@@ -224,6 +223,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
         {
             col.enabled = false;
         }
+
+        miniMapIcon.SetActive(false);
     }
 
     public bool GetIsDead()
