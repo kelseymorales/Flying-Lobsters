@@ -60,7 +60,6 @@ public class OptionsMenu : MonoBehaviour
 
     public void VolumeChange(int id)
     {
-        Debug.Log("On Value changed called");
         Volume current = _volumeElements[id];
 
         if (current._slider.value == 0.0f && current._toggle.isOn == false)
