@@ -147,7 +147,7 @@ public class playerController : MonoBehaviour, IDamageable
             vPushBack = Vector3.Lerp(vPushBack, Vector3.zero, Time.deltaTime * iPushBackResolve);
 
             // Various functions and coroutines that run constantly for player
-            if (GameManager._instance.isDefusingBomb == false && !isZoomedIn)
+            if (GameManager._instance.isDefusingBomb == false)
             {
                 MovePlayer();
                 Sprint();
@@ -184,24 +184,27 @@ public class playerController : MonoBehaviour, IDamageable
                 TakeDamage(iFallDamage);
             }
 
-
             _playerVelocity.y = 0f;
         }
 
-        // receive input from Unity input manager
-        _move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
-
-        // Add our move vector into the character controller move
-        _controller.Move(_move * Time.deltaTime * fPlayerSpeed);
-
-        // Make player jump and increment jump counter
-        if (Input.GetButtonDown("Jump") && iTimesJumped < iJumps)
+        if (!isZoomedIn)
         {
-            aud.PlayOneShot(aPlayerJump[Random.Range(0, aPlayerJump.Length)], aPlayerJumpVol);
+            // receive input from Unity input manager
+            _move = (transform.right * Input.GetAxis("Horizontal")) + (transform.forward * Input.GetAxis("Vertical"));
 
-            iTimesJumped++;
-            _playerVelocity.y = fJumpHeight;
+            // Add our move vector into the character controller move
+            _controller.Move(_move * Time.deltaTime * fPlayerSpeed);
+
+            // Make player jump and increment jump counter
+            if (Input.GetButtonDown("Jump") && iTimesJumped < iJumps)
+            {
+                aud.PlayOneShot(aPlayerJump[Random.Range(0, aPlayerJump.Length)], aPlayerJumpVol);
+
+                iTimesJumped++;
+                _playerVelocity.y = fJumpHeight;
+            }
         }
+
 
         // add gravity
         _playerVelocity.y -= fGravityValue * Time.deltaTime;
@@ -212,32 +215,34 @@ public class playerController : MonoBehaviour, IDamageable
 
     void Sprint()
     {
-        if (!isZoomedIn) // If sniper is the gun being used, and player is currently zoomed in, disallow sprinting
+        if (isZoomedIn) // If sniper is the gun being used, and player is currently zoomed in, disallow sprinting
         {
-            float fCurrentSpeed = fPlayerSpeed;
-            // on down press of 'Sprint' key, increase player speed
-            if (Input.GetButtonDown("Sprint"))
-            {
-                isSprinting = true;
-                fPlayerSpeed = fPlayerSpeed * fSprintMulti;
-                if (hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
-                    fCurrentSpeed = fPlayerSpeed;
-            }
-            // on release of 'sprint' key, return player speed to normal
-            else if (Input.GetButtonUp("Sprint"))
-            {
-                isSprinting = false;
-                if (!hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
-                {
-                    fPlayerSpeed = fPlayerSpeedOrig;
-                }
-                else
-                {
-                    fPlayerSpeed = fCurrentSpeed / 2;
-                }
-            }
-
+            return;
         }
+
+        float fCurrentSpeed = fPlayerSpeed;
+        // on down press of 'Sprint' key, increase player speed
+        if (Input.GetButtonDown("Sprint"))
+        {
+            isSprinting = true;
+            fPlayerSpeed = fPlayerSpeed * fSprintMulti;
+            if (hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
+                fCurrentSpeed = fPlayerSpeed;
+        }
+        // on release of 'sprint' key, return player speed to normal
+        else if (Input.GetButtonUp("Sprint"))
+        {
+            isSprinting = false;
+            if (!hasSpeedBoost) //Checks if the player used the power-up for special case in sprint
+            {
+                fPlayerSpeed = fPlayerSpeedOrig;
+            }
+            else
+            {
+                fPlayerSpeed = fCurrentSpeed / 2;
+            }
+        }
+
     }
 
     IEnumerator playFootsteps()
