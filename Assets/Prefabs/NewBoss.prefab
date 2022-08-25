@@ -1245,6 +1245,7 @@ GameObject:
   - component: {fileID: 8932363836521680577}
   - component: {fileID: -8014715240170421855}
   - component: {fileID: 7562276072649573651}
+  - component: {fileID: 7912068057191734354}
   m_Layer: 7
   m_Name: NewBoss
   m_TagString: Boss
@@ -1487,6 +1488,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &7912068057191734354
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809050928241316}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.059747905, y: 1.2065527, z: 0.07767531}
+  m_Center: {x: 0.0028748156, y: 0.95425546, z: 0.017062522}
 --- !u!1 &1830304697470792
 GameObject:
   m_ObjectHideFlags: 0
