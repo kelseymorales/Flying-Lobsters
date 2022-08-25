@@ -143,12 +143,12 @@ public class EnemyAI : MonoBehaviour, IDamageable
     void CanSeePlayer()
     {
         // return angle between player and enemy
-        float angle = Vector3.Angle(vPlayerDirection, transform.forward);
+        float angle = Vector3.Angle(vPlayerDirection, gShootPosition.transform.forward);
 
         RaycastHit hit;
 
         // determine if something is inbetween enemy and player 
-        if (Physics.Raycast(transform.position, GameManager._instance._player.transform.position - transform.position, out hit, Mathf.Infinity, layers))
+        if (Physics.Raycast(gShootPosition.transform.position, GameManager._instance._player.transform.position - gShootPosition.transform.position, out hit, Mathf.Infinity, layers))
         {
             if (hit.collider.CompareTag("Player") && bCanShoot && angle <= iViewAngle)
             {
