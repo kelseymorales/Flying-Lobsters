@@ -721,4 +721,24 @@ public class playerController : MonoBehaviour, IDamageable
     {
         canShoot = true;
     }
+
+    public void ForceZoomOut() // helper function for forcing player out of zoom when needed, such as when dying while zoomed
+    {
+        SniperZoomOut(); // call zoom out function
+        isZoomedIn = false;
+
+        // hide scope UI
+        GameManager._instance.SniperScope.SetActive(false);
+
+        // unhide gun
+        gunModel.GetComponent<Renderer>().enabled = true;
+
+        // unhide normal HUD UI
+        foreach (GameObject VARIABLE in HUD)
+        {
+            VARIABLE.SetActive(true);
+        }
+
+        fPlayerSpeed = fPlayerSpeedOrig; // reset player speed when no longer zoomed
+    }
 }

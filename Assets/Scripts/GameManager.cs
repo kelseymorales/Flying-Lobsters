@@ -256,6 +256,11 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDead()
     {
+        if (_playerScript.isZoomedIn == true) // leave sniper zoom, if player is currently zoomed during death
+        {
+            _playerScript.ForceZoomOut();
+        }
+
         gameOver = true;
         isPaused = true;
         _menuCurrentlyOpen = _playerDeadMenu;
