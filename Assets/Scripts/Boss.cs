@@ -25,9 +25,9 @@ public class Boss : EnemyAI
     private bool canShootGrenade = false;
 
     // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         fOrginalShootRate = fShootRate;
         _originalColor = Color.white;
         _originalDamageColor = Color.red;

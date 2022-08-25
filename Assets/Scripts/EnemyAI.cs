@@ -49,7 +49,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
     public bool isGrenadier;
     public bool isBoss;
     public bool isGunner;
-    bool onLevel3;
 
     Vector3 vStartingPos;                               // vector storing enemy starting position
     Vector3 vPlayerDirection;                           // vector storing the direction the player is in from the perspective of the enemy
@@ -60,7 +59,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [HideInInspector] int iHPOriginal;
 
     // Called at Start
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         vStartingPos = transform.position;                  // stores starting position
         fStoppingDistanceOrig = nAgent.stoppingDistance;    // stores stopping distance
@@ -72,12 +71,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
         _currentColor = Color.white;
         _currentDamageColor = Color.red;
 
-        GameManager._instance.updateEnemyCount();  
-        
-        if (onLevel3)
-        {
-            aAnim.enabled = false;
-        }         // update UI to reflect enemies placed in scene
+        // update UI to reflect enemies placed in scene
+        GameManager._instance.updateEnemyCount();         
     }
 
     // Called every frame

@@ -101,7 +101,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3549982827936859121}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 281.17703, y: 212.7475, z: -1152.5466}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.1764705, y: 1.1764705, z: 1.1764705}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -120,11 +120,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b637cccc13aa34d9c7b58fd64376ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  range: 10
+  main: {fileID: 6002337428386895808}
   enemyComponents:
-  - {fileID: 0}
   - {fileID: 4875314621714024792}
   - {fileID: 6002337428386895814}
   - {fileID: 6002337428386895796}
+  isActive: 1
 --- !u!1 &4875314621714024792
 GameObject:
   m_ObjectHideFlags: 0
@@ -1106,7 +1108,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6002337428387384230}
   - component: {fileID: 6002337428400560820}
-  - component: {fileID: 4567293626419505747}
   m_Layer: 7
   m_Name: MESH_Infantry
   m_TagString: Untagged
@@ -1202,18 +1203,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.07294822, y: 0.1162055, z: -0.560221}
     m_Extent: {x: 1.2963526, y: 0.51070595, z: 1.9743903}
   m_DirtyAABB: 0
---- !u!114 &4567293626419505747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6002337428386895814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16215d18f66c4314b9a99dc27abe715c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6002337428386895824
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ MonoImporter:
   - _playerDeadMenu: {instanceID: 0}
   - _HpBar: {instanceID: 0}
   - _playerDamageFlash: {instanceID: 0}
-  executionOrder: 0
+  executionOrder: 100
   icon: {instanceID: 0}
   userData: 
   assetBundleName: 
