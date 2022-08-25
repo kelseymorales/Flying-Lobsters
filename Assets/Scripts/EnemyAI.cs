@@ -159,7 +159,6 @@ public class EnemyAI : MonoBehaviour, IDamageable
         if (other.CompareTag("Player"))
         {
             bPlayerInRange = true;
-            bCanShoot = true;
             nAgent.stoppingDistance = fStoppingDistanceOrig;
 
             if (isBoss)
