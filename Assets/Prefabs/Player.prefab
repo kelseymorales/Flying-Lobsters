@@ -516,6 +516,7 @@ MonoBehaviour:
     m_Bits: 2039
   _controller: {fileID: 8448960639718001734}
   _anim: {fileID: 5011508482565970742}
+  _grenadeSpawn: {fileID: 1509647310}
   iPlayerHealth: 40
   fPlayerSpeed: 4
   fSprintMulti: 2
@@ -608,6 +609,8 @@ MonoBehaviour:
   aEnemyBodyshotDeathVol: 0.398
   sniperGun: 0
   ShotgunGun: 0
+  AssaultRifleGun: 0
+  isZoomedIn: 0
   iWeaponAmmoOrig: 0
   hasSpeedBoost: 0
   isShielded: 0

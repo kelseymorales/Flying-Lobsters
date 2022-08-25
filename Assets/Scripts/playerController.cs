@@ -8,7 +8,8 @@ public class playerController : MonoBehaviour, IDamageable
     [SerializeField] private LayerMask layers;
     [SerializeField] CharacterController _controller;
     [SerializeField] private Animator _anim;
-    [HideInInspector] GameObject[] HUD;
+    [SerializeField] private Transform _grenadeSpawn;
+    private GameObject[] HUD;
 
     [Header("Player Attributes")]
     [Header("--------------------------")]
@@ -484,7 +485,7 @@ public class playerController : MonoBehaviour, IDamageable
             aud.PlayOneShot(aGrenade[Random.Range(0, aGrenade.Length)], aGrenadeVol);
 
             // instantiate grenade object
-            GameObject newNade = Instantiate(gPlayerGrenade, transform.position, transform.rotation);
+            GameObject newNade = Instantiate(gPlayerGrenade, _grenadeSpawn.position, _grenadeSpawn.rotation);
 
             // apply force
             Rigidbody grenadeRB = newNade.GetComponent<Rigidbody>();            // get grenades rigidbody component
