@@ -123,7 +123,6 @@ public class playerController : MonoBehaviour, IDamageable
     // Called at Start
     void Start()
     {
-
         // Store starting values for important variables
         iPlayerHealthOrig = iPlayerHealth;
         fPlayerSpeedOrig = fPlayerSpeed;

@@ -23,8 +23,6 @@ public class EnemyActivator : MonoBehaviour
    {
       float distance = Vector3.Distance(transform.position, GameManager._instance._player.transform.position);
 
-      Debug.DrawRay(transform.position, GameManager._instance._player.transform.position - transform.position, Color.red, 1.0f);
-
       if (distance <= range && isActive == false)
       {
          ActivateEnemy();
@@ -37,8 +35,6 @@ public class EnemyActivator : MonoBehaviour
 
    private void ActivateEnemy()
    {
-      Debug.Log("Enemy Activated");
-
       Behaviour[] mainComps = main.GetComponents<Behaviour>();
 
       foreach (Behaviour comp in mainComps)
@@ -61,8 +57,6 @@ public class EnemyActivator : MonoBehaviour
 
    private void DeactivateEnemy()
    {
-      Debug.Log("Enemy Deactivated");
-
       Behaviour[] mainComps = main.GetComponents<Behaviour>();
 
       foreach (Behaviour comp in mainComps)
