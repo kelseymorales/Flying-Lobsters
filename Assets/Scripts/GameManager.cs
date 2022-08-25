@@ -89,8 +89,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject _defuseCountdownObject;  // stores reference to UI - bomb defuse countdown
     [SerializeField] public GameObject _defuseSlider;           // stores reference to UI - bomb defuse countdown slider
     public Image _defuseSliderImage;                            // stores reference to UI - bomb defuse countdown slider fill
-    [HideInInspector] public int iScore;                        // stores player score - updated in checkEnemiesKilled, PlayerController shoot, and bombGoal defuse
+    public int iScore;                        // stores player score - updated in checkEnemiesKilled, PlayerController shoot, and bombGoal defuse
     [SerializeField] TMP_Text displayWinScore;                  // UI component that displays score on win screen
+    [SerializeField] TMP_Text displayLevelScore;                // UI component that displays score on level win screen
     [SerializeField] TMP_Text displayLoseScore;                 // UI component that displays score on lose screen
     [SerializeField] private bool bRestartCurrentLevel;
     [SerializeField] private int buildIndex;
@@ -276,6 +277,8 @@ public class GameManager : MonoBehaviour
         _playerScript.loseJingle();
         StopSpawners();
         StopDefuseing();
+
+        UpdatePlayerScore(); // call to helper function to update score on win/lose screens
     }
 
     public void StopSpawners()
@@ -374,7 +377,6 @@ public class GameManager : MonoBehaviour
             levelWin = true;
 
             WinLevel();
-            // will need to be removed later, as the win game should be called at the end of level 3, and all we need here is the level win trigger for transitioning levels
         }
     }
 
@@ -427,12 +429,15 @@ public class GameManager : MonoBehaviour
 
         // you lose menu
         gameOver = true;
+        isPaused = true;
         _menuCurrentlyOpen = _loseGameMenu;
         _menuCurrentlyOpen.SetActive(true);
         LockCursorPause();
         //Setting up event system to show highlighted button
         _eventSystem.SetSelectedGameObject(null);
         _eventSystem.SetSelectedGameObject(_loseGameMenuFirstOption);
+
+        UpdatePlayerScore(); // call to helper function to update score on win/lose screens
 
     }
 
@@ -470,6 +475,7 @@ public class GameManager : MonoBehaviour
 
     public void WinLevel()   // helper function for win game scenario
     {
+
         didWinLevel = true;
         isPaused = true;
         _menuCurrentlyOpen = _winLevelMenu;
@@ -483,6 +489,8 @@ public class GameManager : MonoBehaviour
 
         // play 'You Win' audio clip
         _playerScript.winJingle();
+
+        UpdatePlayerScore(); // call to helper function to update score on win/lose screens
 
     }
 
@@ -510,12 +518,15 @@ public class GameManager : MonoBehaviour
         _playerScript.winJingle();
         didWin = true;
 
+        UpdatePlayerScore(); // call to helper function to update score on win/lose screens
+
     }
 
     public void UpdatePlayerScore() // helper function for displaying score in the win screen and lose screen
     {
         displayLoseScore.text = iScore.ToString("F0"); // lose screen score
         displayWinScore.text = iScore.ToString("F0"); // win screen score
+        displayLevelScore.text = iScore.ToString("F0"); // level win screen
     }
 
     public void OpenOptionsInGame() //Created to open the menu inside the actual game and not in the main menu
