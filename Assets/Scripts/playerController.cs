@@ -147,7 +147,7 @@ public class playerController : MonoBehaviour, IDamageable
             vPushBack = Vector3.Lerp(vPushBack, Vector3.zero, Time.deltaTime * iPushBackResolve);
 
             // Various functions and coroutines that run constantly for player
-            if (GameManager._instance.isDefusingBomb == false || !isZoomedIn)
+            if (GameManager._instance.isDefusingBomb == false && !isZoomedIn)
             {
                 MovePlayer();
                 Sprint();
