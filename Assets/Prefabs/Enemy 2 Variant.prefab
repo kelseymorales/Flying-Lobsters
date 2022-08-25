@@ -3773,6 +3773,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4875314621714024792, guid: 98dc844c1707d6347a22a9a8b894362d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6002337427401095876, guid: 98dc844c1707d6347a22a9a8b894362d, type: 3}
       propertyPath: m_Radius
       value: 0.2080348
@@ -3903,7 +3907,7 @@ PrefabInstance:
       objectReference: {fileID: 9000000, guid: b8a7488d12adc39498433d60811eab1a, type: 3}
     - target: {fileID: 8878267757645004281, guid: 98dc844c1707d6347a22a9a8b894362d, type: 3}
       propertyPath: enemyComponents.Array.size
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8878267757645004281, guid: 98dc844c1707d6347a22a9a8b894362d, type: 3}
       propertyPath: enemyComponents.Array.data[1]
@@ -3980,7 +3984,7 @@ PrefabInstance:
     - target: {fileID: 8878267757645004281, guid: 98dc844c1707d6347a22a9a8b894362d, type: 3}
       propertyPath: enemyComponents.Array.data[19]
       value: 
-      objectReference: {fileID: 8414030409325632454}
+      objectReference: {fileID: 8121358345935806821}
     - target: {fileID: 8878267757645004281, guid: 98dc844c1707d6347a22a9a8b894362d, type: 3}
       propertyPath: enemyComponents.Array.data[20]
       value: 
@@ -4045,5 +4049,10 @@ PrefabInstance:
 --- !u!4 &6940278629837300637 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6002337428387384224, guid: 98dc844c1707d6347a22a9a8b894362d, type: 3}
+  m_PrefabInstance: {fileID: 3682894128265308221}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8121358345935806821 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4875314621714024792, guid: 98dc844c1707d6347a22a9a8b894362d, type: 3}
   m_PrefabInstance: {fileID: 3682894128265308221}
   m_PrefabAsset: {fileID: 0}

@@ -52,6 +52,11 @@ public class EnemyActivator : MonoBehaviour
       }
 
       isActive = true;
+
+      if (main.GetComponent<EnemyAI>().GetIsDead())
+      {
+         main.GetComponent<EnemyAI>().DeathState();
+      }
    }
 
    private void DeactivateEnemy()

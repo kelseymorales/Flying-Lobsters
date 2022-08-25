@@ -10,7 +10,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] NavMeshAgent nAgent;               // enemy nav mesh
     [SerializeField] protected Renderer rRend;                    // enemy renderer
     [SerializeField] Animator aAnim;                        // enemy animator
-    [SerializeField] private GameObject miniMapIcon;               
+    [SerializeField] private GameObject miniMapIcon;
 
     [Header("------------------------------")]
     [Header("Enemy Attributes")]
@@ -50,6 +50,8 @@ public class EnemyAI : MonoBehaviour, IDamageable
     public bool isBoss;
     public bool isGunner;
 
+    private bool isDead;
+
     Vector3 vStartingPos;                               // vector storing enemy starting position
     Vector3 vPlayerDirection;                           // vector storing the direction the player is in from the perspective of the enemy
 
@@ -72,7 +74,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         _currentDamageColor = Color.red;
 
         // update UI to reflect enemies placed in scene
-        GameManager._instance.updateEnemyCount();         
+        GameManager._instance.updateEnemyCount();
     }
 
     // Called every frame
@@ -187,7 +189,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     {
         if (isBoss && iDamage > 10)
         {
-            iDamage = 4; 
+            iDamage = 4;
         }
         //when enemy takes damage it flashes a color
         iHP -= iDamage;
@@ -199,28 +201,34 @@ public class EnemyAI : MonoBehaviour, IDamageable
         //if enemy dies then enemy object is destroyed
         if (iHP <= 0)
         {
-            
+
             GameManager._instance.CheckEnemyKills();
-            if(!isBoss)
+            if (!isBoss)
                 DropPowerUp(); //Calls drop power-up function
 
-            nAgent.enabled = false;
-            bCanShoot = false;
+            isDead = true;
             aAnim.SetBool("Dead", true);
             miniMapIcon.SetActive(false);
 
             // disable colliders
-            foreach(Collider col in GetComponents<Collider>())
-            {
-                col.enabled = false;
-            }
-
-            if (isBoss)
-            {
-                GameManager._instance.iScore += 150;
-                GameManager._instance.CallWinGame();
-            }
+            DeathState();
         }
+    }
+
+    public void DeathState()
+    {
+        nAgent.enabled = false;
+        bCanShoot = false;
+
+        foreach (Collider col in GetComponents<Collider>())
+        {
+            col.enabled = false;
+        }
+    }
+
+    public bool GetIsDead()
+    {
+        return isDead;
     }
 
     IEnumerator FlashColor()
@@ -242,17 +250,17 @@ public class EnemyAI : MonoBehaviour, IDamageable
         aud.PlayOneShot(aGunShot[Random.Range(0, aGunShot.Length)], aGunShotVol);
         Instantiate(_currentBullet, gShootPosition.transform.position, _currentBullet.transform.rotation);
         //setting up defusor when bullet is grenade
-        
+
         yield return new WaitForSeconds(fShootRate);
-        bCanShoot=true;
+        bCanShoot = true;
     }
 
     private void DropPowerUp()
     {
-        if(GameManager._instance._playerScript.isReadyForDrop) //Checks if the power-up drop flag is true
+        if (GameManager._instance._playerScript.isReadyForDrop) //Checks if the power-up drop flag is true
         {
-            Instantiate(listPowerUpDrops[Random.Range(0, 3)], transform.position + new Vector3(0,1f,0), listPowerUpDrops[Random.Range(0,3)].transform.rotation); //Drops random power-up
+            Instantiate(listPowerUpDrops[Random.Range(0, 3)], transform.position + new Vector3(0, 1f, 0), listPowerUpDrops[Random.Range(0, 3)].transform.rotation); //Drops random power-up
             GameManager._instance._playerScript.isReadyForDrop = false;  //Sets power-up drop flag back to false
         }
-    } 
+    }
 }
