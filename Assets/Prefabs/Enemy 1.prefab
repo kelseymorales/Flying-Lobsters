@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b637cccc13aa34d9c7b58fd64376ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 10
+  range: 100
   main: {fileID: 6002337428386895808}
   enemyComponents:
   - {fileID: 4875314621714024792}
@@ -902,7 +902,7 @@ MonoBehaviour:
   aAnim: {fileID: 6002337428396385396}
   miniMapIcon: {fileID: 4875314621714024792}
   iHP: 5
-  iViewAngle: 110
+  iViewAngle: 50
   iPlayerFaceSpeed: 6
   iRoamingRadius: 18
   fShootRate: 1

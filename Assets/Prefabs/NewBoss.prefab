@@ -2014,7 +2014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2b637cccc13aa34d9c7b58fd64376ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 20
+  range: 100
   main: {fileID: 1809050928241316}
   enemyComponents:
   - {fileID: 1157893058111144}
