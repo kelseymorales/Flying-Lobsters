@@ -4,24 +4,21 @@ using UnityEngine.Audio;
 
 public class OptionsMenu : MonoBehaviour
 {
-    private float fVolumeOnToggle;
-    private bool isStart = true; 
-
     [System.Serializable]
-
-    struct Volume
+    class Volume
     {
         public string _volumeName;
+
+        public float fVolumeOnToggle;
 
         public Slider _slider;
 
         public Toggle _toggle;
-
-        
     }
+    
 
     [SerializeField] private Volume[] _volumeElements;
-    [SerializeField] private AudioMixer _mixer; 
+    [SerializeField] private AudioMixer _mixer;
 
     public void Start()
     {
@@ -56,13 +53,23 @@ public class OptionsMenu : MonoBehaviour
             {
                 _volumeElements[i]._toggle.isOn = true;
             }
+
+            _volumeElements[i].fVolumeOnToggle = _volumeElements[i]._slider.value;
         }
     }
 
     public void VolumeChange(int id)
     {
+        Debug.Log("On Value changed called");
         Volume current = _volumeElements[id];
 
+        if (current._slider.value == 0.0f && current._toggle.isOn == false)
+        {
+            return;
+        }
+
+        current.fVolumeOnToggle = current._slider.value;
+        
         if (current._slider.value == 0.0f)
         {
             _mixer.SetFloat(current._volumeName, -75.0f);
@@ -71,10 +78,8 @@ public class OptionsMenu : MonoBehaviour
         else
         {
             _mixer.SetFloat(current._volumeName, Mathf.Log10(current._slider.value) * 10.0f);
-            
-            current._toggle.isOn = true;
-            
 
+            current._toggle.isOn = true;
         }
 
         PlayerPrefs.SetFloat(current._volumeName, current._slider.value);
@@ -85,36 +90,29 @@ public class OptionsMenu : MonoBehaviour
     {
         Volume current = _volumeElements[id];
 
-        
-
         if (current._toggle.isOn)
         {
-            if(isStart)
-            {
-                fVolumeOnToggle = current._slider.value;
-                isStart = false;
-            }
-            else
-            {
-                current._slider.value = fVolumeOnToggle;
-            }
+            current._slider.value = current.fVolumeOnToggle;
+
             if (current._slider.value == 0.0f)
             {
-                _mixer.SetFloat(current._volumeName, -75.0f);
-               
+                current._slider.value = 0.5f;
+                _mixer.SetFloat(current._volumeName, Mathf.Log10(current._slider.value) * 10.0f);
             }
             else
-                _mixer.SetFloat(current._volumeName, Mathf.Log10(fVolumeOnToggle) * 10.0f);
+            {
+                _mixer.SetFloat(current._volumeName, Mathf.Log10(current._slider.value) * 10.0f);
+            }
+             current.fVolumeOnToggle = current._slider.value;
         }
         else
         {
-            fVolumeOnToggle = current._slider.value;
+            current.fVolumeOnToggle = current._slider.value;
             current._slider.value = 0.0f;
             _mixer.SetFloat(current._volumeName, -75.0f);
         }
 
         PlayerPrefs.SetFloat(current._volumeName, current._slider.value);
         PlayerPrefs.Save();
-
     }
 }
