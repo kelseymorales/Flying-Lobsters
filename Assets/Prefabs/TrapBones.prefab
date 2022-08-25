@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5962362303640334608}
   - component: {fileID: 5962362303640334612}
   - component: {fileID: -708890425749265221}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TrapBones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ Transform:
   m_Children:
   - {fileID: 5962362304258587809}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5962362303640334610
 MeshFilter:
@@ -98,7 +98,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5962362303640334612
 MonoBehaviour:
