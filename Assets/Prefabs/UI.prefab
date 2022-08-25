@@ -11790,6 +11790,7 @@ MonoBehaviour:
   _defuseSliderImage: {fileID: 14516001}
   iScore: 0
   displayWinScore: {fileID: 466827680}
+  displayLevelScore: {fileID: 1963565326363278270}
   displayLoseScore: {fileID: 1070820810}
   bRestartCurrentLevel: 0
   buildIndex: 0
