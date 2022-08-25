@@ -805,7 +805,7 @@ Transform:
   - {fileID: 908040451323799538}
   - {fileID: 2539287939656965670}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6002337428396385396
 Animator:
@@ -896,7 +896,7 @@ MonoBehaviour:
   aAnim: {fileID: 6002337428396385396}
   miniMapIcon: {fileID: 4875314621714024792}
   iHP: 5
-  iViewAngle: 50
+  iViewAngle: 110
   iPlayerFaceSpeed: 6
   iRoamingRadius: 18
   fShootRate: 1
@@ -913,6 +913,7 @@ MonoBehaviour:
   aGunShot:
   - {fileID: 8300000, guid: f91f0596c717b2744ba7889ead827dae, type: 3}
   aGunShotVol: 0.5
+  bCanShoot: 1
   isGrenadier: 0
   isBoss: 0
   isGunner: 0

@@ -3823,7 +3823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6002337427401095879, guid: 98dc844c1707d6347a22a9a8b894362d, type: 3}
       propertyPath: iViewAngle
-      value: 50
+      value: 110
       objectReference: {fileID: 0}
     - target: {fileID: 6002337427401095879, guid: 98dc844c1707d6347a22a9a8b894362d, type: 3}
       propertyPath: gShootPosition

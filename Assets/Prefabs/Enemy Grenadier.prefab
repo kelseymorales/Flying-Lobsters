@@ -3076,7 +3076,7 @@ MonoBehaviour:
   aAnim: {fileID: 8521048783810007611}
   miniMapIcon: {fileID: 3536835003941270431}
   iHP: 5
-  iViewAngle: 50
+  iViewAngle: 110
   iPlayerFaceSpeed: 6
   iRoamingRadius: 18
   fShootRate: 3
@@ -3093,6 +3093,7 @@ MonoBehaviour:
   aGunShot:
   - {fileID: 8300000, guid: 76c8557aaa7065346b55a3ed668ea7f7, type: 3}
   aGunShotVol: 0.5
+  bCanShoot: 1
   isGrenadier: 1
   isBoss: 0
   isGunner: 0

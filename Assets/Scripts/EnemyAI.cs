@@ -44,7 +44,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
     [SerializeField] AudioClip[] aGunShot;
     [Range(0.0f, 1.0f)][SerializeField] float aGunShotVol;
 
-    bool bCanShoot = true;                              // value for whether enemy can currently fire their weapon
+    [SerializeField] bool bCanShoot = true;                              // value for whether enemy can currently fire their weapon
     bool bPlayerInRange;                                // value tracking whether the player is in range of enemyAI
     public bool isGrenadier;
     public bool isBoss;
@@ -90,7 +90,10 @@ public class EnemyAI : MonoBehaviour, IDamageable
             aAnim.SetFloat("Speed", Mathf.Lerp(aAnim.GetFloat("Speed"), nAgent.velocity.normalized.magnitude, Time.deltaTime * 5));
 
             // gets player direction for tracking player
-            vPlayerDirection = GameManager._instance._player.transform.position - transform.position;
+            Vector3 playerTransform = GameManager._instance._player.transform.position;
+            Vector3 tempPlayerPos = new Vector3(playerTransform.x, 1.11f, playerTransform.z);
+
+            vPlayerDirection = tempPlayerPos - transform.position;
 
             if (bPlayerInRange) // if player is in range
             {
@@ -130,8 +133,9 @@ public class EnemyAI : MonoBehaviour, IDamageable
         // if enemy has reached it's destination
         if (nAgent.remainingDistance <= nAgent.stoppingDistance)
         {
-            vPlayerDirection.y = 0;
-            Quaternion rotation = Quaternion.LookRotation(vPlayerDirection);
+            Vector3 tempPos = new Vector3(vPlayerDirection.x, 0, vPlayerDirection.z);
+
+            Quaternion rotation = Quaternion.LookRotation(tempPos);
             transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * iPlayerFaceSpeed);
         }
     }
@@ -144,7 +148,7 @@ public class EnemyAI : MonoBehaviour, IDamageable
         RaycastHit hit;
 
         // determine if something is inbetween enemy and player 
-        if (Physics.Raycast(transform.position, vPlayerDirection, out hit, Mathf.Infinity, layers))
+        if (Physics.Raycast(transform.position, GameManager._instance._player.transform.position - transform.position, out hit, Mathf.Infinity, layers))
         {
             if (hit.collider.CompareTag("Player") && bCanShoot && angle <= iViewAngle)
             {
