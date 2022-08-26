@@ -5,6 +5,7 @@ using UnityEngine;
 public class playerController : MonoBehaviour, IDamageable
 {
     [Header("Components")]
+    [SerializeField] private UnityEngine.Camera cam;
     [SerializeField] private LayerMask layers;
     [SerializeField] CharacterController _controller;
     [SerializeField] private Animator _anim;
@@ -136,6 +137,8 @@ public class playerController : MonoBehaviour, IDamageable
 
         // find all HUD objects and stores a reference to them
         HUD = GameObject.FindGameObjectsWithTag("HUD");
+
+        cam = transform.GetChild(0).gameObject.GetComponent<UnityEngine.Camera>();
     }
 
     // Called every frame
@@ -709,12 +712,12 @@ public class playerController : MonoBehaviour, IDamageable
 
     private void SniperZoomIn() // helper function for sniperFunctionality
     {
-        UnityEngine.Camera.main.fieldOfView -= iSniperZoomAmount;
+        cam.fieldOfView -= iSniperZoomAmount;
     }
 
     private void SniperZoomOut() // helper function for sniperFunctionality
     {
-        UnityEngine.Camera.main.fieldOfView += iSniperZoomAmount;
+        cam.fieldOfView += iSniperZoomAmount;
     }
 
     public void DisableShooting()
