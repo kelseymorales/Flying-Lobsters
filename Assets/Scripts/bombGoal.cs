@@ -12,7 +12,7 @@ public class bombGoal : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if (inRange==true) // player in range
+        if (inRange==true && GameManager._instance.isPaused == false ) // player in range
         {
             if (Input.GetButtonDown("Activate"))
             {
