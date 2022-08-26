@@ -99,6 +99,10 @@ public class EnemyAI : MonoBehaviour, IDamageable
 
                 CanSeePlayer();
                 facePlayer();
+                if (nAgent.remainingDistance < 2.0f)
+                {
+                    nAgent.SetDestination(-transform.forward * nAgent.speed * Time.deltaTime);
+                }
             }
             else if (nAgent.remainingDistance < 0.1f)
             {
