@@ -255,7 +255,10 @@ public class playerController : MonoBehaviour, IDamageable
         {
             bFootstepsPlaying = true;
 
-            aud.PlayOneShot(aPlayerFootsteps[Random.Range(0, aPlayerFootsteps.Length)], aPlayerFootstepsVol); // call to footsteps audio clip
+            if (!isZoomedIn && !GameManager._instance.isDefusingBomb) // do not play footsetps if zoomed or defusing
+            {
+                aud.PlayOneShot(aPlayerFootsteps[Random.Range(0, aPlayerFootsteps.Length)], aPlayerFootstepsVol); // call to footsteps audio clip
+            }
 
             // if player sprint function is active, play footstep sound clip faster to emulate players faster footfalls
             if (isSprinting)
