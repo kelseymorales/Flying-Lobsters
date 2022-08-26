@@ -902,7 +902,7 @@ MonoBehaviour:
   aAnim: {fileID: 6002337428396385396}
   miniMapIcon: {fileID: 4875314621714024792}
   iHP: 5
-  iViewAngle: 50
+  iViewAngle: 110
   iPlayerFaceSpeed: 6
   iRoamingRadius: 18
   fShootRate: 1
